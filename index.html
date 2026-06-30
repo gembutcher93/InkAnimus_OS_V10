@@ -234,10 +234,23 @@ header .sub{font-size:0.74rem;color:var(--grey);margin-top:3px;}
 <div id="loginScreen" class="overlay">
     <div class="login-box">
         <div class="geometric-lock" id="lock-wrapper">
-            <div class="admin-logo-wrap">
-                <span class="admin-logo-halo"></span>
-                <img src="icons/icon-admin-512.png" alt="InkAnimus Admin" class="admin-logo-img">
-            </div>
+            <svg viewBox="0 0 100 100" style="width:100%;height:100%;overflow:visible;">
+                <polygon points="50,15 80,68 20,68" class="solid-triangle"/>
+                <g>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                    <line x1="50" y1="2" x2="50" y2="10" class="dash-line"/>
+                </g>
+            </svg>
         </div>
         <h1>GESTIONALE GEMBUCHER</h1>
         <div class="sub">InkAnimus_OS // TERMINALE AMMINISTRATORE</div>
@@ -1487,7 +1500,30 @@ function computeStats(){
     // top tatuati per tatuaggi guariti
     const topTattooed=[...database].map(c=>({name:c.name, healed:c.tattoos.filter(Boolean).length}))
         .filter(x=>x.healed>0).sort((a,b)=>b.healed-a.healed).slice(0,5);
-    return {adepti,recl,ment,total:database.length,codesUsed,codesPending,tattoosHealed,tattoosTotal,erogato,totSpent,ranking,topTattooed};
+    // classifiche giochi (dai dati sincronizzati c.gameStats)
+    const games=[
+        {key:'tetris', label:'🟦 Tetris (linee)'},
+        {key:'snake', label:'🐍 Snake (record)'},
+        {key:'arkanoid', label:'🧱 Arkanoid (mattoni)'},
+        {key:'invaders', label:'👾 Invaders (kill)'},
+        {key:'tower', label:'🏗️ Tower (blocchi)'},
+        {key:'doodle', label:'🦘 Doodle (quota)'},
+        {key:'bubble', label:'🫧 Bubble (pop)'},
+        {key:'neural', label:'🧠 Neural (record)'},
+        {key:'impact', label:'💥 Impact (record)'},
+    ];
+    const gameRankings=games.map(g=>({
+        label:g.label,
+        rows:[...database].map(c=>({name:c.name, val:(c.gameStats&&c.gameStats[g.key])||0}))
+            .filter(x=>x.val>0).sort((a,b)=>b.val-a.val).slice(0,5)
+    })).filter(g=>g.rows.length>0);
+    // classifica città Nexus (per livelli totali)
+    const cityRanking=[...database].map(c=>({
+        name:c.name,
+        val:(c.cityProgress&&c.cityProgress.levels)||0,
+        wonder:(c.cityProgress&&c.cityProgress.wonder)||false
+    })).filter(x=>x.val>0).sort((a,b)=>b.val-a.val).slice(0,5);
+    return {adepti,recl,ment,total:database.length,codesUsed,codesPending,tattoosHealed,tattoosTotal,erogato,totSpent,ranking,topTattooed,gameRankings,cityRanking};
 }
 
 // Grafico a ciambella (donut) per i ranghi
@@ -1577,6 +1613,21 @@ function openGeneralStats(){
             <div class="panel">
                 <div class="label" style="margin-bottom:10px;">🏆 TOP RECLUTATORI (per buoni riscattati)</div>
                 ${barChart(s.ranking)}
+            </div>
+            <!-- Classifica Nexus City -->
+            <div class="panel" style="margin-top:14px;">
+                <div class="label" style="margin-bottom:10px;">🏙️ TOP NEXUS CITY (per livelli totali)</div>
+                ${barChartGeneric(s.cityRanking.map(c=>({name:(c.wonder?'🗿 ':'')+c.name, val:c.val})),'val','var(--purple)')}
+            </div>
+            <!-- Classifiche giochi -->
+            <div class="panel" style="margin-top:14px;">
+                <div class="label" style="margin-bottom:10px;">🎮 CLASSIFICHE ARCADE</div>
+                ${s.gameRankings.length===0 ? '<div class="empty" style="padding:14px;">Nessun punteggio sincronizzato ancora. Usa 📲 SINC. DATI su un cliente.</div>' :
+                  s.gameRankings.map(g=>`
+                    <div style="margin-bottom:14px;">
+                        <div style="font-size:0.78rem;color:var(--cyan);margin-bottom:6px;font-weight:bold;">${g.label}</div>
+                        ${barChartGeneric(g.rows,'val','var(--cyan)')}
+                    </div>`).join('')}
             </div>
         </div>
         <div class="modal-btns" style="margin-top:14px;">
@@ -1686,6 +1737,7 @@ function clientCard(c){
         ${tats}
         <div class="codes-block">${codesHtml}</div>
         <div class="card-actions">
+            <button class="mini-btn" style="border-color:var(--green);color:var(--green);" onclick="openSyncImport(${c.id})">📲 SINC. DATI</button>
             <button class="mini-btn" style="border-color:${c.vip?'var(--yellow)':'var(--grey)'};color:${c.vip?'var(--yellow)':'var(--grey)'};" onclick="toggleVip(${c.id})">${c.vip?'⭐ VIP':'☆ VIP'}</button>
             <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="openClientSheet(${c.id})">🗂️ SCHEDA</button>
             <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="setAppointment(${c.id})">📅 APPUNT.</button>
@@ -1740,6 +1792,176 @@ function saveClientSheet(id){
     log('Scheda di '+c.name+' aggiornata.','ok');
     toast('Scheda salvata.','success');
     saveDb();
+}
+
+// ============================================================
+// SINCRONIZZAZIONE DATI CLIENTE (da app utente -> gestionale)
+// Formati accettati:
+//   - JSON compatto {t:'INKSYNC',...}  (dal QR)
+//   - stringa "INKSYNC1:base64"        (codice testo completo)
+// ============================================================
+let _syncTargetId=null, _syncStream=null, _syncRAF=null;
+
+function openSyncImport(clientId){
+    _syncTargetId=clientId;
+    const c=database.find(x=>x.id===clientId);
+    if(!c) return;
+    showModal(`
+        <h3>📲 SINCRONIZZA — ${c.name}</h3>
+        <div style="text-align:left;">
+            <p style="font-size:0.78rem;color:var(--grey);margin-bottom:10px;">Importa i dati dall'app del cliente. Le tue note (mediche, VIP, appuntamenti, cassa) NON verranno toccate.</p>
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+                <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);flex:1;" onclick="startQrScan()">📷 SCANSIONA QR</button>
+                <button class="mini-btn" style="border-color:var(--yellow);color:var(--yellow);flex:1;" onclick="document.getElementById('sync-paste').focus()">📋 INCOLLA CODICE</button>
+            </div>
+            <div id="qr-scan-area" style="display:none;text-align:center;margin-bottom:10px;">
+                <video id="qr-video" style="width:100%;max-width:280px;border:1px solid var(--cyan);border-radius:6px;" playsinline></video>
+                <canvas id="qr-canvas" style="display:none;"></canvas>
+                <div id="qr-status" style="font-size:0.72rem;color:var(--cyan);margin-top:4px;">Inquadra il QR del cliente…</div>
+                <button class="mini-btn red" style="margin-top:6px;" onclick="stopQrScan()">STOP CAMERA</button>
+            </div>
+            <label class="label">CODICE INKSYNC (incolla qui)</label>
+            <textarea id="sync-paste" rows="4" placeholder="Incolla qui il codice che il cliente ti ha inviato (INKSYNC1:...)" style="width:100%;margin-bottom:8px;background:rgba(0,15,30,0.7);border:1px solid var(--yellow);color:var(--text);padding:8px;border-radius:3px;font-family:monospace;font-size:0.7rem;resize:vertical;"></textarea>
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="applyPastedSync()">✓ IMPORTA DA CODICE</button>
+            <button onclick="stopQrScan();closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+
+// --- Scanner QR via fotocamera (usa jsQR se disponibile) ---
+function ensureJsQR(cb){
+    if(window.jsQR){ cb(true); return; }
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+    s.onload=()=>cb(true);
+    s.onerror=()=>cb(false);
+    document.head.appendChild(s);
+}
+function startQrScan(){
+    const area=document.getElementById('qr-scan-area');
+    if(area) area.style.display='block';
+    ensureJsQR(function(ok){
+        if(!ok){
+            const st=document.getElementById('qr-status');
+            if(st){ st.style.color='var(--red)'; st.textContent='Scanner non disponibile offline. Usa il metodo INCOLLA CODICE.'; }
+            return;
+        }
+        navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})
+        .then(stream=>{
+            _syncStream=stream;
+            const v=document.getElementById('qr-video');
+            v.srcObject=stream; v.setAttribute('playsinline',true); v.play();
+            _syncRAF=requestAnimationFrame(qrTick);
+        })
+        .catch(()=>{
+            const st=document.getElementById('qr-status');
+            if(st){ st.style.color='var(--red)'; st.textContent='Camera non accessibile. Usa INCOLLA CODICE.'; }
+        });
+    });
+}
+function qrTick(){
+    const v=document.getElementById('qr-video');
+    const canvas=document.getElementById('qr-canvas');
+    if(!v||!canvas){ return; }
+    if(v.readyState===v.HAVE_ENOUGH_DATA){
+        canvas.width=v.videoWidth; canvas.height=v.videoHeight;
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(v,0,0,canvas.width,canvas.height);
+        const img=ctx.getImageData(0,0,canvas.width,canvas.height);
+        const code=window.jsQR(img.data,img.width,img.height);
+        if(code && code.data){
+            stopQrScan();
+            handleSyncData(code.data);
+            return;
+        }
+    }
+    _syncRAF=requestAnimationFrame(qrTick);
+}
+function stopQrScan(){
+    if(_syncRAF){ cancelAnimationFrame(_syncRAF); _syncRAF=null; }
+    if(_syncStream){ _syncStream.getTracks().forEach(t=>t.stop()); _syncStream=null; }
+    const area=document.getElementById('qr-scan-area');
+    if(area) area.style.display='none';
+}
+function applyPastedSync(){
+    const ta=document.getElementById('sync-paste');
+    if(!ta||!ta.value.trim()){ toast('Incolla prima un codice valido.','error'); return; }
+    handleSyncData(ta.value.trim());
+}
+
+// --- Parsing + merge ---
+function handleSyncData(raw){
+    let pkg=null;
+    try{
+        raw=raw.trim();
+        if(raw.startsWith('INKSYNC1:')){
+            const b64=raw.slice('INKSYNC1:'.length);
+            pkg=JSON.parse(decodeURIComponent(escape(atob(b64))));
+        } else {
+            pkg=JSON.parse(raw);
+        }
+    }catch(e){ toast('Codice non leggibile o danneggiato.','error'); return; }
+    if(!pkg || pkg.t!=='INKSYNC'){ toast('Questo non è un codice INKSYNC valido.','error'); return; }
+    mergeSyncIntoClient(_syncTargetId, pkg);
+}
+
+// Merge intelligente: aggiorna i dati di gioco/codici, PRESERVA le note dello studio.
+function mergeSyncIntoClient(clientId, pkg){
+    const c=database.find(x=>x.id===clientId);
+    if(!c){ toast('Cliente non trovato.','error'); return; }
+    // source = il pacchetto completo se presente, altrimenti il compatto
+    const fs = pkg.fullState || null;
+
+    // 1) RANK (l'app è autorevole sul progresso del cliente)
+    if(pkg.rank) c.rank=pkg.rank;
+
+    // 2) CODICI generati dal cliente -> riempio gli slot SENZA cancellare lo stato "used" già registrato
+    if(Array.isArray(pkg.codes)){
+        if(!Array.isArray(c.codes)) c.codes=[];
+        pkg.codes.forEach(pc=>{
+            const seq=pc.seq||0;
+            let slot=c.codes.find(x=>x.seq===seq);
+            if(!slot){ slot={seq:seq, code:'', status:'empty'}; c.codes.push(slot); }
+            const newCode=(pc.code||'').toUpperCase();
+            if(newCode && slot.code!==newCode){
+                // codice nuovo o cambiato: lo registro come pending (se non era già used su quel codice)
+                slot.code=newCode;
+                if(slot.status==='empty') slot.status='pending';
+            }
+        });
+        c.codes.sort((a,b)=>a.seq-b.seq);
+    }
+
+    // 3) PUNTEGGI GIOCHI + CITTÀ -> li salvo in un blocco dedicato (non esistevano prima)
+    c.gameStats = pkg.scores || c.gameStats || {};
+    c.cityProgress = pkg.city || c.cityProgress || {built:0,levels:0,wonder:false};
+    c.crBalance = (typeof pkg.cr==='number') ? pkg.cr : (c.crBalance||0);
+    c.achievementsCount = (typeof pkg.achievements==='number') ? pkg.achievements : (c.achievementsCount||0);
+    c.lastSync = Date.now();
+
+    // 4) Se è arrivato lo stato completo, salvo anche i tatuaggi guariti (numero) in modo non distruttivo
+    if(typeof pkg.healed==='number'){
+        // allineo il numero di tatuaggi guariti senza ridurre quelli che hai già segnato a mano
+        const currentHealed=c.tattoos.filter(Boolean).length;
+        if(pkg.healed>currentHealed){
+            // segno guariti i primi N
+            for(let i=0;i<c.tattoos.length && c.tattoos.filter(Boolean).length<pkg.healed;i++){
+                if(!c.tattoos[i]) c.tattoos[i]=true;
+            }
+            // se servono più slot di quelli presenti
+            while(c.tattoos.filter(Boolean).length<pkg.healed){ c.tattoos.push(true); }
+        }
+    }
+
+    // NOTE PRESERVATE: medical, vip, nextAppt, apptNote, wallet, ledger, freeNote, birthday, style -> NON toccati
+
+    snd('success');
+    stopQrScan(); closeModal();
+    log('📲 Dati sincronizzati per '+c.name+' (rank '+c.rank+', '+(pkg.codes?pkg.codes.length:0)+' codici, città lv '+(c.cityProgress.levels||0)+').','ok');
+    toast('Dati di '+c.name+' aggiornati! ✓','success');
+    saveDb(); renderAll();
 }
 
 // Imposta/modifica l'appuntamento di un cliente
