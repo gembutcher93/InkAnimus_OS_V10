@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InkAnimus OS // GESTIONALE GEMBUCHER</title>
+<link rel="manifest" href="manifest-admin.webmanifest">
+<meta name="theme-color" content="#03070d">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-admin-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-admin-192.png">
+<link rel="apple-touch-icon" href="icons/icon-admin-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="InkAnimus Admin">
+<meta name="mobile-web-app-capable" content="yes">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+    --bg:#03070d; --panel:rgba(4,14,26,0.85); --cyan:#00f3ff; --blue:#0052ff;
+    --green:#00ff66; --yellow:#ffcc00; --red:#ff0055; --purple:#c800ff; --text:#d1f4ff; --grey:#8bb4cb;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;min-height:100vh;}
+body::before{content:" ";position:fixed;inset:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.25) 50%);background-size:100% 3px;z-index:9999;pointer-events:none;}
+.hidden{display:none !important;}
+input,button{font-family:inherit;}
+input[type=text],input[type=password]{width:100%;background:rgba(0,15,30,0.7);border:1px solid var(--blue);color:var(--cyan);padding:10px;font-size:0.95rem;outline:none;transition:all .2s;border-radius:3px;}
+input[type=text]:focus,input[type=password]:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,243,255,0.2) inset;}
+button{background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:10px 14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .2s;border-radius:3px;}
+button:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 12px var(--cyan);}
+button:disabled{opacity:.35;cursor:not-allowed;}
+.label{font-size:0.72rem;color:var(--grey);letter-spacing:1px;margin-bottom:4px;display:block;}
+
+/* LOGIN */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;}
+.login-box{background:var(--panel);border:1px solid var(--cyan);box-shadow:0 0 35px rgba(0,243,255,0.3);border-radius:8px;padding:30px;max-width:400px;width:100%;text-align:center;}
+.login-logo{width:90px;height:90px;margin:0 auto 14px;}
+/* CRT scanline overlay */
+body::after{content:" ";position:fixed;inset:0;background:linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.012),rgba(0,0,255,0.03));background-size:4px 100%;z-index:9998;pointer-events:none;}
+/* Lock animato stile InkAnimus */
+.geometric-lock{width:180px;height:180px;margin:0 auto 22px;position:relative;transition:all 0.6s cubic-bezier(0.19,1,0.22,1);}
+/* === LOGO FACCIA ANIMATO (pulsa + respira) === */
+.admin-logo-wrap{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;}
+.admin-logo-img{width:100%;height:100%;object-fit:contain;border-radius:50%;animation:adminBreath 3s ease-in-out infinite;position:relative;z-index:2;}
+.admin-logo-halo{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle, rgba(0,243,255,0.4), transparent 65%);animation:adminHalo 3s ease-in-out infinite;z-index:1;}
+@keyframes adminBreath{0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(0,243,255,0.5));}50%{transform:scale(1.06);filter:drop-shadow(0 0 18px rgba(0,243,255,0.9));}}
+@keyframes adminHalo{0%,100%{opacity:0.4;transform:scale(0.95);}50%{opacity:0.8;transform:scale(1.15);}}
+.authenticated .admin-logo-img{animation:none;transform:scale(1.12);filter:drop-shadow(0 0 24px var(--cyan));}
+/* mini-logo header gestionale */
+.gest-logo-mini{width:42px;height:42px;border-radius:50%;flex-shrink:0;animation:adminBreath 4s ease-in-out infinite;}
+@media (max-width:600px){.gest-logo-mini{display:none;}}
+.solid-triangle{fill:rgba(0,243,255,0.85);filter:drop-shadow(0 0 15px var(--cyan));transition:all 0.5s ease;transform-origin:center;}
+.dash-line{stroke:rgba(0,243,255,0.15);stroke-width:3.5;stroke-linecap:round;transform-origin:50px 50px;animation:dashChase 1.2s infinite;}
+.dash-line:nth-child(1){animation-delay:0s;transform:rotate(0deg);}
+.dash-line:nth-child(2){animation-delay:0.1s;transform:rotate(30deg);}
+.dash-line:nth-child(3){animation-delay:0.2s;transform:rotate(60deg);}
+.dash-line:nth-child(4){animation-delay:0.3s;transform:rotate(90deg);}
+.dash-line:nth-child(5){animation-delay:0.4s;transform:rotate(120deg);}
+.dash-line:nth-child(6){animation-delay:0.5s;transform:rotate(150deg);}
+.dash-line:nth-child(7){animation-delay:0.6s;transform:rotate(180deg);}
+.dash-line:nth-child(8){animation-delay:0.7s;transform:rotate(210deg);}
+.dash-line:nth-child(9){animation-delay:0.8s;transform:rotate(240deg);}
+.dash-line:nth-child(10){animation-delay:0.9s;transform:rotate(270deg);}
+.dash-line:nth-child(11){animation-delay:1s;transform:rotate(300deg);}
+.dash-line:nth-child(12){animation-delay:1.1s;transform:rotate(330deg);}
+@keyframes dashChase{0%,100%{stroke:rgba(0,243,255,0.15);filter:none;}30%{stroke:var(--cyan);filter:drop-shadow(0 0 8px var(--cyan));}}
+.authenticated .dash-line{animation:none !important;stroke:var(--cyan) !important;filter:drop-shadow(0 0 8px var(--cyan)) !important;transition:all 0.3s ease;}
+.explode-anim{transform:scale(3) rotate(90deg);opacity:0;filter:blur(10px);}
+.login-box h1{font-size:1.2rem;color:var(--cyan);text-shadow:0 0 8px var(--cyan);margin-bottom:6px;}
+.login-box .sub{font-size:0.72rem;color:var(--grey);letter-spacing:1px;margin-bottom:18px;}
+.err{color:var(--red);font-size:0.78rem;min-height:16px;margin-top:10px;}
+
+/* HEADER */
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--cyan);padding:14px 18px;background:rgba(2,8,16,0.6);}
+header h1{font-size:1.15rem;text-shadow:0 0 6px var(--cyan);}
+header .sub{font-size:0.74rem;color:var(--grey);margin-top:3px;}
+.header-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.header-btns button{font-size:0.72rem;padding:7px 10px;}
+.profile-pic{width:54px;height:54px;border-radius:50%;border:2px solid var(--cyan);box-shadow:0 0 12px rgba(0,243,255,0.4);flex-shrink:0;cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,243,255,0.06);transition:all .2s;}
+.profile-pic:hover{box-shadow:0 0 18px rgba(0,243,255,0.7);}
+.profile-pic img{width:100%;height:100%;object-fit:cover;}
+.profile-pic span{font-size:0.6rem;color:var(--grey);letter-spacing:1px;}
+
+/* DASHBOARD STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;padding:18px;}
+.stat-box{background:var(--panel);border:1px solid rgba(0,82,255,0.4);border-radius:5px;padding:14px;text-align:center;}
+.stat-box .lab{font-size:0.7rem;color:var(--grey);letter-spacing:1px;}
+.stat-box .val{font-size:1.6rem;font-weight:bold;color:var(--cyan);margin-top:6px;}
+
+/* LAYOUT */
+.wrap{padding:0 18px 30px;}
+.grid{display:grid;grid-template-columns:340px 1fr;gap:18px;}
+@media(max-width:860px){.grid{grid-template-columns:1fr;}}
+.panel{background:var(--panel);border:1px solid rgba(0,82,255,0.4);border-radius:6px;padding:16px;margin-bottom:16px;}
+.panel h2{font-size:1rem;color:#fff;border-bottom:1px dashed var(--blue);padding-bottom:8px;margin-bottom:12px;}
+.form-group{margin-bottom:12px;}
+.full-btn{width:100%;margin-top:4px;}
+
+/* CLIENT CARDS */
+.client-card{background:var(--panel);border:1px solid rgba(0,82,255,0.4);border-radius:6px;padding:14px;margin-bottom:14px;transition:all .2s;}
+.client-card:hover{border-color:var(--cyan);}
+.client-card.rank-reclutatore{border-left:4px solid var(--yellow);}
+.client-card.rank-mentore{border-left:4px solid var(--purple);box-shadow:0 0 14px rgba(200,0,255,0.15);}
+.client-card.rank-adepto{border-left:4px solid var(--grey);}
+.client-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.client-name{font-size:1.05rem;color:#fff;font-weight:bold;}
+.rank-tag{font-size:0.68rem;padding:2px 8px;border-radius:3px;}
+.rank-tag.adepto{border:1px solid var(--grey);color:var(--grey);}
+.rank-tag.reclutatore{border:1px solid var(--yellow);color:var(--yellow);}
+.rank-tag.mentore{border:1px solid var(--purple);color:var(--purple);}
+.client-meta{font-size:0.74rem;color:var(--grey);margin-bottom:8px;line-height:1.5;}
+.client-meta b{color:var(--cyan);}
+
+/* TATTOO TRACKER */
+.tat-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;}
+.tat-chip{flex:1;min-width:54px;text-align:center;border:1px solid rgba(0,82,255,0.4);border-radius:3px;padding:6px 2px;cursor:pointer;font-size:0.72rem;transition:all .15s;}
+.tat-chip.healed{background:var(--green);color:#000;border-color:var(--green);font-weight:bold;}
+.tat-chip.add:hover{background:rgba(0,243,255,0.12);}
+.modal-box.wide{max-width:560px;}
+.ledger-list{max-height:200px;overflow-y:auto;border:1px solid rgba(0,82,255,0.2);border-radius:4px;text-align:left;}
+.ledger-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid rgba(0,82,255,0.15);font-size:0.76rem;}
+.ledger-date{color:var(--grey);white-space:nowrap;font-size:0.68rem;}
+.ledger-reason{flex:1;color:var(--text);}
+.ledger-amt{font-weight:bold;white-space:nowrap;}
+.ledger-amt.pos{color:var(--green);}
+.ledger-amt.neg{color:var(--red);}
+.client-card.is-vip{border-color:var(--yellow);box-shadow:0 0 12px rgba(255,204,0,0.2);}
+.board-note{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(0,82,255,0.25);border-radius:5px;margin-bottom:7px;background:rgba(0,15,30,0.4);}
+.board-note.done{opacity:0.5;}
+.board-note.done .board-txt{text-decoration:line-through;}
+.board-check{cursor:pointer;color:var(--green);font-weight:bold;font-size:1.1rem;width:20px;text-align:center;}
+.board-txt{flex:1;font-size:0.86rem;color:var(--text);}
+.board-date{font-size:0.68rem;color:var(--grey);white-space:nowrap;}
+.board-del{cursor:pointer;color:var(--red);font-size:0.9rem;padding:0 4px;}
+.board-del:hover{text-shadow:0 0 6px var(--red);}
+.tat-chip:hover:not(.healed){background:rgba(0,243,255,0.1);}
+
+/* CODES */
+.codes-block{margin-top:10px;border-top:1px dashed rgba(0,82,255,0.3);padding-top:10px;}
+.code-input-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
+.code-input-row .num{font-size:0.74rem;color:var(--grey);width:24px;flex-shrink:0;}
+.code-input-row input{padding:6px 8px;font-size:0.82rem;}
+.code-row{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid rgba(0,82,255,0.2);gap:8px;flex-wrap:wrap;}
+.code-val{font-size:0.84rem;color:var(--cyan);letter-spacing:1px;}
+.code-pw{font-size:0.7rem;color:var(--yellow);}
+.badge{font-size:0.66rem;padding:2px 6px;border-radius:3px;}
+.badge.pending{border:1px solid var(--yellow);color:var(--yellow);}
+.badge.used{border:1px solid var(--green);color:var(--green);}
+.mini-btn{padding:3px 8px;font-size:0.68rem;}
+.mini-btn.green{border-color:var(--green);color:var(--green);}
+.mini-btn.red{border-color:var(--red);color:var(--red);}
+.card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1100;display:flex;justify-content:center;align-items:center;padding:16px;}
+.modal-box{background:var(--panel);border:1px solid var(--cyan);border-radius:6px;padding:24px;max-width:440px;width:100%;box-shadow:0 0 35px rgba(0,243,255,0.3);text-align:center;}
+.modal-box h3{color:var(--cyan);margin-bottom:12px;}
+.modal-box p{font-size:0.86rem;color:var(--grey);line-height:1.5;margin-bottom:16px;}
+.modal-btns{display:flex;gap:10px;justify-content:center;}
+
+/* TERMINAL LOG */
+.term{background:#010408;border:1px solid rgba(0,243,255,0.2);border-radius:5px;padding:10px;height:120px;overflow-y:auto;font-size:0.72rem;line-height:1.5;}
+.term .ln{color:var(--cyan);opacity:.85;}
+.term .ln.warn{color:var(--yellow);}
+.term .ln.err{color:var(--red);}
+.term .ln.ok{color:var(--green);}
+
+.empty{text-align:center;color:var(--grey);font-size:0.82rem;padding:30px 10px;}
+.toast-wrap{position:fixed;bottom:18px;right:18px;z-index:2000;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--panel);border:1px solid var(--cyan);color:var(--cyan);padding:10px 14px;border-radius:4px;font-size:0.82rem;box-shadow:0 0 14px rgba(0,243,255,0.3);animation:tin .3s ease;}
+.toast.success{border-color:var(--green);color:var(--green);}
+.toast.error{border-color:var(--red);color:var(--red);}
+.toast.warn{border-color:var(--yellow);color:var(--yellow);}
+@keyframes tin{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+.search-box{margin-bottom:14px;}
+/* ===== SCHEDE PRINCIPALI ===== */
+.main-tabs{display:flex;gap:4px;padding:10px 18px 0;flex-wrap:wrap;border-bottom:1px solid rgba(0,82,255,0.3);overflow-x:auto;}
+.main-tab{background:transparent;border:1px solid rgba(0,82,255,0.35);border-bottom:none;color:var(--grey);padding:9px 14px;font-family:inherit;font-size:0.76rem;cursor:pointer;border-radius:6px 6px 0 0;white-space:nowrap;transition:all .2s;}
+.main-tab:hover{color:var(--cyan);}
+.main-tab.active{background:rgba(0,243,255,0.1);color:var(--cyan);border-color:var(--cyan);box-shadow:0 -2px 10px rgba(0,243,255,0.2);}
+.tab-section{display:none;animation:fadeIn .3s ease;}
+.tab-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== PANORAMICA: radar + big stats ===== */
+.overview-hero{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;padding:24px 18px;}
+.radar-wrap{position:relative;width:160px;height:160px;flex-shrink:0;}
+.radar-svg{width:100%;height:100%;}
+.radar-ring{fill:none;stroke:rgba(0,243,255,0.25);stroke-width:1;}
+.radar-cross{stroke:rgba(0,243,255,0.15);stroke-width:1;}
+.radar-center{fill:var(--cyan);filter:drop-shadow(0 0 4px var(--cyan));}
+.radar-beam{fill:url(#none);fill:rgba(0,243,255,0.18);}
+.radar-sweep{transform-origin:100px 100px;animation:radarSpin 4s linear infinite;}
+@keyframes radarSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.radar-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:0.6rem;color:var(--cyan);letter-spacing:1px;line-height:1.3;text-shadow:0 0 6px var(--cyan);}
+.big-stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;}
+.big-stat{text-align:center;min-width:120px;}
+.bs-num{font-size:2.6rem;font-weight:bold;color:var(--cyan);text-shadow:0 0 12px rgba(0,243,255,0.5);line-height:1;}
+.bs-lab{font-size:0.68rem;color:var(--grey);letter-spacing:1px;margin-top:6px;}
+.econ-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(0,82,255,0.15);font-size:0.84rem;}
+.quick-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.quick-actions .full-btn{flex:1;min-width:200px;}
+
+/* ===== CALENDARIO ===== */
+.cal-header{display:flex;align-items:center;justify-content:center;gap:18px;padding:18px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:0 18px;}
+.cal-dow{text-align:center;font-size:0.66rem;color:var(--grey);padding:4px 0;letter-spacing:1px;}
+.cal-day{aspect-ratio:1;border:1px solid rgba(0,82,255,0.2);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:0.8rem;color:var(--text);position:relative;transition:all .2s;cursor:default;}
+.cal-day.empty{border:none;}
+.cal-day.today{border-color:var(--cyan);box-shadow:inset 0 0 8px rgba(0,243,255,0.3);}
+.cal-day.has-appt{border-color:var(--yellow);background:rgba(255,204,0,0.08);cursor:pointer;box-shadow:0 0 10px rgba(255,204,0,0.25);}
+.cal-day.has-appt:hover{background:rgba(255,204,0,0.18);}
+.cal-day .appt-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 5px var(--yellow);margin-top:3px;}
+.cal-day .appt-cnt{font-size:0.55rem;color:var(--yellow);position:absolute;top:2px;right:4px;}
+.upcoming-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 6px;border-bottom:1px solid rgba(0,82,255,0.15);font-size:0.8rem;flex-wrap:wrap;}
+.upcoming-date{color:var(--cyan);font-weight:bold;white-space:nowrap;}
+.upcoming-when{font-size:0.7rem;}
+.upcoming-when.soon{color:var(--yellow);} .upcoming-when.today{color:var(--green);font-weight:bold;} .upcoming-when.future{color:var(--grey);}
+
+/* ===== RETE NODI ===== */
+.net-node{cursor:default;}
+.net-line{stroke:rgba(0,243,255,0.3);stroke-width:1.5;}
+.net-recruiter{fill:rgba(255,204,0,0.15);stroke:var(--yellow);stroke-width:2;}
+.net-mentor{fill:rgba(200,0,255,0.15);stroke:var(--purple);stroke-width:2;}
+.net-recruit{fill:rgba(0,243,255,0.12);stroke:var(--cyan);stroke-width:1.5;}
+.net-label{font-size:9px;fill:var(--text);text-anchor:middle;font-family:'Share Tech Mono',monospace;}
+</style>
+</head>
+<body>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="overlay">
+    <div class="login-box">
+        <div class="geometric-lock" id="lock-wrapper">
+            <div class="admin-logo-wrap">
+                <span class="admin-logo-halo"></span>
+                <img src="icons/icon-admin-512.png" alt="InkAnimus Admin" class="admin-logo-img">
+            </div>
+        </div>
+        <h1>GESTIONALE GEMBUCHER</h1>
+        <div class="sub">InkAnimus_OS // TERMINALE AMMINISTRATORE</div>
+        <input type="password" id="appPassword" placeholder="SECURITY KEY" style="text-align:center;" onkeyup="if(event.key==='Enter')checkPassword()">
+        <button style="width:100%;margin-top:12px;" onclick="checkPassword()">SBLOCCA TERMINALE</button>
+        <div class="err" id="loginError"></div>
+    </div>
+</div>
+
+<!-- MODAL GENERICO -->
+<div id="modal" class="modal hidden">
+    <div class="modal-box" id="modalContent"></div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+    <header>
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div class="profile-pic" id="profilePic" onclick="document.getElementById('profilePicInput').click()" title="Clicca per caricare/cambiare la tua foto profilo">
+                <span id="profilePicPlaceholder">FOTO</span>
+            </div>
+            <input type="file" id="profilePicInput" accept="image/*" style="display:none;" onchange="loadProfilePic(event)">
+            <img src="icons/icon-admin-192.png" alt="" class="gest-logo-mini" aria-hidden="true">
+            <div>
+                <h1>InkAnimus_OS // GESTIONALE</h1>
+                <div class="sub">OPERATORE://<span id="operatorNameDisplay">GEMBUCHER_TATTOOER</span> · NODE://PODERE_173 · OZIERI</div>
+            </div>
+        </div>
+        <div class="header-btns">
+            <button onclick="openGeneralStats()" style="border-color:var(--purple);color:var(--purple);">📊 STATISTICHE</button>
+            <button onclick="toggleAudio()" id="audioBtn">🔊 AUDIO ON</button>
+            <button onclick="openOperatorSettings()" style="border-color:var(--yellow);color:var(--yellow);">⚙ PROFILO</button>
+            <button onclick="exportData()" style="border-color:var(--green);color:var(--green);">⬇ BACKUP</button>
+            <button onclick="document.getElementById('importFile').click()" style="border-color:var(--blue);color:var(--blue);">⬆ IMPORTA</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
+            <button onclick="lockTerminal()" style="border-color:var(--red);color:var(--red);">🔒 BLOCCA</button>
+        </div>
+    </header>
+
+    <!-- BARRA SCHEDE -->
+    <nav class="main-tabs">
+        <button class="main-tab active" data-tab="panoramica" onclick="switchTab('panoramica',this)">◉ PANORAMICA</button>
+        <button class="main-tab" data-tab="calendario" onclick="switchTab('calendario',this)">📅 CALENDARIO</button>
+        <button class="main-tab" data-tab="clienti" onclick="switchTab('clienti',this)">👤 CLIENTI</button>
+        <button class="main-tab" data-tab="rete" onclick="switchTab('rete',this)">🕸️ RETE</button>
+        <button class="main-tab" data-tab="andamento" onclick="switchTab('andamento',this)">📈 ANDAMENTO</button>
+        <button class="main-tab" data-tab="bacheca" onclick="switchTab('bacheca',this)">📌 BACHECA</button>
+        <button class="main-tab" data-tab="cronologia" onclick="switchTab('cronologia',this)">📡 CRONOLOGIA</button>
+    </nav>
+
+    <!-- ============ SCHEDA PANORAMICA ============ -->
+    <section class="tab-section active" id="tab-panoramica">
+        <div class="overview-hero">
+            <div class="radar-wrap">
+                <svg viewBox="0 0 200 200" class="radar-svg">
+                    <circle cx="100" cy="100" r="90" class="radar-ring"/>
+                    <circle cx="100" cy="100" r="60" class="radar-ring"/>
+                    <circle cx="100" cy="100" r="30" class="radar-ring"/>
+                    <line x1="100" y1="10" x2="100" y2="190" class="radar-cross"/>
+                    <line x1="10" y1="100" x2="190" y2="100" class="radar-cross"/>
+                    <g class="radar-sweep"><path d="M100 100 L100 10 A90 90 0 0 1 168 50 Z" class="radar-beam"/></g>
+                    <circle cx="100" cy="100" r="4" class="radar-center"/>
+                </svg>
+                <div class="radar-label">STUDIO<br>ONLINE</div>
+            </div>
+            <div class="big-stats">
+                <div class="big-stat"><div class="bs-num" id="bsClienti" data-target="0">0</div><div class="bs-lab">CLIENTI ATTIVI</div></div>
+                <div class="big-stat"><div class="bs-num" id="bsCura" data-target="0">0</div><div class="bs-lab">TATUAGGI IN CURA</div></div>
+                <div class="big-stat"><div class="bs-num" id="bsAppt" data-target="0">0</div><div class="bs-lab">APPUNTAMENTI 7GG</div></div>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-box"><div class="lab">ADEPTI</div><div class="val" id="statAdepti">0</div></div>
+            <div class="stat-box"><div class="lab">RECLUTATORI</div><div class="val" id="statReclutatori" style="color:var(--yellow);">0</div></div>
+            <div class="stat-box"><div class="lab">MENTORI</div><div class="val" id="statMentori" style="color:var(--purple);">0</div></div>
+            <div class="stat-box"><div class="lab">CLIENTI TOTALI</div><div class="val" id="statTotale">0</div></div>
+            <div class="stat-box"><div class="lab">BUONI RISCATTATI</div><div class="val" id="statRiscattati" style="color:var(--green);">0</div></div>
+            <div class="stat-box"><div class="lab">€ EROGATI</div><div class="val" id="statErogati" style="color:var(--green);">0</div></div>
+        </div>
+        <div class="panel" style="margin:0 18px 18px;">
+            <h2>💰 RIEPILOGO ECONOMICO</h2>
+            <div class="econ-row"><span>Totale erogato in buoni</span><b id="econErogato" style="color:var(--green);">€ 0</b></div>
+            <div class="econ-row"><span>Già utilizzato dai clienti</span><b id="econSpeso" style="color:var(--red);">€ 0</b></div>
+            <div class="econ-row"><span>Credito ancora in circolazione</span><b id="econCircolo" style="color:var(--yellow);">€ 0</b></div>
+        </div>
+        <div class="quick-actions" style="margin:0 18px 18px;">
+            <button class="full-btn" onclick="switchTabBtn('clienti')" style="border-color:var(--purple);color:var(--purple);">+ GESTISCI CLIENTI</button>
+            <button class="full-btn" onclick="openGeneralStats()" style="border-color:var(--cyan);">📊 STATISTICHE DETTAGLIATE</button>
+            <button class="full-btn" onclick="archiveWalletGlobal()" style="border-color:var(--yellow);color:var(--yellow);">🗄️ ARCHIVIA CASSE (PDF mensile)</button>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA CALENDARIO ============ -->
+    <section class="tab-section" id="tab-calendario">
+        <div class="cal-header">
+            <button class="mini-btn" onclick="calPrevMonth()">◀</button>
+            <h2 id="calMonthLabel" style="margin:0;">—</h2>
+            <button class="mini-btn" onclick="calNextMonth()">▶</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="panel" style="margin:16px 18px;">
+            <h2>📋 PROSSIMI APPUNTAMENTI</h2>
+            <div id="upcomingList"></div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA CLIENTI ============ -->
+    <section class="tab-section" id="tab-clienti">
+        <div class="wrap">
+            <div class="grid">
+                <div>
+                    <div class="panel" style="border-color:var(--purple);">
+                        <h2 style="color:var(--purple);">+ NUOVO CLIENTE</h2>
+                        <div class="form-group">
+                            <label class="label">NOME CLIENTE</label>
+                            <input type="text" id="newClientName" placeholder="Es. Mario Rossi" onkeyup="if(event.key==='Enter')addClient()">
+                        </div>
+                        <button class="full-btn" style="border-color:var(--purple);color:var(--purple);" onclick="addClient()">INSERISCI ADEPTO</button>
+                        <p style="font-size:0.72rem;color:var(--grey);margin-top:8px;">Ogni nuovo cliente parte come Adepto con 5 tatuaggi da completare.</p>
+                    </div>
+                    <div class="panel">
+                        <h2>🔍 VERIFICA CODICE CLIENTE</h2>
+                        <div class="form-group">
+                            <label class="label">CODICE PRESENTATO IN STUDIO</label>
+                            <input type="text" id="codeCheck" placeholder="Es. P173-AB34KQ" onkeyup="if(event.key==='Enter')verifyCode()">
+                        </div>
+                        <button class="full-btn" onclick="verifyCode()">VERIFICA E RISCATTA</button>
+                        <div id="checkResult" style="font-size:0.82rem;margin-top:10px;min-height:18px;text-align:center;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="search-box" style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <input type="text" id="searchClient" placeholder="🔎 Cerca per nome o codice..." onkeyup="renderClients()" style="flex:1;min-width:160px;">
+                        <select id="filterRank" onchange="renderClients()" style="background:rgba(0,15,30,0.7);border:1px solid var(--blue);color:var(--cyan);padding:8px;border-radius:3px;font-family:inherit;">
+                            <option value="">Tutti i gradi</option>
+                            <option value="Adepto">Adepti</option>
+                            <option value="Reclutatore">Reclutatori</option>
+                            <option value="Mentore">Mentori</option>
+                            <option value="incura">In cura ora</option>
+                        </select>
+                    </div>
+                    <div id="clientList"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA RETE ============ -->
+    <section class="tab-section" id="tab-rete">
+        <div class="panel" style="margin:18px;">
+            <h2>🕸️ MAPPA DELLA RETE — chi ha reclutato chi</h2>
+            <p style="font-size:0.76rem;color:var(--grey);margin-bottom:10px;">Visualizzazione del passaparola dello studio. I nodi gialli/viola sono i reclutatori attivi.</p>
+            <div id="networkMap" style="width:100%;overflow-x:auto;"></div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA ANDAMENTO ============ -->
+    <section class="tab-section" id="tab-andamento">
+        <div class="panel" style="margin:18px;">
+            <h2>📈 ANDAMENTO DELLO STUDIO</h2>
+            <p style="font-size:0.76rem;color:var(--grey);margin-bottom:14px;">Crescita mese per mese: nuovi clienti, tatuaggi guariti e reclutamenti.</p>
+            <div id="trendChart"></div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA BACHECA ============ -->
+    <section class="tab-section" id="tab-bacheca">
+        <div class="panel" style="margin:18px;">
+            <h2>📌 BACHECA NOTE STUDIO</h2>
+            <p style="font-size:0.76rem;color:var(--grey);margin-bottom:10px;">Appunti rapidi: cose da fare, idee, promemoria. Restano salvati su questo dispositivo.</p>
+            <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                <input type="text" id="boardInput" placeholder="Scrivi una nota e premi Invio..." onkeyup="if(event.key==='Enter')addBoardNote()" style="flex:1;min-width:200px;">
+                <button class="mini-btn" style="border-color:var(--green);color:var(--green);" onclick="addBoardNote()">+ AGGIUNGI</button>
+            </div>
+            <div id="boardList"></div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA CRONOLOGIA ============ -->
+    <section class="tab-section" id="tab-cronologia">
+        <div class="panel" style="margin:18px;">
+            <h2>📡 CRONOLOGIA EVENTI STUDIO</h2>
+            <div class="term" id="terminal" style="height:auto;min-height:300px;max-height:60vh;"></div>
+        </div>
+    </section>
+</div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const ADMIN_PW_KEY = 'inkanimus_admin_pw';
+const DEFAULT_ADMIN_PASSWORD = 'gembucher.admin'; // password iniziale (modificabile dall'app)
+function getAdminPassword(){
+    try{ return localStorage.getItem(ADMIN_PW_KEY) || DEFAULT_ADMIN_PASSWORD; }
+    catch(e){ return DEFAULT_ADMIN_PASSWORD; }
+}
+const STORAGE_KEY = 'inkanimus_gestionale_db';
+const BONUS_PER_CODE = 25;   // € erogati per ogni codice riscattato (allineato all'app)
+let database = [];
+
+// Sequenza Fibonacci per le password di riscatto (GEM-1, GEM-2, GEM-3, GEM-5, GEM-8...)
+function fibForCode(n){
+    let a=1,b=2;
+    if(n<=1) return 1;
+    if(n===2) return 2;
+    for(let i=3;i<=n;i++){ const c=a+b; a=b; b=c; }
+    return b;
+}
+
+// ============================================================
+// AUDIO
+// ============================================================
+let audioOn = true, actx = null;
+function actxGet(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); return actx; }
+function beep(f,t,d,v,delay){ if(!audioOn)return; try{const c=actxGet(),tt=c.currentTime+(delay||0);const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type=t||'square';o.frequency.setValueAtTime(f,tt);g.gain.setValueAtTime(v||0.15,tt);g.gain.exponentialRampToValueAtTime(0.001,tt+(d||0.08));o.start(tt);o.stop(tt+(d||0.08));}catch(e){} }
+function snd(n){ if(!audioOn)return;
+    if(n==='click')beep(600,'square',0.05,0.12);
+    else if(n==='success'){beep(660,'triangle',0.1,0.18);setTimeout(()=>beep(990,'triangle',0.08,0.18),90);}
+    else if(n==='error')beep(180,'sawtooth',0.1,0.2);
+    else if(n==='unlock'){[300,500,800,1200].forEach((f,i)=>beep(f,'sawtooth',0.13,0.2,i*0.09));}
+}
+function toggleAudio(){
+    audioOn=!audioOn;
+    const b=document.getElementById('audioBtn');
+    b.textContent=audioOn?'🔊 AUDIO ON':'🔇 AUDIO OFF';
+    if(audioOn){ actxGet().resume(); snd('click'); }
+}
+
+// ============================================================
+// TOAST + LOG
+// ============================================================
+function toast(msg,type){
+    const w=document.getElementById('toastWrap');
+    const t=document.createElement('div');
+    t.className='toast '+(type||'');
+    t.textContent=msg; w.appendChild(t);
+    setTimeout(()=>t.remove(),3000);
+}
+function log(msg,cls){
+    const term=document.getElementById('terminal');
+    const p=document.createElement('div');
+    p.className='ln '+(cls||'');
+    const time=new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    p.textContent='['+time+'] '+msg;
+    term.appendChild(p); term.scrollTop=term.scrollHeight;
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function showModal(html){
+    document.getElementById('modalContent').innerHTML=html;
+    document.getElementById('modal').classList.remove('hidden');
+}
+function closeModal(){ document.getElementById('modal').classList.add('hidden'); document.getElementById('modalContent').classList.remove('wide'); }
+
+// ============================================================
+// LOGIN
+// ============================================================
+function checkPassword(){
+    const val=document.getElementById('appPassword').value;
+    const err=document.getElementById('loginError');
+    if(val===getAdminPassword()){
+        snd('unlock');
+        const lock=document.getElementById('lock-wrapper');
+        lock.classList.add('authenticated');
+        setTimeout(()=>lock.classList.add('explode-anim'),500);
+        setTimeout(()=>{
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            loadDb();
+            loadProfileFromStorage();
+            log('Terminale sbloccato. Benvenuto, '+getOperatorName()+'.','ok');
+            renderAll();
+            renderCalendar();
+            renderBoard();
+        },1100);
+    } else {
+        snd('error');
+        err.textContent='⚠ SECURITY KEY ERRATA';
+        document.getElementById('appPassword').value='';
+        setTimeout(()=>err.textContent='',2500);
+    }
+}
+function lockTerminal(){
+    document.getElementById('app').classList.add('hidden');
+    const lock=document.getElementById('lock-wrapper');
+    lock.classList.remove('authenticated','explode-anim');
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('appPassword').value='';
+}
+// Impostazioni profilo operatore: nome + password in un unico pannello
+const OPERATOR_NAME_KEY='inkanimus_operator_name';
+const PROFILE_PIC_KEY='inkanimus_profile_pic';
+function getOperatorName(){
+    try{ return localStorage.getItem(OPERATOR_NAME_KEY) || 'GEMBUCHER_TATTOOER'; }
+    catch(e){ return 'GEMBUCHER_TATTOOER'; }
+}
+function openOperatorSettings(){
+    snd('click');
+    const current=getAdminPassword();
+    const name=getOperatorName();
+    showModal(`
+        <h3>⚙ PROFILO OPERATORE</h3>
+        <div style="text-align:left;">
+            <label class="label">NOME OPERATORE</label>
+            <input type="text" id="newOperatorName" value="${name.replace(/"/g,'&quot;')}" placeholder="Es. GEMBUCHER_TATTOOER" style="margin-bottom:14px;">
+            <div style="border-top:1px dashed rgba(0,82,255,0.3);padding-top:12px;">
+                <div style="font-size:0.8rem;color:var(--grey);margin-bottom:6px;">Password attuale:</div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <code id="curPwDisplay" style="background:rgba(0,40,80,0.4);padding:6px 14px;border:1px solid var(--yellow);color:var(--yellow);letter-spacing:2px;border-radius:3px;flex:1;">${'•'.repeat(current.length)}</code>
+                    <button class="mini-btn" onclick="togglePwView()">👁 MOSTRA</button>
+                </div>
+                <label class="label">NUOVA PASSWORD (lascia vuoto per non cambiarla)</label>
+                <input type="text" id="newAdminPw" placeholder="Min 4 caratteri" style="margin-bottom:6px;">
+            </div>
+            <div id="pwChangeErr" style="color:var(--red);font-size:0.76rem;min-height:14px;text-align:center;margin-top:6px;"></div>
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="saveOperatorSettings()">SALVA</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+let _pwVisible=false;
+function togglePwView(){
+    snd('click');
+    _pwVisible=!_pwVisible;
+    const cur=getAdminPassword();
+    document.getElementById('curPwDisplay').textContent=_pwVisible?cur:'•'.repeat(cur.length);
+}
+function saveOperatorSettings(){
+    const name=document.getElementById('newOperatorName').value.trim();
+    const np=document.getElementById('newAdminPw').value.trim();
+    const err=document.getElementById('pwChangeErr');
+    // nome
+    if(name){
+        try{ localStorage.setItem(OPERATOR_NAME_KEY, name); }catch(e){}
+        document.getElementById('operatorNameDisplay').textContent=name;
+    }
+    // password (solo se inserita)
+    if(np){
+        if(np.length<4){ snd('error'); err.textContent='Password troppo corta (min 4).'; return; }
+        try{ localStorage.setItem(ADMIN_PW_KEY, np); }catch(e){}
+    }
+    snd('success'); closeModal();
+    log('Profilo operatore aggiornato.','warn');
+    toast('Profilo aggiornato.','success');
+}
+// Foto profilo: caricamento e persistenza
+function loadProfilePic(event){
+    const file=event.target.files[0];
+    if(!file) return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+        try{ localStorage.setItem(PROFILE_PIC_KEY, e.target.result); }catch(err){ toast('Immagine troppo grande per il salvataggio.','error'); }
+        applyProfilePic(e.target.result);
+        snd('success'); toast('Foto profilo aggiornata.','success');
+    };
+    reader.readAsDataURL(file);
+    event.target.value='';
+}
+function applyProfilePic(dataUrl){
+    const box=document.getElementById('profilePic');
+    if(!box) return;
+    if(dataUrl){
+        box.innerHTML='<img src="'+dataUrl+'" alt="profilo">';
+    } else {
+        box.innerHTML='<span id="profilePicPlaceholder">FOTO</span>';
+    }
+}
+function loadProfileFromStorage(){
+    // nome
+    const nameEl=document.getElementById('operatorNameDisplay');
+    if(nameEl) nameEl.textContent=getOperatorName();
+    // foto
+    try{
+        const pic=localStorage.getItem(PROFILE_PIC_KEY);
+        if(pic) applyProfilePic(pic);
+    }catch(e){}
+}
+
+// ============================================================
+// DATABASE
+// ============================================================
+function loadDb(){
+    try{ database=JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; }
+    catch(e){ database=[]; }
+}
+function saveDb(){
+    try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(database)); }
+    catch(e){ toast('Errore salvataggio dati','error'); }
+}
+
+// Nuovo cliente (Adepto con 5 tatuaggi + 5 slot codici vuoti)
+function addClient(recruiterId, recruiterCodeSeq){
+    const input=document.getElementById('newClientName');
+    // se chiamata dal riscatto, il nome arriva da un altro campo
+    let name = input ? input.value.trim() : '';
+    if(arguments.length>=3 && typeof arguments[2]==='string') name=arguments[2]; // override nome
+    if(!name){ snd('error'); toast('Inserisci un nome valido.','error'); return null; }
+    const client={
+        id:Date.now()+Math.floor(Math.random()*1000),
+        name:name,
+        rank:'Adepto',
+        tattoos:[false,false,false,false,false], // 5 tatuaggi da completare
+        codes:Array.from({length:5},(_,i)=>({seq:i+1, code:'', status:'empty'})), // empty | pending | used
+        recruitsRedeemed:0,
+        wallet:0,        // saldo cassa cliente (€ disponibili)
+        ledger:[],       // cronologia movimenti {ts, amount, reason}
+        nextAppt:'',     // data prossimo appuntamento (YYYY-MM-DD)
+        apptNote:'',     // nota sull'appuntamento
+        recruitedBy: recruiterId || null,     // ID del cliente che lo ha reclutato (albero rete)
+        recruitedVia: recruiterCodeSeq || null, // numero del codice usato
+        vip:false,        // cliente preferito/VIP
+        firstTattoo:'',   // data primo tatuaggio
+        style:'',         // stile preferito
+        medical:'',       // note mediche / allergie
+        birthday:'',      // compleanno
+        freeNote:'',      // campo libero scheda
+        createdAt:Date.now(), // per l'andamento nel tempo
+        notes:''
+    };
+    database.push(client);
+    if(input) input.value='';
+    snd('success');
+    const via=recruiterId?(' — reclutato da '+(database.find(x=>x.id===recruiterId)||{}).name):'';
+    log("Nuovo cliente inserito: '"+name+"' (Adepto)"+via+".",'ok');
+    toast('Cliente '+name+' aggiunto.','success');
+    saveDb(); renderAll();
+    return client;
+}
+
+function deleteClient(id){
+    const c=database.find(x=>x.id===id);
+    showModal(`
+        <h3>⚠ ELIMINA CLIENTE</h3>
+        <p>Rimuovere definitivamente <b style="color:#fff;">${c.name}</b> e tutti i suoi progressi? L'azione non è reversibile.</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--red);color:var(--red);" onclick="confirmDelete(${id})">ELIMINA</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+function confirmDelete(id){
+    const c=database.find(x=>x.id===id);
+    database=database.filter(x=>x.id!==id);
+    snd('click'); closeModal();
+    log("Cliente '"+(c?c.name:'?')+"' eliminato.",'warn');
+    toast('Cliente eliminato.','warn');
+    saveDb(); renderAll();
+}
+
+// Spunta tatuaggio guarito
+function toggleTattoo(id,idx){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    c.tattoos[idx]=!c.tattoos[idx];
+    snd('click');
+    const healed=c.tattoos.filter(Boolean).length;
+    log(c.name+': tatuaggio '+(idx+1)+' '+(c.tattoos[idx]?'segnato come GUARITO':'riaperto')+' ('+healed+' guariti).');
+    if(healed===5 && c.rank==='Adepto'){
+        log(c.name+' ha completato 5 tatuaggi: pronto per diventare Reclutatore.','warn');
+        toast(c.name+' ha completato i primi 5 tatuaggi!','success');
+    }
+    saveDb(); renderAll();
+}
+// Aggiunge un tatuaggio alla cartella (oltre i 5 iniziali)
+function addTattoo(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    c.tattoos.push(false);
+    snd('click');
+    log(c.name+': aggiunto nuovo tatuaggio alla cartella (totale '+c.tattoos.length+').');
+    toast('Tatuaggio aggiunto a '+c.name,'success');
+    saveDb(); renderAll();
+}
+
+// Salva i 5 codici inseriti a mano (dallo screenshot del cliente)
+function saveCodes(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    let count=0;
+    for(let i=0;i<5;i++){
+        const el=document.getElementById('code_'+id+'_'+i);
+        if(!el) continue;
+        const val=el.value.trim().toUpperCase();
+        if(val){
+            // se il codice cambia, resetta lo stato a pending
+            if(c.codes[i].code!==val){ c.codes[i].status='pending'; }
+            c.codes[i].code=val;
+            count++;
+        } else {
+            c.codes[i].code=''; c.codes[i].status='empty';
+        }
+    }
+    // se ha almeno 1 codice ed è ancora Adepto, diventa Reclutatore
+    if(count>0 && c.rank==='Adepto'){
+        c.rank='Reclutatore';
+        log(c.name+' promosso a RECLUTATORE (codici registrati).','warn');
+    }
+    snd('success');
+    log(count+' codici salvati per '+c.name+'.','ok');
+    toast(count+' codici registrati per '+c.name,'success');
+    saveDb(); renderAll();
+}
+
+// Bonus per il codice numero N (1-based): primi 5 = 10€, dal 6° = 25€
+function bonusForCodeSeq(seq){ return seq<=5 ? 10 : 25; }
+
+// Registra un movimento nella cassa del cliente (doppia entrata tracciabile)
+function addWalletMovement(client, amount, reason){
+    if(!client.ledger) client.ledger=[];
+    if(typeof client.wallet!=='number') client.wallet=0;
+    client.wallet += amount;
+    client.ledger.push({ ts: Date.now(), amount: amount, reason: reason });
+}
+
+// Riscatta un codice specifico (accredita il bonus corretto nella cassa)
+function redeemClientCode(id,idx){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    const codeObj=c.codes[idx];
+    if(codeObj.status!=='pending') return;
+    codeObj.status='used';
+    c.recruitsRedeemed=(c.recruitsRedeemed||0)+1;
+    const bonus=bonusForCodeSeq(codeObj.seq);
+    addWalletMovement(c, +bonus, 'Bonus codice #'+codeObj.seq+' ('+codeObj.code+')');
+    snd('success');
+    log('Codice '+codeObj.code+' di '+c.name+' RISCATTATO. +€'+bonus+' in cassa.','ok');
+    toast('Codice riscattato — +€'+bonus,'success');
+    if(c.recruitsRedeemed>=5 && c.rank!=='Mentore'){
+        c.rank='Mentore';
+        log(c.name+' promosso a MENTORE (5 reclutamenti).','warn');
+        toast(c.name+' è ora MENTORE!','success');
+    }
+    saveDb(); renderAll();
+    // chiede se collegare il codice a un nuovo adepto (albero rete)
+    askLinkRecruit(id, codeObj.seq, codeObj.code);
+}
+
+// STEP 1: chiede se collegare il codice a un nuovo adepto
+function askLinkRecruit(recruiterId, seq, code){
+    const r=database.find(x=>x.id===recruiterId);
+    showModal(`
+        <h3>🔗 COLLEGA RECLUTATO</h3>
+        <p>Il codice <b style="color:var(--cyan);">${code}</b> di <b>${r?r.name:''}</b> è stato riscattato.<br><br>Vuoi collegarlo a un nuovo adepto della rete (la persona reclutata che userà l'app)?</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="linkRecruitChoice(${recruiterId},${seq})">SÌ, COLLEGA</button>
+            <button onclick="closeModal()">NO, SOLO RISCATTO</button>
+        </div>
+    `);
+}
+// STEP 2: chiede se creare nuovo o scegliere esistente
+function linkRecruitChoice(recruiterId, seq){
+    showModal(`
+        <h3>🔗 NUOVO O ESISTENTE?</h3>
+        <p>Vuoi inserire un <b>nuovo cliente</b> oppure collegare un cliente <b>già esistente</b> come reclutato?</p>
+        <div class="modal-btns" style="flex-wrap:wrap;">
+            <button style="border-color:var(--purple);color:var(--purple);" onclick="linkRecruitNew(${recruiterId},${seq})">+ NUOVO CLIENTE</button>
+            <button style="border-color:var(--cyan);color:var(--cyan);" onclick="linkRecruitExisting(${recruiterId},${seq})">DA LISTA ESISTENTI</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+// STEP 3a: crea nuovo cliente collegato
+function linkRecruitNew(recruiterId, seq){
+    showModal(`
+        <h3>+ NUOVO ADEPTO RECLUTATO</h3>
+        <div style="text-align:left;">
+            <label class="label">NOME DEL NUOVO CLIENTE</label>
+            <input type="text" id="linkNewName" placeholder="Es. Gigi Verdi" style="margin-bottom:6px;">
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="confirmLinkNew(${recruiterId},${seq})">CREA E COLLEGA</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+    setTimeout(()=>{ const f=document.getElementById('linkNewName'); if(f) f.focus(); }, 100);
+}
+function confirmLinkNew(recruiterId, seq){
+    const name=document.getElementById('linkNewName').value.trim();
+    if(!name){ snd('error'); toast('Inserisci un nome.','error'); return; }
+    const nc=addClient(recruiterId, seq, name);
+    closeModal();
+    if(nc){
+        const r=database.find(x=>x.id===recruiterId);
+        log('🔗 '+name+' collegato come reclutato di '+(r?r.name:'?')+'.','ok');
+        toast(name+' collegato alla rete!','success');
+    }
+}
+// STEP 3b: collega cliente esistente
+function linkRecruitExisting(recruiterId, seq){
+    const candidates=database.filter(x=>x.id!==recruiterId && !x.recruitedBy);
+    if(!candidates.length){
+        showModal(`<h3>Nessun cliente disponibile</h3><p>Tutti i clienti esistenti sono già collegati a un reclutatore, oppure non ce ne sono altri. Crea un nuovo cliente.</p><div class="modal-btns"><button onclick="linkRecruitNew(${recruiterId},${seq})">+ NUOVO</button><button onclick="closeModal()">CHIUDI</button></div>`);
+        return;
+    }
+    const opts=candidates.map(c=>`<option value="${c.id}">${c.name} (${c.rank})</option>`).join('');
+    showModal(`
+        <h3>🔗 SCEGLI RECLUTATO</h3>
+        <div style="text-align:left;">
+            <label class="label">CLIENTE DA COLLEGARE</label>
+            <select id="linkExistingSel" style="width:100%;background:rgba(0,15,30,0.7);border:1px solid var(--blue);color:var(--cyan);padding:10px;border-radius:3px;font-family:inherit;">${opts}</select>
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="confirmLinkExisting(${recruiterId},${seq})">COLLEGA</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+function confirmLinkExisting(recruiterId, seq){
+    const sel=document.getElementById('linkExistingSel');
+    const cid=parseInt(sel.value);
+    const c=database.find(x=>x.id===cid);
+    const r=database.find(x=>x.id===recruiterId);
+    if(c){
+        c.recruitedBy=recruiterId;
+        c.recruitedVia=seq;
+        snd('success'); closeModal();
+        log('🔗 '+c.name+' collegato come reclutato di '+(r?r.name:'?')+'.','ok');
+        toast(c.name+' collegato alla rete!','success');
+        saveDb(); renderAll();
+    }
+}
+function unredeemClientCode(id,idx){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    const codeObj=c.codes[idx];
+    if(codeObj.status!=='used') return;
+    codeObj.status='pending';
+    c.recruitsRedeemed=Math.max(0,(c.recruitsRedeemed||0)-1);
+    const bonus=bonusForCodeSeq(codeObj.seq);
+    addWalletMovement(c, -bonus, 'Annullato bonus codice #'+codeObj.seq+' ('+codeObj.code+')');
+    snd('click');
+    log('Codice '+codeObj.code+' di '+c.name+' ripristinato. -€'+bonus+' dalla cassa.','warn');
+    saveDb(); renderAll();
+}
+
+// Aggiunge 5 nuovi slot codice (per Mentori che generano altri codici)
+function addCodeSlots(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    const start=c.codes.length;
+    for(let i=0;i<5;i++){ c.codes.push({seq:start+i+1, code:'', status:'empty'}); }
+    snd('click');
+    log('Aggiunti 5 nuovi slot codice per '+c.name+'.');
+    saveDb(); renderAll();
+}
+
+// ============================================================
+// CASSA CLIENTE (wallet + cronologia)
+// ============================================================
+function walletTotals(c){
+    const led=c.ledger||[];
+    let added=0, spent=0;
+    led.forEach(m=>{ if(m.amount>=0) added+=m.amount; else spent+=Math.abs(m.amount); });
+    return { balance:(c.wallet||0), added, spent };
+}
+function openWallet(id){
+    snd('click');
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    const t=walletTotals(c);
+    const led=(c.ledger||[]).slice().reverse();
+    let history='';
+    if(led.length===0){
+        history='<div class="empty" style="padding:14px;">Nessun movimento registrato.</div>';
+    } else {
+        history=led.map(m=>{
+            const d=new Date(m.ts).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+            const pos=m.amount>=0;
+            return `<div class="ledger-row">
+                <span class="ledger-date">${d}</span>
+                <span class="ledger-reason">${m.reason||'—'}</span>
+                <span class="ledger-amt ${pos?'pos':'neg'}">${pos?'+':'−'}€${Math.abs(m.amount)}</span>
+            </div>`;
+        }).join('');
+    }
+    showModal(`
+        <h3>💰 CASSA — ${c.name}</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+            <div class="stat-box" style="padding:10px;"><div class="lab">SALDO</div><div class="val" style="font-size:1.3rem;color:var(--yellow);">€${t.balance}</div></div>
+            <div class="stat-box" style="padding:10px;"><div class="lab">ACCREDITATO</div><div class="val" style="font-size:1.3rem;color:var(--green);">€${t.added}</div></div>
+            <div class="stat-box" style="padding:10px;"><div class="lab">UTILIZZATO</div><div class="val" style="font-size:1.3rem;color:var(--red);">€${t.spent}</div></div>
+        </div>
+        <div style="text-align:left;margin-bottom:12px;">
+            <label class="label">IMPORTO €</label>
+            <input type="number" id="walletAmt" placeholder="Es. 20" style="margin-bottom:6px;">
+            <label class="label">CAUSALE (opzionale)</label>
+            <input type="text" id="walletReason" placeholder="Es. Premio gioco / Sconto tatuaggio" style="margin-bottom:10px;">
+            <div style="display:flex;gap:8px;">
+                <button style="flex:1;border-color:var(--green);color:var(--green);" onclick="walletAdd(${id},1)">+ AGGIUNGI</button>
+                <button style="flex:1;border-color:var(--red);color:var(--red);" onclick="walletAdd(${id},-1)">− UTILIZZA</button>
+            </div>
+        </div>
+        <div class="label" style="text-align:left;margin-bottom:6px;">📜 CRONOLOGIA MOVIMENTI</div>
+        <div class="ledger-list">${history}</div>
+        <div class="modal-btns" style="margin-top:14px;flex-wrap:wrap;">
+            ${led.length?`<button style="border-color:var(--yellow);color:var(--yellow);" onclick="archiveWalletClient(${id})">🗄️ ARCHIVIA E AZZERA</button>`:''}
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+// Archivia (PDF) e azzera la cassa di UN cliente, con doppia conferma
+function archiveWalletClient(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    snd('click');
+    showModal(`
+        <h3>🗄️ ARCHIVIA CASSA — ${c.name}</h3>
+        <p>Verrà generato un <b style="color:var(--cyan);">PDF</b> con tutta la cronologia movimenti di <b>${c.name}</b>, poi la cassa verrà <b style="color:var(--red);">azzerata</b> (saldo e cronologia ripartono da zero).</p>
+        <p style="color:var(--yellow);font-size:0.82rem;">Sei sicuro? Il PDF viene salvato automaticamente prima dell'azzeramento.</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--red);color:var(--red);" onclick="confirmArchiveClient(${id})">SÌ, ARCHIVIA E AZZERA</button>
+            <button onclick="openWallet(${id})">ANNULLA</button>
+        </div>
+    `);
+}
+function confirmArchiveClient(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    // doppia conferma
+    showModal(`
+        <h3>⚠️ CONFERMA FINALE</h3>
+        <p>Ultima conferma: stai per scaricare il PDF e <b style="color:var(--red);">azzerare definitivamente</b> la cassa di <b>${c.name}</b> su questo dispositivo.</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--red);color:var(--red);" onclick="doArchiveClient(${id})">CONFERMA DEFINITIVA</button>
+            <button onclick="openWallet(${id})">ANNULLA</button>
+        </div>
+    `);
+}
+function doArchiveClient(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    generateLedgerPDF([c], 'Cassa_'+c.name.replace(/\s+/g,'_'));
+    // azzera
+    c.ledger=[]; c.wallet=0;
+    snd('success'); closeModal();
+    log('Cassa di '+c.name+' archiviata in PDF e azzerata.','warn');
+    toast('Cassa archiviata e azzerata.','success');
+    saveDb(); renderAll();
+}
+
+// Archivio GLOBALE: PDF di tutte le casse, poi azzera tutto
+function archiveWalletGlobal(){
+    snd('click');
+    const withLedger=database.filter(c=>(c.ledger||[]).length>0);
+    if(!withLedger.length){ toast('Nessun movimento da archiviare.','warn'); return; }
+    showModal(`
+        <h3>🗄️ ARCHIVIO GLOBALE CASSE</h3>
+        <p>Verrà generato un <b style="color:var(--cyan);">PDF unico</b> con la cronologia movimenti di <b>tutti i ${withLedger.length} clienti</b> con transazioni, poi tutte le casse verranno <b style="color:var(--red);">azzerate</b>.</p>
+        <p style="color:var(--yellow);font-size:0.82rem;">Utile per il backup mensile. Sei sicuro?</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--red);color:var(--red);" onclick="confirmArchiveGlobal()">SÌ, ARCHIVIA TUTTO</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+function confirmArchiveGlobal(){
+    showModal(`
+        <h3>⚠️ CONFERMA FINALE</h3>
+        <p>Ultima conferma: scarico il PDF di tutte le casse e <b style="color:var(--red);">azzero tutti i saldi e le cronologie</b> su questo dispositivo.</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--red);color:var(--red);" onclick="doArchiveGlobal()">CONFERMA DEFINITIVA</button>
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+function doArchiveGlobal(){
+    const withLedger=database.filter(c=>(c.ledger||[]).length>0);
+    const today=new Date().toLocaleDateString('it-IT').replace(/\//g,'-');
+    generateLedgerPDF(withLedger, 'Archivio_Casse_'+today);
+    database.forEach(c=>{ c.ledger=[]; c.wallet=0; });
+    snd('success'); closeModal();
+    log('Archivio globale casse generato e tutti i saldi azzerati.','warn');
+    toast('Archivio globale completato.','success');
+    saveDb(); renderAll();
+}
+
+// Genera un PDF della cronologia cassa per uno o più clienti
+function generateLedgerPDF(clients, filename){
+    const PW=1240, PH=1754, MARGIN=80;
+    const pages=[];
+    let canvas=document.createElement('canvas'); canvas.width=PW; canvas.height=PH;
+    let ctx=canvas.getContext('2d'); let y=MARGIN;
+    function bg(){ ctx.fillStyle='#03070d'; ctx.fillRect(0,0,PW,PH); ctx.strokeStyle='#00f3ff'; ctx.lineWidth=4; ctx.strokeRect(20,20,PW-40,PH-40); }
+    function np(){ pages.push(canvas); canvas=document.createElement('canvas'); canvas.width=PW; canvas.height=PH; ctx=canvas.getContext('2d'); bg(); y=MARGIN; }
+    function ensure(s){ if(y+s>PH-MARGIN) np(); }
+    bg();
+    ctx.fillStyle='#00f3ff'; ctx.font='bold 38px monospace'; ctx.textAlign='center';
+    ctx.fillText('ARCHIVIO CASSE — InkAnimus_OS', PW/2, y); y+=42;
+    ctx.fillStyle='#8bb4cb'; ctx.font='20px monospace';
+    ctx.fillText('GemBucher Tattooer · generato il '+new Date().toLocaleString('it-IT'), PW/2, y); y+=20;
+    ctx.textAlign='left'; y+=24;
+    ctx.strokeStyle='#00f3ff'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(MARGIN,y); ctx.lineTo(PW-MARGIN,y); ctx.stroke(); y+=30;
+    clients.forEach(c=>{
+        ensure(90);
+        const t=walletTotals(c);
+        ctx.fillStyle='#ffcc00'; ctx.font='bold 28px monospace';
+        ensure(40); ctx.fillText('▶ '+c.name, MARGIN, y); y+=34;
+        ctx.fillStyle='#8bb4cb'; ctx.font='20px monospace';
+        ctx.fillText('Saldo finale: €'+t.balance+'  ·  Accreditato: €'+t.added+'  ·  Utilizzato: €'+t.spent, MARGIN, y); y+=30;
+        ctx.font='19px monospace';
+        (c.ledger||[]).forEach(m=>{
+            ensure(28);
+            const d=new Date(m.ts).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+            const pos=m.amount>=0;
+            ctx.fillStyle='#8bb4cb'; ctx.fillText(d, MARGIN+10, y);
+            ctx.fillStyle='#e1f4fb';
+            const reason=(m.reason||'—');
+            const rtrim = reason.length>52?reason.slice(0,51)+'…':reason;
+            ctx.fillText(rtrim, MARGIN+220, y);
+            ctx.fillStyle=pos?'#00ff66':'#ff0055'; ctx.textAlign='right';
+            ctx.fillText((pos?'+':'−')+'€'+Math.abs(m.amount), PW-MARGIN, y);
+            ctx.textAlign='left'; y+=27;
+        });
+        y+=20;
+        ensure(20); ctx.strokeStyle='rgba(0,243,255,0.2)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(MARGIN,y); ctx.lineTo(PW-MARGIN,y); ctx.stroke(); y+=20;
+    });
+    pages.push(canvas);
+    gestBuildPDF(pages, filename+'.pdf');
+}
+function gestBuildPDF(canvases, filename){
+    const pageW=595,pageH=842; const enc=new TextEncoder();
+    const chunks=[]; const offsets=[]; let pos=0;
+    function push(d){ const b=(typeof d==='string')?enc.encode(d):d; chunks.push(b); pos+=b.length; }
+    function startObj(n){ offsets[n]=pos; }
+    const n=canvases.length;
+    push('%PDF-1.4\n');
+    startObj(1); push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+    let kids=[]; for(let i=0;i<n;i++) kids.push((3+i*3)+' 0 R');
+    startObj(2); push('2 0 obj\n<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+n+' >>\nendobj\n');
+    for(let i=0;i<n;i++){
+        const cv=canvases[i];
+        const jpeg=cv.toDataURL('image/jpeg',0.85).split(',')[1];
+        const bin=atob(jpeg); const bytes=new Uint8Array(bin.length);
+        for(let k=0;k<bin.length;k++) bytes[k]=bin.charCodeAt(k);
+        const pageObj=3+i*3, contentObj=4+i*3, imgObj=5+i*3;
+        const content='q\n'+pageW+' 0 0 '+pageH+' 0 0 cm\n/Im0 Do\nQ\n';
+        startObj(pageObj); push(pageObj+' 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+pageW+' '+pageH+'] /Resources << /XObject << /Im0 '+imgObj+' 0 R >> >> /Contents '+contentObj+' 0 R >>\nendobj\n');
+        startObj(contentObj); push(contentObj+' 0 obj\n<< /Length '+enc.encode(content).length+' >>\nstream\n'+content+'endstream\nendobj\n');
+        startObj(imgObj); push(imgObj+' 0 obj\n<< /Type /XObject /Subtype /Image /Width '+cv.width+' /Height '+cv.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+bytes.length+' >>\nstream\n');
+        push(bytes); push('\nendstream\nendobj\n');
+    }
+    const xrefPos=pos; const totalObjs=2+n*3;
+    let xref='xref\n0 '+(totalObjs+1)+'\n0000000000 65535 f \n';
+    for(let i=1;i<=totalObjs;i++){ xref+=String(offsets[i]||0).padStart(10,'0')+' 00000 n \n'; }
+    push(xref);
+    push('trailer\n<< /Size '+(totalObjs+1)+' /Root 1 0 R >>\nstartxref\n'+xrefPos+'\n%%EOF');
+    const blob=new Blob(chunks,{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+function walletAdd(id, sign){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    const raw=parseFloat(document.getElementById('walletAmt').value);
+    if(isNaN(raw)||raw<=0){ snd('error'); toast('Inserisci un importo valido.','error'); return; }
+    let reason=document.getElementById('walletReason').value.trim();
+    const amount=sign*Math.abs(raw);
+    if(sign<0){
+        if((c.wallet||0)+amount < 0){ snd('error'); toast('Saldo insufficiente: il cliente ha solo €'+(c.wallet||0),'error'); return; }
+        if(!reason) reason='Sconto/utilizzo in studio';
+    } else {
+        if(!reason) reason='Accredito manuale (premio)';
+    }
+    addWalletMovement(c, amount, reason);
+    snd(sign>0?'success':'click');
+    log(c.name+': '+(sign>0?'+':'−')+'€'+Math.abs(raw)+' in cassa ('+reason+'). Nuovo saldo: €'+c.wallet,'warn');
+    toast((sign>0?'+€':'−€')+Math.abs(raw)+' registrati','success');
+    saveDb();
+    openWallet(id);
+    renderAll();
+}
+
+// ============================================================
+// VERIFICA CODICE (campo ricerca rapida)
+// ============================================================
+function verifyCode(){
+    const input=document.getElementById('codeCheck');
+    const search=input.value.trim().toUpperCase();
+    const res=document.getElementById('checkResult');
+    if(!search){ return; }
+    for(const c of database){
+        for(let i=0;i<c.codes.length;i++){
+            if(c.codes[i].code && c.codes[i].code.toUpperCase()===search){
+                const pw='GEM-'+fibForCode(c.codes[i].seq);
+                if(c.codes[i].status==='used'){
+                    snd('error');
+                    res.style.color='var(--yellow)';
+                    res.innerHTML='⚠ Codice <b>'+search+'</b> già riscattato (cliente: '+c.name+').';
+                    log('Codice '+search+' già riscattato.','warn');
+                    input.value='';
+                    return;
+                } else if(c.codes[i].status==='empty' || !c.codes[i].code){
+                    snd('error');
+                    res.style.color='var(--red)';
+                    res.innerHTML='✗ Codice <b>'+search+'</b> non ancora attivo.';
+                    input.value='';
+                    return;
+                } else {
+                    // RISCATTO EFFETTIVO: aggiorna scheda cliente, cassa, grado e avvia collegamento reclutato
+                    snd('success');
+                    const bonus=bonusForCodeSeq(c.codes[i].seq);
+                    res.style.color='var(--green)';
+                    res.innerHTML='✓ RISCATTATO — Reclutatore: <b>'+c.name+'</b><br>Password da dare al cliente: <b style="color:var(--yellow);">'+pw+'</b><br><span style="color:var(--green);">+€'+bonus+' accreditati in cassa</span>';
+                    input.value='';
+                    // chiama il riscatto vero (spunta il codice nella scheda, aggiorna cassa/grado, chiede collegamento)
+                    redeemClientCode(c.id, i);
+                    return;
+                }
+            }
+        }
+    }
+    snd('error');
+    res.style.color='var(--red)';
+    res.innerHTML='✗ Codice <b>'+search+'</b> non trovato in archivio.';
+    log('Codice '+search+' non trovato.','err');
+    input.value='';
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderAll(){ renderStats(); renderClients(); renderOverview(); renderUpcoming(); renderNetwork(); }
+
+// Navigazione schede
+let _calMonth = new Date().getMonth(), _calYear = new Date().getFullYear();
+function switchTab(tab, btn){
+    snd('click');
+    document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
+    const sec=document.getElementById('tab-'+tab); if(sec) sec.classList.add('active');
+    if(btn) btn.classList.add('active');
+    else { const b=document.querySelector('.main-tab[data-tab="'+tab+'"]'); if(b) b.classList.add('active'); }
+    if(tab==='panoramica') renderOverview();
+    if(tab==='calendario'){ renderCalendar(); renderUpcoming(); }
+    if(tab==='rete') renderNetwork();
+    if(tab==='andamento') renderTrend();
+    if(tab==='bacheca') renderBoard();
+}
+function switchTabBtn(tab){ switchTab(tab, null); }
+
+// PANORAMICA: count-up animato + economia
+function animateCount(el, target){
+    if(!el) return;
+    const start=0, dur=900, t0=performance.now();
+    function step(now){
+        const p=Math.min((now-t0)/dur,1);
+        el.textContent=Math.round(start+(target-start)*(1-Math.pow(1-p,3)));
+        if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+function renderOverview(){
+    const inCura=database.filter(c=>c.tattoos.some(t=>t)&&!c.tattoos.every(t=>t)).length;
+    const now=new Date(); now.setHours(0,0,0,0);
+    const in7=new Date(now); in7.setDate(in7.getDate()+7);
+    const apptCount=database.filter(c=>{
+        if(!c.nextAppt) return false;
+        const d=new Date(c.nextAppt+'T00:00:00');
+        return d>=now && d<=in7;
+    }).length;
+    animateCount(document.getElementById('bsClienti'), database.length);
+    animateCount(document.getElementById('bsCura'), inCura);
+    animateCount(document.getElementById('bsAppt'), apptCount);
+    // economia
+    let erogato=0, speso=0;
+    database.forEach(c=>{
+        c.codes.forEach(cd=>{ if(cd.status==='used') erogato+=bonusForCodeSeq(cd.seq); });
+        (c.ledger||[]).forEach(m=>{ if(m.amount<0) speso+=Math.abs(m.amount); });
+    });
+    const e=document.getElementById('econErogato'); if(e) e.textContent='€ '+erogato;
+    const s=document.getElementById('econSpeso'); if(s) s.textContent='€ '+speso;
+    const cc=document.getElementById('econCircolo'); if(cc) cc.textContent='€ '+(erogato-speso);
+}
+
+// CALENDARIO mensile
+const MESI=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const DOW=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+function calPrevMonth(){ _calMonth--; if(_calMonth<0){_calMonth=11;_calYear--;} renderCalendar(); }
+function calNextMonth(){ _calMonth++; if(_calMonth>11){_calMonth=0;_calYear++;} renderCalendar(); }
+function renderCalendar(){
+    const lbl=document.getElementById('calMonthLabel');
+    if(lbl) lbl.textContent=MESI[_calMonth]+' '+_calYear;
+    const grid=document.getElementById('calGrid');
+    if(!grid) return;
+    // mappa appuntamenti del mese: giorno -> [clienti]
+    const appts={};
+    database.forEach(c=>{
+        if(!c.nextAppt) return;
+        const d=new Date(c.nextAppt+'T00:00:00');
+        if(d.getMonth()===_calMonth && d.getFullYear()===_calYear){
+            const day=d.getDate();
+            (appts[day]=appts[day]||[]).push(c);
+        }
+    });
+    let html=DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+    const first=new Date(_calYear,_calMonth,1);
+    let startDow=(first.getDay()+6)%7; // lun=0
+    const daysInMonth=new Date(_calYear,_calMonth+1,0).getDate();
+    const today=new Date();
+    for(let i=0;i<startDow;i++) html+='<div class="cal-day empty"></div>';
+    for(let day=1;day<=daysInMonth;day++){
+        const isToday=(day===today.getDate()&&_calMonth===today.getMonth()&&_calYear===today.getFullYear());
+        const dayAppts=appts[day];
+        let cls='cal-day'+(isToday?' today':'')+(dayAppts?' has-appt':'');
+        let inner=`<span>${day}</span>`;
+        if(dayAppts){
+            inner+=`<span class="appt-dot"></span>`;
+            if(dayAppts.length>1) inner+=`<span class="appt-cnt">${dayAppts.length}</span>`;
+        }
+        const onclick=dayAppts?` onclick="showDayAppts(${day})"`:'';
+        html+=`<div class="${cls}"${onclick}>${inner}</div>`;
+    }
+    grid.innerHTML=html;
+}
+function showDayAppts(day){
+    snd('click');
+    const list=database.filter(c=>{
+        if(!c.nextAppt) return false;
+        const d=new Date(c.nextAppt+'T00:00:00');
+        return d.getDate()===day&&d.getMonth()===_calMonth&&d.getFullYear()===_calYear;
+    });
+    const items=list.map(c=>`<div class="upcoming-row"><span><b>${c.name}</b>${c.apptNote?' — '+c.apptNote:''}</span><span class="rank-tag ${c.rank.toLowerCase()}">${c.rank.toUpperCase()}</span></div>`).join('');
+    showModal(`<h3>📅 ${day} ${MESI[_calMonth]}</h3><div style="text-align:left;">${items||'<p class="empty">Nessun appuntamento.</p>'}</div><div class="modal-btns"><button onclick="closeModal()">CHIUDI</button></div>`);
+}
+
+// PROSSIMI APPUNTAMENTI (lista cronologica)
+function renderUpcoming(){
+    const box=document.getElementById('upcomingList');
+    if(!box) return;
+    const now=new Date(); now.setHours(0,0,0,0);
+    const list=database.filter(c=>c.nextAppt).map(c=>({c, d:new Date(c.nextAppt+'T00:00:00')}))
+        .filter(x=>x.d>=now).sort((a,b)=>a.d-b.d).slice(0,15);
+    if(!list.length){ box.innerHTML='<p class="empty" style="padding:14px;">Nessun appuntamento in programma. Impostali dalla scheda di ogni cliente.</p>'; return; }
+    box.innerHTML=list.map(({c,d})=>{
+        const diff=Math.round((d-now)/(1000*60*60*24));
+        let when, cls;
+        if(diff===0){ when='OGGI'; cls='today'; }
+        else if(diff===1){ when='domani'; cls='soon'; }
+        else if(diff<=3){ when='tra '+diff+' giorni'; cls='soon'; }
+        else { when='tra '+diff+' giorni'; cls='future'; }
+        const ds=d.toLocaleDateString('it-IT',{day:'2-digit',month:'short'});
+        return `<div class="upcoming-row"><span class="upcoming-date">${ds}</span><span style="flex:1;">${c.name}${c.apptNote?' · '+c.apptNote:''}</span><span class="upcoming-when ${cls}">${when}</span></div>`;
+    }).join('');
+}
+
+// MAPPA RETE — albero genealogico dei reclutamenti
+function renderNetwork(){
+    const box=document.getElementById('networkMap');
+    if(!box) return;
+    // radici = clienti senza reclutatore (capostipiti) che però hanno reclutato qualcuno,
+    // oppure tutti i senza-reclutatore se ci sono legami nel db
+    const hasLinks=database.some(c=>c.recruitedBy);
+    if(!hasLinks){
+        box.innerHTML='<p class="empty" style="padding:20px;">Nessun collegamento ancora. Quando riscatti un codice puoi collegare il reclutato: l\'albero della rete si costruirà qui.</p>';
+        return;
+    }
+    // costruisco la struttura figli
+    const childrenOf={};
+    database.forEach(c=>{
+        if(c.recruitedBy){ (childrenOf[c.recruitedBy]=childrenOf[c.recruitedBy]||[]).push(c); }
+    });
+    // radici: chi non è stato reclutato da nessuno ma ha figli, o capostipiti coinvolti
+    const roots=database.filter(c=>!c.recruitedBy && childrenOf[c.id]);
+
+    // layout ad albero: calcolo posizioni con un semplice walker
+    const NODE_W=120, NODE_H=58, V_GAP=46, H_GAP=20;
+    let leafX=0;
+    const positions={};
+    function layout(node, depth){
+        const kids=childrenOf[node.id]||[];
+        const y=depth*(NODE_H+V_GAP)+30;
+        if(kids.length===0){
+            positions[node.id]={x:leafX*(NODE_W+H_GAP)+NODE_W/2+20, y};
+            leafX++;
+        } else {
+            kids.forEach(k=>layout(k,depth+1));
+            const xs=kids.map(k=>positions[k.id].x);
+            positions[node.id]={x:(Math.min(...xs)+Math.max(...xs))/2, y};
+        }
+    }
+    roots.forEach(r=>layout(r,0));
+
+    const allX=Object.values(positions).map(p=>p.x);
+    const allY=Object.values(positions).map(p=>p.y);
+    const W=Math.max(560, Math.max(...allX)+NODE_W/2+20);
+    const H=Math.max(200, Math.max(...allY)+NODE_H+20);
+
+    let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${Math.min(W,900)}px;">`;
+    // linee
+    database.forEach(c=>{
+        if(c.recruitedBy && positions[c.id] && positions[c.recruitedBy]){
+            const p=positions[c.recruitedBy], k=positions[c.id];
+            svg+=`<path d="M${p.x} ${p.y+NODE_H/2} C${p.x} ${(p.y+k.y)/2}, ${k.x} ${(p.y+k.y)/2}, ${k.x} ${k.y-NODE_H/2}" fill="none" class="net-line"/>`;
+        }
+    });
+    // nodi
+    database.forEach(c=>{
+        const pos=positions[c.id];
+        if(!pos) return;
+        const cls=c.rank==='Mentore'?'net-mentor':c.rank==='Reclutatore'?'net-recruiter':'net-recruit';
+        const used=c.codes.filter(cd=>cd.status==='used').length;
+        svg+=`<g class="net-node">
+            <rect x="${pos.x-NODE_W/2}" y="${pos.y-NODE_H/2}" width="${NODE_W}" height="${NODE_H}" rx="8" class="${cls}"/>
+            <text x="${pos.x}" y="${pos.y-6}" class="net-label" style="font-weight:bold;">${c.name.length>14?c.name.slice(0,13)+'…':c.name}</text>
+            <text x="${pos.x}" y="${pos.y+10}" class="net-label" style="fill:var(--grey);font-size:8px;">${c.rank}${used?' · '+used+'↳':''}</text>
+        </g>`;
+    });
+    svg+=`</svg>`;
+    box.innerHTML=svg;
+}
+
+// ANDAMENTO nel tempo — grafico a barre per mese
+function renderTrend(){
+    const box=document.getElementById('trendChart');
+    if(!box) return;
+    // raggruppo per mese (ultimi 6 mesi)
+    const now=new Date();
+    const months=[];
+    for(let i=5;i>=0;i--){
+        const d=new Date(now.getFullYear(), now.getMonth()-i, 1);
+        months.push({ y:d.getFullYear(), m:d.getMonth(), label:MESI[d.getMonth()].slice(0,3)+' '+String(d.getFullYear()).slice(2), clients:0, healed:0, recruits:0 });
+    }
+    function bucket(ts){
+        const d=new Date(ts);
+        return months.find(mm=>mm.y===d.getFullYear()&&mm.m===d.getMonth());
+    }
+    database.forEach(c=>{
+        const b=bucket(c.createdAt||c.id);
+        if(b) b.clients++;
+        // reclutamenti: codici usati nel mese non sono datati, li attribuisco al mese del cliente (approssimazione)
+        const used=c.codes.filter(cd=>cd.status==='used').length;
+        if(b) b.recruits+=used;
+        const h=c.tattoos.filter(Boolean).length;
+        if(b) b.healed+=h;
+    });
+    const maxV=Math.max(1, ...months.map(mm=>Math.max(mm.clients,mm.healed,mm.recruits)));
+    const W=620, H=260, padL=40, padB=40, padT=20;
+    const bw=(W-padL-20)/months.length;
+    let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:560px;">`;
+    // griglia
+    for(let g=0;g<=4;g++){
+        const gy=padT+(H-padT-padB)*g/4;
+        svg+=`<line x1="${padL}" y1="${gy}" x2="${W-10}" y2="${gy}" stroke="rgba(0,82,255,0.15)" stroke-width="1"/>`;
+        svg+=`<text x="${padL-6}" y="${gy+4}" text-anchor="end" font-size="9" fill="#8bb4cb" font-family="monospace">${Math.round(maxV*(4-g)/4)}</text>`;
+    }
+    months.forEach((mm,i)=>{
+        const x0=padL+i*bw;
+        const bars=[{v:mm.clients,c:'#00f3ff'},{v:mm.healed,c:'#00ff66'},{v:mm.recruits,c:'#ffcc00'}];
+        const sub=bw/3-3;
+        bars.forEach((b,j)=>{
+            const bh=(H-padT-padB)*(b.v/maxV);
+            const bx=x0+j*(sub+1)+4;
+            const by=H-padB-bh;
+            svg+=`<rect x="${bx}" y="${by}" width="${sub}" height="${bh}" fill="${b.c}" opacity="0.85" rx="2"><title>${b.v}</title></rect>`;
+        });
+        svg+=`<text x="${x0+bw/2}" y="${H-padB+16}" text-anchor="middle" font-size="10" fill="#8bb4cb" font-family="monospace">${mm.label}</text>`;
+    });
+    svg+=`</svg>`;
+    // legenda
+    svg+=`<div style="display:flex;gap:16px;justify-content:center;margin-top:10px;font-size:0.74rem;flex-wrap:wrap;">
+        <span style="color:#00f3ff;">■ Nuovi clienti</span>
+        <span style="color:#00ff66;">■ Tatuaggi guariti</span>
+        <span style="color:#ffcc00;">■ Reclutamenti</span>
+    </div>`;
+    box.innerHTML=svg;
+}
+
+// BACHECA NOTE STUDIO (salvata in localStorage separato)
+const BOARD_KEY='inkanimus_board_notes';
+function getBoardNotes(){ try{ return JSON.parse(localStorage.getItem(BOARD_KEY)||'[]'); }catch(e){ return []; } }
+function saveBoardNotes(arr){ try{ localStorage.setItem(BOARD_KEY, JSON.stringify(arr)); }catch(e){} }
+function addBoardNote(){
+    const inp=document.getElementById('boardInput');
+    const txt=inp.value.trim();
+    if(!txt) return;
+    const notes=getBoardNotes();
+    notes.unshift({ id:Date.now(), txt, ts:Date.now(), done:false });
+    saveBoardNotes(notes);
+    inp.value='';
+    snd('success'); renderBoard();
+}
+function toggleBoardNote(id){
+    const notes=getBoardNotes();
+    const n=notes.find(x=>x.id===id);
+    if(n) n.done=!n.done;
+    saveBoardNotes(notes); snd('click'); renderBoard();
+}
+function delBoardNote(id){
+    let notes=getBoardNotes();
+    notes=notes.filter(x=>x.id!==id);
+    saveBoardNotes(notes); snd('click'); renderBoard();
+}
+function renderBoard(){
+    const box=document.getElementById('boardList');
+    if(!box) return;
+    const notes=getBoardNotes();
+    if(!notes.length){ box.innerHTML='<p class="empty" style="padding:14px;">Nessuna nota. Scrivi il tuo primo appunto qui sopra.</p>'; return; }
+    box.innerHTML=notes.map(n=>{
+        const d=new Date(n.ts).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});
+        return `<div class="board-note ${n.done?'done':''}">
+            <span class="board-check" onclick="toggleBoardNote(${n.id})">${n.done?'✓':'○'}</span>
+            <span class="board-txt">${n.txt.replace(/</g,'&lt;')}</span>
+            <span class="board-date">${d}</span>
+            <span class="board-del" onclick="delBoardNote(${n.id})">✕</span>
+        </div>`;
+    }).join('');
+}
+
+function renderStats(){
+    const adepti=database.filter(c=>c.rank==='Adepto').length;
+    const recl=database.filter(c=>c.rank==='Reclutatore').length;
+    const ment=database.filter(c=>c.rank==='Mentore').length;
+    let riscattati=0, totErogato=0;
+    database.forEach(c=>c.codes.forEach(cd=>{ if(cd.status==='used'){ riscattati++; totErogato+=bonusForCodeSeq(cd.seq); } }));
+    document.getElementById('statAdepti').textContent=adepti;
+    document.getElementById('statReclutatori').textContent=recl;
+    document.getElementById('statMentori').textContent=ment;
+    document.getElementById('statTotale').textContent=database.length;
+    document.getElementById('statRiscattati').textContent=riscattati;
+    document.getElementById('statErogati').textContent=totErogato+' €';
+}
+
+// ============================================================
+// STATISTICHE GENERALI (modal con grafici SVG)
+// ============================================================
+function computeStats(){
+    const adepti=database.filter(c=>c.rank==='Adepto').length;
+    const recl=database.filter(c=>c.rank==='Reclutatore').length;
+    const ment=database.filter(c=>c.rank==='Mentore').length;
+    let codesUsed=0, codesPending=0, tattoosHealed=0, tattoosTotal=0, erogato=0, totSpent=0;
+    database.forEach(c=>{
+        c.codes.forEach(cd=>{ if(cd.status==='used'){ codesUsed++; erogato+=bonusForCodeSeq(cd.seq); } else if(cd.status==='pending') codesPending++; });
+        tattoosHealed+=c.tattoos.filter(Boolean).length;
+        tattoosTotal+=c.tattoos.length;
+        (c.ledger||[]).forEach(m=>{ if(m.amount<0) totSpent+=Math.abs(m.amount); });
+    });
+    // top reclutatori per codici riscattati
+    const ranking=[...database].map(c=>({name:c.name, used:c.codes.filter(cd=>cd.status==='used').length}))
+        .filter(x=>x.used>0).sort((a,b)=>b.used-a.used).slice(0,5);
+    // top tatuati per tatuaggi guariti
+    const topTattooed=[...database].map(c=>({name:c.name, healed:c.tattoos.filter(Boolean).length}))
+        .filter(x=>x.healed>0).sort((a,b)=>b.healed-a.healed).slice(0,5);
+    return {adepti,recl,ment,total:database.length,codesUsed,codesPending,tattoosHealed,tattoosTotal,erogato,totSpent,ranking,topTattooed};
+}
+
+// Grafico a ciambella (donut) per i ranghi
+function donutChart(adepti,recl,ment){
+    const total=adepti+recl+ment;
+    if(total===0) return '<div class="empty">Nessun cliente da mostrare.</div>';
+    const data=[{v:adepti,c:'#8bb4cb',l:'Adepti'},{v:recl,c:'#ffcc00',l:'Reclutatori'},{v:ment,c:'#c800ff',l:'Mentori'}];
+    const cx=70,cy=70,r=52,sw=22;
+    const circ=2*Math.PI*r;
+    let offset=0;
+    let segs='';
+    data.forEach(d=>{
+        if(d.v===0) return;
+        const len=(d.v/total)*circ;
+        segs+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.c}" stroke-width="${sw}" stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" style="filter:drop-shadow(0 0 4px ${d.c})"/>`;
+        offset+=len;
+    });
+    let legend=data.map(d=>`<div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;margin:3px 0;"><span style="width:12px;height:12px;background:${d.c};border-radius:2px;display:inline-block;"></span>${d.l}: <b style="color:#fff;">${d.v}</b></div>`).join('');
+    return `<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;">
+        <svg width="140" height="140" viewBox="0 0 140 140">${segs}
+            <text x="70" y="66" text-anchor="middle" fill="#fff" font-size="22" font-family="monospace" font-weight="bold">${total}</text>
+            <text x="70" y="84" text-anchor="middle" fill="#8bb4cb" font-size="9" font-family="monospace">CLIENTI</text>
+        </svg>
+        <div>${legend}</div>
+    </div>`;
+}
+
+// Grafico a barre orizzontali per il ranking reclutatori
+function barChart(ranking){
+    if(ranking.length===0) return '<div class="empty" style="padding:14px;">Ancora nessun reclutamento registrato.</div>';
+    const max=Math.max(...ranking.map(r=>r.used));
+    return ranking.map(r=>{
+        const w=Math.round((r.used/max)*100);
+        return `<div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.76rem;margin-bottom:2px;"><span>${r.name}</span><span style="color:var(--green);font-weight:bold;">${r.used}</span></div>
+            <div style="background:rgba(0,82,255,0.15);border-radius:3px;height:14px;overflow:hidden;"><div style="width:${w}%;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 6px var(--cyan);transition:width .5s;"></div></div>
+        </div>`;
+    }).join('');
+}
+
+// Grafico barre generico (per i top tatuati)
+function barChartGeneric(items, valueKey, color){
+    if(items.length===0) return '<div class="empty" style="padding:14px;">Nessun dato ancora.</div>';
+    const max=Math.max(...items.map(r=>r[valueKey]));
+    return items.map(r=>{
+        const w=Math.round((r[valueKey]/max)*100);
+        return `<div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.76rem;margin-bottom:2px;"><span>${r.name}</span><span style="color:${color};font-weight:bold;">${r[valueKey]}</span></div>
+            <div style="background:rgba(0,82,255,0.15);border-radius:3px;height:14px;overflow:hidden;"><div style="width:${w}%;height:100%;background:linear-gradient(90deg,${color},#fff2);box-shadow:0 0 6px ${color};transition:width .5s;"></div></div>
+        </div>`;
+    }).join('');
+}
+
+function openGeneralStats(){
+    snd('click');
+    const s=computeStats();
+    document.getElementById('modalContent').classList.add('wide');
+    showModal(`
+        <h3>📊 STATISTICHE GENERALI</h3>
+        <div style="text-align:left;max-height:70vh;overflow-y:auto;">
+            <!-- KPI principali -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+                <div class="stat-box" style="padding:10px;"><div class="lab">CLIENTI</div><div class="val" style="font-size:1.3rem;">${s.total}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">BUONI RISCATTATI</div><div class="val" style="font-size:1.3rem;color:var(--green);">${s.codesUsed}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">€ EROGATI (in cassa)</div><div class="val" style="font-size:1.3rem;color:var(--green);">${s.erogato} €</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">€ GIÀ UTILIZZATI</div><div class="val" style="font-size:1.3rem;color:var(--red);">${s.totSpent} €</div></div>
+            </div>
+            <!-- Donut ranghi -->
+            <div class="panel" style="margin-bottom:14px;">
+                <div class="label" style="margin-bottom:10px;">DISTRIBUZIONE RANGHI</div>
+                ${donutChart(s.adepti,s.recl,s.ment)}
+            </div>
+            <!-- Barre tatuaggi -->
+            <div class="panel" style="margin-bottom:14px;">
+                <div class="label" style="margin-bottom:8px;">TATUAGGI GUARITI: ${s.tattoosHealed} / ${s.tattoosTotal}</div>
+                <div style="background:rgba(0,82,255,0.15);border-radius:3px;height:18px;overflow:hidden;">
+                    <div style="width:${s.tattoosTotal?Math.round(s.tattoosHealed/s.tattoosTotal*100):0}%;height:100%;background:linear-gradient(90deg,var(--green),#00ffaa);box-shadow:0 0 6px var(--green);"></div>
+                </div>
+                <div style="font-size:0.72rem;color:var(--grey);margin-top:4px;text-align:right;">${s.tattoosTotal?Math.round(s.tattoosHealed/s.tattoosTotal*100):0}% completati</div>
+            </div>
+            <!-- Top tatuati -->
+            <div class="panel" style="margin-bottom:14px;">
+                <div class="label" style="margin-bottom:10px;">🖋️ TOP TATUATI (per tatuaggi guariti)</div>
+                ${barChartGeneric(s.topTattooed,'healed','var(--cyan)')}
+            </div>
+            <!-- Ranking reclutatori -->
+            <div class="panel">
+                <div class="label" style="margin-bottom:10px;">🏆 TOP RECLUTATORI (per buoni riscattati)</div>
+                ${barChart(s.ranking)}
+            </div>
+        </div>
+        <div class="modal-btns" style="margin-top:14px;">
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+
+function renderClients(){
+    const list=document.getElementById('clientList');
+    if(!list) return;
+    const q=(document.getElementById('searchClient').value||'').trim().toLowerCase();
+    const filterEl=document.getElementById('filterRank');
+    const filter=filterEl?filterEl.value:'';
+    let data=database;
+    if(q){
+        data=data.filter(c=>c.name.toLowerCase().includes(q)||c.codes.some(cd=>cd.code&&cd.code.toLowerCase().includes(q)));
+    }
+    if(filter){
+        if(filter==='incura'){
+            data=data.filter(c=>c.tattoos.some(t=>t)&&!c.tattoos.every(t=>t));
+        } else {
+            data=data.filter(c=>c.rank===filter);
+        }
+    }
+    if(data.length===0){
+        list.innerHTML='<div class="empty">'+(q||filter?'Nessun cliente trovato.':'Nessun cliente ancora. Inseriscine uno dal pannello a sinistra.')+'</div>';
+        return;
+    }
+    const order={Mentore:0,Reclutatore:1,Adepto:2};
+    data=[...data].sort((a,b)=>{
+        if((b.vip?1:0)!==(a.vip?1:0)) return (b.vip?1:0)-(a.vip?1:0); // VIP in cima
+        return order[a.rank]-order[b.rank];
+    });
+    list.innerHTML=data.map(c=>clientCard(c)).join('');
+}
+
+function clientCard(c){
+    const healed=c.tattoos.filter(Boolean).length;
+    const rankClass=c.rank.toLowerCase();
+    // tatuaggi (dinamici: si possono aggiungere oltre i 5)
+    let tats='<div class="label">CARTELLA TATUAGGI</div><div class="tat-row">';
+    for(let i=0;i<c.tattoos.length;i++){
+        tats+=`<div class="tat-chip ${c.tattoos[i]?'healed':''}" onclick="toggleTattoo(${c.id},${i})">TAT ${i+1}${c.tattoos[i]?' ✓':''}</div>`;
+    }
+    tats+=`<div class="tat-chip add" onclick="addTattoo(${c.id})" style="border-style:dashed;color:var(--cyan);">+ AGG.</div>`;
+    tats+='</div>';
+
+    // codici: se tutti vuoti mostro input per inserirli, altrimenti mostro la lista
+    const hasAnyCode=c.codes.some(cd=>cd.code);
+    let codesHtml='';
+    if(!hasAnyCode){
+        codesHtml='<div class="label">INSERISCI I 5 CODICI DELLO SCREENSHOT</div>';
+        for(let i=0;i<5;i++){
+            codesHtml+=`<div class="code-input-row"><span class="num">#${i+1}</span><input type="text" id="code_${c.id}_${i}" placeholder="Codice ${i+1}" value="${c.codes[i].code||''}"></div>`;
+        }
+        codesHtml+=`<button class="full-btn mini-btn" style="margin-top:6px;" onclick="saveCodes(${c.id})">SALVA CODICI</button>`;
+    } else {
+        codesHtml='<div class="label">CODICI REGISTRATI</div>';
+        c.codes.forEach((cd,i)=>{
+            if(!cd.code) return;
+            const pw='GEM-'+fibForCode(cd.seq);
+            codesHtml+=`<div class="code-row">
+                <span class="code-val">#${cd.seq} ${cd.code}</span>
+                <span class="code-pw">pw: ${pw}</span>
+                <span class="badge ${cd.status==='used'?'used':'pending'}">${cd.status==='used'?'RISCATTATO':'IN ATTESA'}</span>
+                ${cd.status==='pending'?`<button class="mini-btn green" onclick="redeemClientCode(${c.id},${i})">RISCATTA</button>`:''}
+                ${cd.status==='used'?`<button class="mini-btn red" onclick="unredeemClientCode(${c.id},${i})">ANNULLA</button>`:''}
+            </div>`;
+        });
+        codesHtml+=`<div style="display:flex;gap:6px;margin-top:8px;">
+            <button class="mini-btn" onclick="editCodes(${c.id})">MODIFICA CODICI</button>
+            ${c.rank==='Mentore'?`<button class="mini-btn" onclick="addCodeSlots(${c.id})">+5 SLOT</button>`:''}
+        </div>`;
+    }
+
+    const codesUsed=c.codes.filter(cd=>cd.status==='used').length;
+
+    // riga "reclutato da"
+    let recruitedLine='';
+    if(c.recruitedBy){
+        const r=database.find(x=>x.id===c.recruitedBy);
+        if(r) recruitedLine=`<div style="font-size:0.72rem;margin-top:4px;color:var(--purple);">🔗 Reclutato da: <b>${r.name}</b>${c.recruitedVia?' (codice #'+c.recruitedVia+')':''}</div>`;
+    }
+
+    // riga appuntamento
+    let apptLine='';
+    if(c.nextAppt){
+        const d=new Date(c.nextAppt+'T00:00:00');
+        const now=new Date(); now.setHours(0,0,0,0);
+        const diff=Math.round((d-now)/(1000*60*60*24));
+        let when = diff<0?'passato':diff===0?'OGGI':diff===1?'domani':'tra '+diff+'gg';
+        const col = diff<0?'var(--grey)':diff<=1?'var(--green)':diff<=3?'var(--yellow)':'var(--cyan)';
+        apptLine=`<div style="font-size:0.74rem;margin-top:4px;">📅 Appuntamento: <b style="color:${col};">${d.toLocaleDateString('it-IT',{day:'2-digit',month:'short'})} (${when})</b>${c.apptNote?' · '+c.apptNote:''}</div>`;
+    }
+
+    return `<div class="client-card rank-${rankClass}${c.vip?' is-vip':''}">
+        <div class="client-head">
+            <span class="client-name">${c.vip?'⭐ ':''}${c.name}</span>
+            <span class="rank-tag ${rankClass}">${c.rank.toUpperCase()}</span>
+        </div>
+        <div class="client-meta">
+            Tatuaggi guariti: <b>${healed}/${c.tattoos.length}</b> &nbsp;·&nbsp; Reclutamenti: <b>${codesUsed}</b> &nbsp;·&nbsp; Cassa: <b style="color:var(--yellow);">€${c.wallet||0}</b>
+        </div>
+        ${recruitedLine}
+        ${apptLine}
+        ${tats}
+        <div class="codes-block">${codesHtml}</div>
+        <div class="card-actions">
+            <button class="mini-btn" style="border-color:${c.vip?'var(--yellow)':'var(--grey)'};color:${c.vip?'var(--yellow)':'var(--grey)'};" onclick="toggleVip(${c.id})">${c.vip?'⭐ VIP':'☆ VIP'}</button>
+            <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="openClientSheet(${c.id})">🗂️ SCHEDA</button>
+            <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="setAppointment(${c.id})">📅 APPUNT.</button>
+            <button class="mini-btn" style="border-color:var(--yellow);color:var(--yellow);" onclick="openWallet(${c.id})">💰 CASSA (€${c.wallet||0})</button>
+            <button class="mini-btn red" onclick="deleteClient(${c.id})">ELIMINA</button>
+        </div>
+    </div>`;
+}
+// Toggle cliente VIP
+function toggleVip(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    c.vip=!c.vip;
+    snd(c.vip?'success':'click');
+    toast(c.vip?c.name+' aggiunto ai VIP ⭐':c.name+' rimosso dai VIP','success');
+    saveDb(); renderClients();
+}
+// Scheda cliente completa (campi ricchi + note)
+function openClientSheet(id){
+    snd('click');
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    showModal(`
+        <h3>🗂️ SCHEDA — ${c.name}</h3>
+        <div style="text-align:left;max-height:65vh;overflow-y:auto;">
+            <label class="label">DATA PRIMO TATUAGGIO</label>
+            <input type="date" id="cs_first" value="${c.firstTattoo||''}" style="margin-bottom:10px;">
+            <label class="label">STILE PREFERITO</label>
+            <input type="text" id="cs_style" value="${(c.style||'').replace(/"/g,'&quot;')}" placeholder="Es. Blackwork, Old School, Realistico..." style="margin-bottom:10px;">
+            <label class="label">⚕️ NOTE MEDICHE / ALLERGIE</label>
+            <textarea id="cs_medical" rows="2" placeholder="Allergie, condizioni della pelle, farmaci..." style="width:100%;margin-bottom:10px;background:rgba(0,15,30,0.7);border:1px solid var(--red);color:var(--text);padding:8px;border-radius:3px;font-family:inherit;resize:vertical;">${c.medical||''}</textarea>
+            <label class="label">🎂 COMPLEANNO</label>
+            <input type="date" id="cs_bday" value="${c.birthday||''}" style="margin-bottom:10px;">
+            <label class="label">📝 NOTE LIBERE</label>
+            <textarea id="cs_free" rows="3" placeholder="Qualsiasi altra cosa su questo cliente..." style="width:100%;margin-bottom:6px;background:rgba(0,15,30,0.7);border:1px solid var(--blue);color:var(--text);padding:8px;border-radius:3px;font-family:inherit;resize:vertical;">${c.freeNote||''}</textarea>
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="saveClientSheet(${id})">SALVA SCHEDA</button>
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+function saveClientSheet(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    c.firstTattoo=document.getElementById('cs_first').value;
+    c.style=document.getElementById('cs_style').value.trim();
+    c.medical=document.getElementById('cs_medical').value.trim();
+    c.birthday=document.getElementById('cs_bday').value;
+    c.freeNote=document.getElementById('cs_free').value.trim();
+    snd('success'); closeModal();
+    log('Scheda di '+c.name+' aggiornata.','ok');
+    toast('Scheda salvata.','success');
+    saveDb();
+}
+
+// Imposta/modifica l'appuntamento di un cliente
+function setAppointment(id){
+    snd('click');
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    showModal(`
+        <h3>📅 APPUNTAMENTO — ${c.name}</h3>
+        <div style="text-align:left;">
+            <label class="label">DATA APPUNTAMENTO</label>
+            <input type="date" id="apptDateInput" value="${c.nextAppt||''}" style="margin-bottom:10px;">
+            <label class="label">NOTA (opzionale, es. "braccio", "ritocco")</label>
+            <input type="text" id="apptNoteInput" value="${(c.apptNote||'').replace(/"/g,'&quot;')}" placeholder="Descrizione breve" style="margin-bottom:6px;">
+        </div>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="saveAppointment(${id})">SALVA</button>
+            ${c.nextAppt?`<button style="border-color:var(--red);color:var(--red);" onclick="clearAppointment(${id})">RIMUOVI</button>`:''}
+            <button onclick="closeModal()">ANNULLA</button>
+        </div>
+    `);
+}
+function saveAppointment(id){
+    const c=database.find(x=>x.id===id);
+    const date=document.getElementById('apptDateInput').value;
+    const note=document.getElementById('apptNoteInput').value.trim();
+    if(!date){ snd('error'); toast('Inserisci una data.','error'); return; }
+    c.nextAppt=date; c.apptNote=note;
+    snd('success'); closeModal();
+    log('Appuntamento per '+c.name+': '+date+(note?' ('+note+')':''),'ok');
+    toast('Appuntamento salvato.','success');
+    saveDb(); renderAll();
+}
+function clearAppointment(id){
+    const c=database.find(x=>x.id===id);
+    c.nextAppt=''; c.apptNote='';
+    snd('click'); closeModal();
+    toast('Appuntamento rimosso.','warn');
+    saveDb(); renderAll();
+}
+
+// Riapre gli input per modificare i codici
+function editCodes(id){
+    const c=database.find(x=>x.id===id);
+    if(!c) return;
+    c.codes.forEach(cd=>{ if(cd.status!=='used') cd.code=cd.code; });
+    // forzo la modalità input azzerando temporaneamente la visualizzazione
+    showModal(`
+        <h3>✎ MODIFICA CODICI — ${c.name}</h3>
+        <div style="text-align:left;">
+        ${c.codes.map((cd,i)=>`<div class="code-input-row"><span class="num">#${cd.seq}</span><input type="text" id="editcode_${id}_${i}" value="${cd.code||''}" placeholder="Codice ${cd.seq}" ${cd.status==='used'?'disabled':''}></div>`).join('')}
+        </div>
+        <p style="font-size:0.7rem;margin-top:8px;">I codici già riscattati non sono modificabili.</p>
+        <div class="modal-btns">
+            <button style="border-color:var(--green);color:var(--green);" onclick="saveEditCodes(${id})">SALVA</button>
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+function saveEditCodes(id){
+    const c=database.find(x=>x.id===id);
+    c.codes.forEach((cd,i)=>{
+        const el=document.getElementById('editcode_'+id+'_'+i);
+        if(el && !el.disabled){
+            const val=el.value.trim().toUpperCase();
+            if(val && cd.code!==val){ cd.code=val; cd.status='pending'; }
+            else if(!val){ cd.code=''; cd.status='empty'; }
+        }
+    });
+    snd('success'); closeModal();
+    log('Codici aggiornati per '+c.name+'.','ok');
+    toast('Codici aggiornati.','success');
+    saveDb(); renderAll();
+}
+
+// Note cliente (cartella clinica)
+function openNotes(id){
+    const c=database.find(x=>x.id===id);
+    showModal(`
+        <h3>📝 NOTE — ${c.name}</h3>
+        <textarea id="notesArea" style="width:100%;height:120px;background:rgba(0,15,30,0.7);border:1px solid var(--blue);color:var(--cyan);padding:10px;font-family:inherit;font-size:0.85rem;border-radius:3px;" placeholder="Annotazioni sul cliente, tatuaggi in corso, preferenze...">${c.notes||''}</textarea>
+        <div class="modal-btns" style="margin-top:14px;">
+            <button style="border-color:var(--green);color:var(--green);" onclick="saveNotes(${id})">SALVA</button>
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
+}
+function saveNotes(id){
+    const c=database.find(x=>x.id===id);
+    c.notes=document.getElementById('notesArea').value;
+    snd('click'); closeModal();
+    toast('Note salvate.','success');
+    saveDb();
+}
+
+// ============================================================
+// EXPORT / IMPORT
+// ============================================================
+function exportData(){
+    if(database.length===0){ toast('Nessun dato da esportare.','warn'); return; }
+    const blob=new Blob([JSON.stringify(database,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='gembucher_clienti_'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    snd('success'); log('Backup esportato.','ok'); toast('Backup scaricato.','success');
+}
+function importData(event){
+    const file=event.target.files[0];
+    if(!file) return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+        try{
+            const data=JSON.parse(e.target.result);
+            if(!Array.isArray(data)) throw new Error('formato');
+            showModal(`
+                <h3>⬆ IMPORTA DATI</h3>
+                <p>Trovati <b style="color:#fff;">${data.length}</b> clienti nel file. Vuoi <b>sostituire</b> l'archivio attuale o <b>unirli</b>?</p>
+                <div class="modal-btns">
+                    <button style="border-color:var(--red);color:var(--red);" onclick='doImport(${JSON.stringify(JSON.stringify(data))},"replace")'>SOSTITUISCI</button>
+                    <button style="border-color:var(--green);color:var(--green);" onclick='doImport(${JSON.stringify(JSON.stringify(data))},"merge")'>UNISCI</button>
+                    <button onclick="closeModal()">ANNULLA</button>
+                </div>
+            `);
+        }catch(err){ snd('error'); toast('File non valido.','error'); }
+    };
+    reader.readAsText(file);
+    event.target.value='';
+}
+function doImport(dataStr,mode){
+    const data=JSON.parse(dataStr);
+    if(mode==='replace'){ database=data; }
+    else {
+        const existingIds=new Set(database.map(c=>c.id));
+        data.forEach(c=>{ if(!existingIds.has(c.id)) database.push(c); });
+    }
+    closeModal(); snd('success');
+    log('Importati '+data.length+' clienti ('+mode+').','ok');
+    toast('Dati importati.','success');
+    saveDb(); renderAll();
+}
+
+// ============================================================
+// SERVICE WORKER
+// ============================================================
+if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

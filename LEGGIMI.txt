@@ -1,0 +1,31 @@
+# 🔐 InkAnimus — SITO GESTIONALE (separato)
+
+Questa cartella contiene SOLO il gestionale amministratore.
+Va caricata come SECONDO SITO su Netlify, separato da quello dei clienti.
+
+## PERCHÉ SEPARATO
+Su Netlify, l'indirizzo "nudo" (https://tuosito.netlify.app/) apre sempre
+il file index.html. In questa cartella index.html È il gestionale, quindi
+aprendo l'indirizzo parte direttamente lui — perfetto per installarlo come app.
+
+## COME CARICARLO (2 minuti)
+1. Vai su https://app.netlify.com  (stesso account di prima, NON serve uno nuovo)
+2. In alto: "Add new site" → "Deploy manually"
+3. Trascina QUESTA cartella (gestionale_site) nel riquadro
+4. Netlify ti dà un nuovo indirizzo, es: https://gembucher-admin.netlify.app
+5. (Consigliato) Site settings → Change site name → es. "gembucher-admin"
+
+## RISULTATO
+- Sito CLIENTI:    https://gembucher.netlify.app          (app + gioco)
+- Sito GESTIONALE: https://gembucher-admin.netlify.app    (solo per te)
+
+Apri l'indirizzo del gestionale sul telefono → "Aggiungi a Home" →
+avrai l'icona della faccia cyber e si aprirà direttamente il gestionale.
+
+## PASSWORD
+SECURITY KEY iniziale: gembucher.admin
+(la cambi dentro l'app col bottone 🔑 PASSWORD)
+
+## DATI
+I dati restano sul dispositivo dove usi il gestionale. Usa il bottone
+BACKUP ogni tanto per scaricarli, e IMPORTA per ricaricarli.
