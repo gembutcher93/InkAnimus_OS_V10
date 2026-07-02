@@ -1,14 +1,31 @@
-# 🌸 Sakura OS — App Cliente (tema rosa) — PWA
+# 🔐 InkAnimus — SITO GESTIONALE (separato)
 
-Versione a tema Sakura dell'app cliente, pronta come PWA installabile.
-Sfondo bordeaux tenue, accenti rosa neon, icona triangolo rosa.
+Questa cartella contiene SOLO il gestionale amministratore.
+Va caricata come SECONDO SITO su Netlify, separato da quello dei clienti.
 
-## COME CARICARLA (come le altre)
-1. app.netlify.com → "Add new site" → "Deploy manually"
-2. Trascina QUESTA cartella (sakura_site)
-3. Ottieni un indirizzo, es: https://gembucher-sakura.netlify.app
+## PERCHÉ SEPARATO
+Su Netlify, l'indirizzo "nudo" (https://tuosito.netlify.app/) apre sempre
+il file index.html. In questa cartella index.html È il gestionale, quindi
+aprendo l'indirizzo parte direttamente lui — perfetto per installarlo come app.
 
-Su smartphone: apri l'indirizzo → "Aggiungi a Home" → icona rosa, schermo intero.
+## COME CARICARLO (2 minuti)
+1. Vai su https://app.netlify.com  (stesso account di prima, NON serve uno nuovo)
+2. In alto: "Add new site" → "Deploy manually"
+3. Trascina QUESTA cartella (gestionale_site) nel riquadro
+4. Netlify ti dà un nuovo indirizzo, es: https://gembucher-admin.netlify.app
+5. (Consigliato) Site settings → Change site name → es. "gembucher-admin"
 
-NOTA: questa è solo l'app cliente in versione rosa. È la stessa app delle altre
-versioni, cambia solo l'aspetto. Funziona in modo identico.
+## RISULTATO
+- Sito CLIENTI:    https://gembucher.netlify.app          (app + gioco)
+- Sito GESTIONALE: https://gembucher-admin.netlify.app    (solo per te)
+
+Apri l'indirizzo del gestionale sul telefono → "Aggiungi a Home" →
+avrai l'icona della faccia cyber e si aprirà direttamente il gestionale.
+
+## PASSWORD
+SECURITY KEY iniziale: gembucher.admin
+(la cambi dentro l'app col bottone 🔑 PASSWORD)
+
+## DATI
+I dati restano sul dispositivo dove usi il gestionale. Usa il bottone
+BACKUP ogni tanto per scaricarli, e IMPORTA per ricaricarli.
