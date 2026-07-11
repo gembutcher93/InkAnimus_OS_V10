@@ -13,7 +13,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="InkAnimus Admin">
 <meta name="mobile-web-app-capable" content="yes">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
     --bg:#03070d; --panel:rgba(4,14,26,0.85); --cyan:#00f3ff; --blue:#0052ff;
@@ -224,6 +225,216 @@ header .sub{font-size:0.74rem;color:var(--grey);margin-top:3px;}
 .net-mentor{fill:rgba(200,0,255,0.15);stroke:var(--purple);stroke-width:2;}
 .net-recruit{fill:rgba(0,243,255,0.12);stroke:var(--cyan);stroke-width:1.5;}
 .net-label{font-size:9px;fill:var(--text);text-anchor:middle;font-family:'Share Tech Mono',monospace;}
+
+/* ===== NEXUS ROYALE ===== */
+.rl-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+.rl-metrics{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+.rl-metric{background:transparent;border:1px solid rgba(0,82,255,0.4);color:var(--grey);padding:7px 10px;font-size:0.7rem;border-radius:4px;}
+.rl-metric:hover{color:var(--cyan);background:transparent;box-shadow:none;}
+.rl-metric.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,243,255,0.08);}
+#royaleSearch{max-width:220px;}
+
+.rl-alert{border:1px solid var(--red);border-radius:5px;padding:12px;margin-bottom:16px;background:rgba(255,0,85,0.06);}
+.rl-alert-h{color:var(--red);font-size:0.8rem;font-weight:bold;letter-spacing:1px;margin-bottom:8px;}
+.rl-alert-row{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:0.76rem;padding:5px 0;border-top:1px solid rgba(255,0,85,0.18);flex-wrap:wrap;}
+.rl-alert-row code{color:var(--yellow);letter-spacing:1px;}
+.rl-alert-row span{color:var(--text);}
+.rl-alert-note{font-size:0.68rem;color:var(--grey);margin-top:8px;}
+
+.rl-podium{display:flex;gap:10px;align-items:flex-end;justify-content:center;margin-bottom:24px;flex-wrap:nowrap;}
+.rl-step{flex:1;max-width:180px;text-align:center;cursor:pointer;border:1px solid rgba(0,82,255,0.4);border-radius:6px 6px 0 0;padding:12px 8px 0;background:rgba(0,15,30,0.4);transition:border-color .2s;}
+.rl-step:hover{border-color:var(--cyan);}
+.rl-medal{font-size:1.5rem;line-height:1;}
+.rl-pname{font-size:0.82rem;color:#fff;margin-top:6px;word-break:break-word;}
+.rl-pval{font-size:1.3rem;font-weight:bold;color:var(--cyan);margin:4px 0 8px;}
+.rl-bar{border-radius:3px 3px 0 0;}
+.rl-p1 .rl-bar{height:64px;background:linear-gradient(180deg,rgba(255,204,0,0.35),transparent);}
+.rl-p1{border-color:var(--yellow);}
+.rl-p1 .rl-pval{color:var(--yellow);text-shadow:0 0 10px rgba(255,204,0,0.5);}
+.rl-p2 .rl-bar{height:42px;background:linear-gradient(180deg,rgba(139,180,203,0.3),transparent);}
+.rl-p3 .rl-bar{height:28px;background:linear-gradient(180deg,rgba(200,0,255,0.25),transparent);}
+
+.rl-tables{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
+.rl-table{border:1px solid rgba(0,82,255,0.35);border-radius:6px;overflow:hidden;}
+.rl-thead{background:rgba(0,243,255,0.07);color:var(--cyan);font-size:0.74rem;letter-spacing:1px;padding:8px 10px;border-bottom:1px solid rgba(0,82,255,0.35);}
+.rl-row{display:grid;grid-template-columns:32px 1fr auto;gap:8px;align-items:center;padding:8px 10px;font-size:0.8rem;border-bottom:1px solid rgba(0,82,255,0.12);cursor:pointer;}
+.rl-row:last-child{border-bottom:none;}
+.rl-row:hover:not(.rl-head){background:rgba(0,243,255,0.05);}
+.rl-row.rl-head{cursor:default;font-size:0.66rem;color:var(--grey);letter-spacing:1px;background:rgba(0,15,30,0.5);}
+.rl-row.rl-head:hover{background:rgba(0,15,30,0.5);}
+.rl-row.flagged{background:rgba(255,0,85,0.07);}
+.rl-pos{color:var(--grey);text-align:center;}
+.rl-name{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rl-val{color:var(--cyan);font-weight:bold;white-space:nowrap;}
+.rl-empty{padding:14px;text-align:center;color:var(--grey);font-size:0.76rem;}
+
+.rl-badge{font-size:0.64rem;padding:1px 5px;border-radius:3px;white-space:nowrap;}
+.rl-badge.err{border:1px solid var(--red);color:var(--red);}
+.rl-badge.warn{border:1px solid var(--yellow);color:var(--yellow);}
+
+.rl-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;}
+.rl-flag{font-size:0.76rem;padding:8px 10px;border-radius:4px;margin-bottom:6px;line-height:1.4;}
+.rl-flag.err{border:1px solid var(--red);color:var(--red);background:rgba(255,0,85,0.06);}
+.rl-flag.warn{border:1px solid var(--yellow);color:var(--yellow);background:rgba(255,204,0,0.05);}
+.rl-flag.ok{border:1px solid var(--green);color:var(--green);background:rgba(0,255,102,0.05);}
+.rl-tidlist{border:1px solid rgba(0,82,255,0.2);border-radius:4px;max-height:180px;overflow-y:auto;}
+.rl-tid{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:7px 10px;border-bottom:1px solid rgba(0,82,255,0.12);font-size:0.74rem;flex-wrap:wrap;}
+.rl-tid:last-child{border-bottom:none;}
+.rl-tid code{color:var(--cyan);letter-spacing:1px;}
+.rl-tid.dupe{background:rgba(255,0,85,0.08);}
+.rl-tid.dupe code{color:var(--red);}
+.rl-tid span{color:var(--yellow);font-size:0.68rem;}
+@media(max-width:600px){.rl-podium{gap:6px;}.rl-pname{font-size:0.72rem;}.rl-pval{font-size:1.05rem;}}
+
+/* =====================================================================
+   ▓▓ SKIN "CYBER PREMIUM" — override finale (2026)
+   Tocca: atmosfera globale, header, tab, scheda PANORAMICA.
+   Le altre schede restano invariate. Nessun ID/classe rimosso.
+   ===================================================================== */
+:root{
+  --ink-cyan:#2fe4ff; --ink-cyan-soft:#7ff0ff; --ink-blue:#2f7bff;
+  --ink-emerald:#34e39b; --ink-amber:#ffc24b; --ink-violet:#b98bff; --ink-rose:#ff6b8a;
+  --ink-text:#eaf4ff; --ink-t2:#9fb3cc; --ink-t3:#61748f;
+  --ink-surface:rgba(16,24,40,.55); --ink-surface2:rgba(22,32,52,.7);
+  --ink-stroke:rgba(120,170,220,.14); --ink-stroke2:rgba(120,190,230,.30);
+  --ink-grad:linear-gradient(135deg,#2fe4ff 0%,#2f7bff 100%);
+  --ink-shadow:0 18px 40px -24px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.04);
+  --ink-display:'Space Grotesk',system-ui,sans-serif;
+  --ink-body:'Inter',system-ui,sans-serif;
+}
+
+/* — Atmosfera: via le scanline aggressive, dentro bagliori + micro-griglia — */
+body{
+  background:
+    radial-gradient(1100px 620px at 12% -8%, rgba(47,123,255,.16), transparent 60%),
+    radial-gradient(900px 560px at 110% 6%, rgba(185,139,255,.10), transparent 55%),
+    radial-gradient(700px 700px at 50% 120%, rgba(47,228,255,.07), transparent 60%),
+    #070b14 !important;
+  background-attachment:fixed;
+}
+body::before{
+  background:
+    linear-gradient(rgba(120,180,230,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,180,230,.035) 1px,transparent 1px) !important;
+  background-size:44px 44px !important;
+  -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+  mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+}
+body::after{ background:none !important; }
+
+/* — HEADER — */
+header{
+  background:linear-gradient(180deg,rgba(10,16,28,.6),rgba(7,11,20,0)) !important;
+  border-bottom:1px solid var(--ink-stroke) !important;
+  padding:18px !important;
+}
+header h1{
+  font-family:var(--ink-display) !important;font-weight:600 !important;letter-spacing:-.01em !important;
+  color:#fff !important;text-shadow:none !important;font-size:1.15rem !important;
+}
+header .sub{font-family:'Share Tech Mono',monospace !important;color:var(--ink-t3) !important;letter-spacing:.05em;}
+.profile-pic,.gest-logo-mini{border-radius:14px !important;border:1px solid var(--ink-stroke2) !important;
+  box-shadow:0 0 22px rgba(47,228,255,.28) !important;}
+.header-btns button{
+  font-family:var(--ink-body) !important;text-transform:none !important;font-weight:500 !important;
+  font-size:.78rem !important;border-radius:10px !important;letter-spacing:0 !important;
+  background:var(--ink-surface) !important;border:1px solid var(--ink-stroke) !important;
+  color:var(--ink-t2) !important;box-shadow:none !important;transition:all .18s ease !important;
+}
+.header-btns button:hover{
+  transform:translateY(-1px);color:var(--ink-text) !important;
+  background:var(--ink-surface2) !important;border-color:var(--ink-stroke2) !important;
+}
+
+/* — TAB BAR: segmented pill — */
+.main-tabs{
+  gap:2px !important;padding:4px !important;margin:14px 18px 0 !important;
+  background:var(--ink-surface) !important;border:1px solid var(--ink-stroke) !important;
+  border-radius:14px !important;backdrop-filter:blur(12px);box-shadow:var(--ink-shadow);
+}
+.main-tab{
+  font-family:var(--ink-body) !important;font-weight:500 !important;font-size:.8rem !important;
+  color:var(--ink-t3) !important;border:none !important;border-radius:10px !important;
+  padding:9px 15px !important;text-transform:none !important;background:transparent !important;
+  transition:all .18s ease !important;box-shadow:none !important;
+}
+.main-tab:hover{color:var(--ink-t2) !important;background:rgba(120,170,220,.06) !important;}
+.main-tab.active{
+  color:#fff !important;
+  background:linear-gradient(180deg,rgba(47,228,255,.16),rgba(47,123,255,.06)) !important;
+  border:none !important;
+  box-shadow:inset 0 0 0 1px var(--ink-stroke2), 0 4px 14px -6px rgba(47,180,255,.5) !important;
+}
+
+/* ============ SCHEDA PANORAMICA — trattamento premium ============ */
+#tab-panoramica{padding:0 18px 8px;}
+#tab-panoramica .overview-hero{
+  background:linear-gradient(135deg,var(--ink-surface2),var(--ink-surface));
+  border:1px solid var(--ink-stroke);border-radius:20px;
+  box-shadow:var(--ink-shadow);position:relative;overflow:hidden;
+  gap:32px;padding:32px;margin:18px 0;
+}
+#tab-panoramica .overview-hero::after{content:"";position:absolute;top:-40%;right:-8%;
+  width:340px;height:340px;background:radial-gradient(circle,rgba(47,228,255,.14),transparent 70%);pointer-events:none;}
+#tab-panoramica .radar-wrap{width:150px;height:150px;}
+#tab-panoramica .radar-ring{stroke:rgba(47,228,255,.18);}
+#tab-panoramica .radar-cross{stroke:rgba(47,228,255,.1);}
+#tab-panoramica .radar-beam{fill:rgba(47,228,255,.14);}
+#tab-panoramica .radar-center{fill:var(--ink-cyan);}
+#tab-panoramica .radar-label{font-family:'Share Tech Mono',monospace;color:var(--ink-cyan-soft);letter-spacing:.1em;}
+#tab-panoramica .big-stat{min-width:120px;}
+#tab-panoramica .bs-num{
+  font-family:var(--ink-display);font-weight:700;font-size:3rem;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;text-shadow:none;
+  background:linear-gradient(180deg,#fff 0%,var(--ink-cyan-soft) 135%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+}
+#tab-panoramica .bs-lab{font-family:'Share Tech Mono',monospace;color:var(--ink-t3);letter-spacing:.09em;}
+
+/* Bento stat grid */
+#tab-panoramica .stats{gap:12px;padding:8px 0 4px;grid-template-columns:repeat(6,1fr);}
+#tab-panoramica .stat-box{
+  position:relative;overflow:hidden;text-align:left;padding:16px;border-radius:14px;
+  background:var(--ink-surface);border:1px solid var(--ink-stroke);
+  transition:transform .2s ease,border-color .2s ease;
+}
+#tab-panoramica .stat-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--ink-grad);opacity:.85;}
+#tab-panoramica .stat-box:hover{transform:translateY(-3px);border-color:var(--ink-stroke2);}
+#tab-panoramica .stat-box .lab{font-family:'Share Tech Mono',monospace;color:var(--ink-t3);letter-spacing:.08em;}
+#tab-panoramica .stat-box .val{
+  font-family:var(--ink-display);font-weight:600;font-size:1.7rem;margin-top:8px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Pannello economico + quick actions */
+#tab-panoramica .panel{
+  background:var(--ink-surface) !important;border:1px solid var(--ink-stroke) !important;
+  border-radius:20px !important;box-shadow:var(--ink-shadow);backdrop-filter:blur(10px);padding:24px !important;
+}
+#tab-panoramica .panel h2{
+  font-family:var(--ink-display);font-weight:600;color:#fff !important;border-bottom:none !important;
+  padding-bottom:0 !important;margin-bottom:14px !important;font-size:1rem;
+}
+#tab-panoramica .econ-row{border-bottom:1px solid var(--ink-stroke);padding:13px 0;font-size:.9rem;}
+#tab-panoramica .econ-row span{color:var(--ink-t2);}
+#tab-panoramica .econ-row b{font-family:var(--ink-display);font-weight:600;font-variant-numeric:tabular-nums;}
+#tab-panoramica .quick-actions .full-btn{
+  font-family:var(--ink-body) !important;font-weight:500 !important;text-transform:none !important;
+  letter-spacing:0 !important;border-radius:14px !important;padding:16px !important;
+  background:var(--ink-surface) !important;border:1px solid var(--ink-stroke) !important;
+  color:var(--ink-text) !important;box-shadow:none !important;transition:all .18s ease !important;
+}
+#tab-panoramica .quick-actions .full-btn:hover{
+  transform:translateY(-2px);background:var(--ink-surface2) !important;border-color:var(--ink-stroke2) !important;
+}
+
+@media(max-width:900px){#tab-panoramica .stats{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:640px){
+  #tab-panoramica .stats{grid-template-columns:repeat(2,1fr);}
+  #tab-panoramica .bs-num{font-size:2.1rem;}
+  #tab-panoramica .overview-hero{padding:20px;gap:18px;}
+}
 </style>
 </head>
 <body>
@@ -296,6 +507,7 @@ header .sub{font-size:0.74rem;color:var(--grey);margin-top:3px;}
         <button class="main-tab" data-tab="calendario" onclick="switchTab('calendario',this)">📅 CALENDARIO</button>
         <button class="main-tab" data-tab="clienti" onclick="switchTab('clienti',this)">👤 CLIENTI</button>
         <button class="main-tab" data-tab="rete" onclick="switchTab('rete',this)">🕸️ RETE</button>
+        <button class="main-tab" data-tab="royale" onclick="switchTab('royale',this)">🎮 ROYALE</button>
         <button class="main-tab" data-tab="andamento" onclick="switchTab('andamento',this)">📈 ANDAMENTO</button>
         <button class="main-tab" data-tab="bacheca" onclick="switchTab('bacheca',this)">📌 BACHECA</button>
         <button class="main-tab" data-tab="cronologia" onclick="switchTab('cronologia',this)">📡 CRONOLOGIA</button>
@@ -404,6 +616,28 @@ header .sub{font-size:0.74rem;color:var(--grey);margin-top:3px;}
             <h2>🕸️ MAPPA DELLA RETE — chi ha reclutato chi</h2>
             <p style="font-size:0.76rem;color:var(--grey);margin-bottom:10px;">Visualizzazione del passaparola dello studio. I nodi gialli/viola sono i reclutatori attivi.</p>
             <div id="networkMap" style="width:100%;overflow-x:auto;"></div>
+        </div>
+    </section>
+
+    <!-- ============ SCHEDA NEXUS ROYALE ============ -->
+    <section class="tab-section" id="tab-royale">
+        <div class="panel" style="margin:18px;">
+            <h2>🎮 CLASSIFICHE NEXUS ROYALE</h2>
+            <p style="font-size:0.76rem;color:var(--grey);margin-bottom:12px;">Dati ricavati dai pacchetti INKSYNC importati. Ogni sinc <b>sovrascrive</b> i contatori del cliente con gli ultimi valori cumulativi del gioco.</p>
+            <div id="royaleConflicts"></div>
+            <div class="rl-controls">
+                <div class="rl-metrics">
+                    <button class="rl-metric active" data-metric="wins"  onclick="royaleSetMetric('wins')">🏆 VITTORIE</button>
+                    <button class="rl-metric" data-metric="kills" onclick="royaleSetMetric('kills')">💀 KILL</button>
+                    <button class="rl-metric" data-metric="cr"    onclick="royaleSetMetric('cr')">💠 CR</button>
+                    <button class="rl-metric" data-metric="best"  onclick="royaleSetMetric('best')">🥇 PIAZZAMENTO</button>
+                </div>
+                <input type="text" id="royaleSearch" placeholder="🔎 Cerca cliente..." oninput="royaleSearchInput(this.value)">
+            </div>
+            <div id="royaleBody">
+                <div id="royalePodium"></div>
+                <div id="royaleTables" class="rl-tables"></div>
+            </div>
         </div>
     </section>
 
@@ -1179,7 +1413,7 @@ function verifyCode(){
 // ============================================================
 // RENDER
 // ============================================================
-function renderAll(){ renderStats(); renderClients(); renderOverview(); renderUpcoming(); renderNetwork(); }
+function renderAll(){ royaleInvalidate(); renderStats(); renderClients(); renderOverview(); renderUpcoming(); renderNetwork(); renderRoyale(); }
 
 // Navigazione schede
 let _calMonth = new Date().getMonth(), _calYear = new Date().getFullYear();
@@ -1193,6 +1427,7 @@ function switchTab(tab, btn){
     if(tab==='panoramica') renderOverview();
     if(tab==='calendario'){ renderCalendar(); renderUpcoming(); }
     if(tab==='rete') renderNetwork();
+    if(tab==='royale') renderRoyale();
     if(tab==='andamento') renderTrend();
     if(tab==='bacheca') renderBoard();
 }
@@ -1724,10 +1959,18 @@ function clientCard(c){
         apptLine=`<div style="font-size:0.74rem;margin-top:4px;">📅 Appuntamento: <b style="color:${col};">${d.toLocaleDateString('it-IT',{day:'2-digit',month:'short'})} (${when})</b>${c.apptNote?' · '+c.apptNote:''}</div>`;
     }
 
+    // badge anomalia Nexus Royale
+    let rlBadge='';
+    if(c.royale){
+        const fc=royaleFlagCount(c);
+        if(fc.err) rlBadge=`<span class="rl-badge err" title="${fc.err} anomalia/e Royale" onclick="openRoyaleSheet(${c.id})" style="cursor:pointer;">⚠ ${fc.err}</span>`;
+        else if(fc.warn) rlBadge=`<span class="rl-badge warn" title="${fc.warn} dato/i da verificare" onclick="openRoyaleSheet(${c.id})" style="cursor:pointer;">⚠ ${fc.warn}</span>`;
+    }
+
     return `<div class="client-card rank-${rankClass}${c.vip?' is-vip':''}">
         <div class="client-head">
             <span class="client-name">${c.vip?'⭐ ':''}${c.name}</span>
-            <span class="rank-tag ${rankClass}">${c.rank.toUpperCase()}</span>
+            <span style="display:flex;gap:6px;align-items:center;">${rlBadge}<span class="rank-tag ${rankClass}">${c.rank.toUpperCase()}</span></span>
         </div>
         <div class="client-meta">
             Tatuaggi guariti: <b>${healed}/${c.tattoos.length}</b> &nbsp;·&nbsp; Reclutamenti: <b>${codesUsed}</b> &nbsp;·&nbsp; Cassa: <b style="color:var(--yellow);">€${c.wallet||0}</b>
@@ -1738,6 +1981,7 @@ function clientCard(c){
         <div class="codes-block">${codesHtml}</div>
         <div class="card-actions">
             <button class="mini-btn" style="border-color:var(--green);color:var(--green);" onclick="openSyncImport(${c.id})">📲 SINC. DATI</button>
+            ${c.royale?`<button class="mini-btn" style="border-color:var(--purple);color:var(--purple);" onclick="openRoyaleSheet(${c.id})">🎮 ROYALE</button>`:''}
             <button class="mini-btn" style="border-color:${c.vip?'var(--yellow)':'var(--grey)'};color:${c.vip?'var(--yellow)':'var(--grey)'};" onclick="toggleVip(${c.id})">${c.vip?'⭐ VIP':'☆ VIP'}</button>
             <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="openClientSheet(${c.id})">🗂️ SCHEDA</button>
             <button class="mini-btn" style="border-color:var(--cyan);color:var(--cyan);" onclick="setAppointment(${c.id})">📅 APPUNT.</button>
@@ -1904,102 +2148,6 @@ function handleSyncData(raw){
         }
     }catch(e){ toast('Codice non leggibile o danneggiato.','error'); return; }
     if(!pkg || pkg.t!=='INKSYNC'){ toast('Questo non è un codice INKSYNC valido.','error'); return; }
-    showSyncCompare(_syncTargetId, pkg);
-}
-
-// ============================================================
-// CONFRONTO PRE-SINCRONIZZAZIONE
-// Mostra fianco a fianco i dati attuali (gestionale) e quelli
-// in arrivo (app cliente). Le differenze sono evidenziate.
-// Il merge avviene SOLO dopo conferma manuale.
-// ============================================================
-let _pendingSyncPkg=null;
-
-function _cmpRow(label, mine, theirs, opts){
-    opts=opts||{};
-    const same = String(mine)===String(theirs);
-    // sospetto: il valore del cliente è "migliore" del mio in campi sensibili
-    const suspicious = opts.numeric && Number(theirs)>Number(mine);
-    const colTheirs = same ? 'var(--grey)' : (suspicious ? 'var(--yellow)' : 'var(--green)');
-    const flag = same ? '' : (suspicious ? ' ⚠️' : ' ●');
-    return `<tr>
-        <td style="padding:4px 6px;font-size:0.7rem;color:var(--grey);white-space:nowrap;">${label}</td>
-        <td style="padding:4px 6px;font-size:0.74rem;text-align:center;">${mine}</td>
-        <td style="padding:4px 6px;font-size:0.74rem;text-align:center;color:${colTheirs};font-weight:${same?'normal':'bold'};">${theirs}${flag}</td>
-    </tr>`;
-}
-
-function showSyncCompare(clientId, pkg){
-    const c=database.find(x=>x.id===clientId);
-    if(!c){ toast('Cliente non trovato.','error'); return; }
-    _pendingSyncPkg=pkg;
-
-    // dati attuali nel gestionale
-    const myHealed=c.tattoos.filter(Boolean).length;
-    const myCodes=(c.codes||[]).filter(cd=>cd.code).map(cd=>'#'+cd.seq+' '+cd.code);
-    const myCity=c.cityProgress||{built:0,levels:0,wonder:false};
-    const myScores=c.gameStats||{};
-
-    // dati in arrivo dal cliente
-    const inCodes=(pkg.codes||[]).map(cd=>'#'+cd.seq+' '+cd.code);
-    const inCity=pkg.city||{built:0,levels:0,wonder:false};
-    const inScores=pkg.scores||{};
-
-    // nome diverso = campanello d'allarme (QR di un altro cliente?)
-    const nameWarn = pkg.name && c.name && pkg.name.toLowerCase()!==c.name.toLowerCase()
-        ? `<div style="background:rgba(255,0,85,0.12);border:1px solid var(--red);border-radius:4px;padding:8px;margin-bottom:10px;font-size:0.76rem;color:var(--red);">⚠️ ATTENZIONE: il pacchetto è a nome "<b>${pkg.name}</b>" ma stai sincronizzando "<b>${c.name}</b>". Verifica di aver scansionato il QR giusto!</div>`
-        : '';
-
-    // codici nuovi (che il cliente dichiara e tu non hai)
-    const newCodes=inCodes.filter(x=>!myCodes.includes(x));
-
-    const gameLabels={tetris:'Tetris',snake:'Snake',arkanoid:'Arkanoid',invaders:'Invaders',tower:'Tower',doodle:'Doodle',bubble:'Bubble',neural:'Neural',impact:'Impact'};
-    let scoreRows='';
-    Object.keys(gameLabels).forEach(k=>{
-        const mv=myScores[k]||0, tv=inScores[k]||0;
-        if(mv||tv) scoreRows+=_cmpRow('🎮 '+gameLabels[k], mv, tv, {numeric:true});
-    });
-
-    showModal(`
-        <h3>🔍 VERIFICA SYNC — ${c.name}</h3>
-        <div style="text-align:left;max-height:62vh;overflow-y:auto;">
-            ${nameWarn}
-            <p style="font-size:0.74rem;color:var(--grey);margin-bottom:8px;">Confronta prima di confermare. <span style="color:var(--yellow);">⚠️ = valore in arrivo superiore al tuo</span> (verifica che sia plausibile), <span style="color:var(--green);">●</span> = differenza normale.</p>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.15);">
-                    <th style="padding:4px 6px;font-size:0.68rem;color:var(--grey);text-align:left;">CAMPO</th>
-                    <th style="padding:4px 6px;font-size:0.68rem;color:var(--cyan);">📋 GESTIONALE (tu)</th>
-                    <th style="padding:4px 6px;font-size:0.68rem;color:var(--green);">📱 APP CLIENTE</th>
-                </tr>
-                ${_cmpRow('Rango', c.rank, pkg.rank||'—')}
-                ${_cmpRow('Tatuaggi guariti', myHealed, pkg.healed!=null?pkg.healed:'—', {numeric:true})}
-                ${_cmpRow('Reclutamenti', (c.codes||[]).filter(cd=>cd.status==='used').length, pkg.recruits!=null?pkg.recruits:'—', {numeric:true})}
-                ${_cmpRow('Crediti CR', c.crBalance!=null?c.crBalance:'—', pkg.cr!=null?pkg.cr:'—', {numeric:true})}
-                ${_cmpRow('Achievement', c.achievementsCount||0, pkg.achievements||0, {numeric:true})}
-                ${_cmpRow('Città: lotti costruiti', myCity.built||0, inCity.built||0, {numeric:true})}
-                ${_cmpRow('Città: livelli totali', myCity.levels||0, inCity.levels||0, {numeric:true})}
-                ${_cmpRow('Città: Meraviglia', myCity.wonder?'SÌ 🗿':'no', inCity.wonder?'SÌ 🗿':'no')}
-                ${scoreRows}
-            </table>
-            <div class="label">CODICI DICHIARATI DAL CLIENTE</div>
-            <div style="font-size:0.74rem;margin-bottom:8px;">
-                ${inCodes.length===0?'<span style="color:var(--grey);">Nessuno</span>':inCodes.map(x=>{
-                    const isNew=newCodes.includes(x);
-                    return `<span style="display:inline-block;margin:2px;padding:2px 8px;border:1px solid ${isNew?'var(--yellow)':'var(--grey)'};border-radius:3px;color:${isNew?'var(--yellow)':'var(--grey)'};">${x}${isNew?' (NUOVO)':''}</span>`;
-                }).join('')}
-            </div>
-            <p style="font-size:0.7rem;color:var(--grey);">Le tue note (mediche, VIP, appuntamenti, cassa €) non verranno toccate in ogni caso.</p>
-        </div>
-        <div class="modal-btns" style="margin-top:12px;">
-            <button style="border-color:var(--green);color:var(--green);" onclick="confirmPendingSync()">✓ CONFERMA E IMPORTA</button>
-            <button style="border-color:var(--red);color:var(--red);" onclick="_pendingSyncPkg=null;closeModal();toast('Sincronizzazione annullata.','error');">✗ ANNULLA</button>
-        </div>
-    `);
-}
-
-function confirmPendingSync(){
-    if(!_pendingSyncPkg){ closeModal(); return; }
-    const pkg=_pendingSyncPkg; _pendingSyncPkg=null;
     mergeSyncIntoClient(_syncTargetId, pkg);
 }
 
@@ -2037,6 +2185,9 @@ function mergeSyncIntoClient(clientId, pkg){
     c.achievementsCount = (typeof pkg.achievements==='number') ? pkg.achievements : (c.achievementsCount||0);
     c.lastSync = Date.now();
 
+    // 3-bis) NEXUS ROYALE — contatori cumulativi, l'ultimo sinc sovrascrive
+    if(pkg.royale) mergeRoyale(c, pkg.royale);
+
     // 4) Se è arrivato lo stato completo, salvo anche i tatuaggi guariti (numero) in modo non distruttivo
     if(typeof pkg.healed==='number'){
         // allineo il numero di tatuaggi guariti senza ridurre quelli che hai già segnato a mano
@@ -2058,6 +2209,12 @@ function mergeSyncIntoClient(clientId, pkg){
     log('📲 Dati sincronizzati per '+c.name+' (rank '+c.rank+', '+(pkg.codes?pkg.codes.length:0)+' codici, città lv '+(c.cityProgress.levels||0)+').','ok');
     toast('Dati di '+c.name+' aggiornati! ✓','success');
     saveDb(); renderAll();
+    // avviso immediato se i dati Royale appena importati sono anomali
+    if(c.royale){
+        const fc=royaleFlagCount(c);
+        if(fc.err){ log('⚠ '+c.name+': '+fc.err+' anomalia/e ROYALE rilevate.','err'); toast('⚠ '+fc.err+' anomalie Royale su '+c.name,'error'); }
+        else if(fc.warn){ log('⚠ '+c.name+': '+fc.warn+' dato/i Royale implausibile/i.','warn'); toast('⚠ Dati Royale da verificare','warn'); }
+    }
 }
 
 // Imposta/modifica l'appuntamento di un cliente
@@ -2199,6 +2356,299 @@ function doImport(dataStr,mode){
     log('Importati '+data.length+' clienti ('+mode+').','ok');
     toast('Dati importati.','success');
     saveDb(); renderAll();
+}
+
+// ============================================================
+// NEXUS ROYALE — classifiche, deduplica TID, anomalie
+// Aggiunta non distruttiva: nessuna funzione esistente viene modificata
+// nel suo comportamento, si aggancia solo a mergeSyncIntoClient/clientCard.
+// ============================================================
+
+// Soglie di plausibilita': tarale sui numeri reali del tuo gioco.
+const ROYALE_LIMITS = {
+    killsPerMatch: 25,   // media kill/partita oltre la quale insospettirsi
+    crPerMatch:   120,   // media CR trasferiti per partita giocata
+    crPerCode:   2000    // media CR per singolo codice NXR2 riscattato
+};
+
+function rlEsc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function rlNum(v){ const n=Number(v); return (isFinite(n)&&n>0)?Math.floor(n):0; }
+
+// tids accetta sia ["ABC","DEF"] sia [{id:"ABC",ts:...,cr:...}] (retrocompatibile)
+function rlNormTids(tids){
+    if(!Array.isArray(tids)) return [];
+    const out=[], seen=new Set();
+    tids.forEach(t=>{
+        let id='';
+        if(t && typeof t==='object') id=String(t.id||t.tid||'');
+        else id=String(t||'');
+        id=id.trim().toUpperCase();
+        if(!id || seen.has(id)) return;
+        seen.add(id); out.push(id);
+    });
+    return out;
+}
+
+// Struttura vuota di default
+function rlEmpty(){ return {matches:0,wins:0,kills:0,best:99,crImported:0,tids:[],regressed:false,lastSync:0}; }
+
+// ---- MERGE: sovrascrittura cumulativa (l'app e' autorevole sui numeri) ----
+function mergeRoyale(c, royale){
+    if(!royale || typeof royale!=='object') return;
+    const prev = c.royale || null;
+
+    const bestRaw = Number(royale.best);
+    const next = {
+        matches:    rlNum(royale.matches),
+        wins:       rlNum(royale.wins),
+        kills:      rlNum(royale.kills),
+        best:       (isFinite(bestRaw) && bestRaw>=1) ? Math.floor(bestRaw) : 99,
+        crImported: rlNum(royale.crImported),
+        tids:       rlNormTids(royale.tids),
+        regressed:  prev ? !!prev.regressed : false,
+        lastSync:   Date.now()
+    };
+
+    // I tid sono prove: unione con quelli gia' noti, non si perdono mai.
+    if(prev && Array.isArray(prev.tids)){
+        const set=new Set(prev.tids.concat(next.tids));
+        next.tids=[...set];
+    }
+
+    // Un contatore cumulativo non puo' scendere: se scende, lo segnalo per sempre.
+    if(prev){
+        if(next.matches<rlNum(prev.matches) || next.wins<rlNum(prev.wins) ||
+           next.kills<rlNum(prev.kills)     || next.crImported<rlNum(prev.crImported)){
+            next.regressed=true;
+        }
+    }
+
+    c.royale = next;
+    royaleInvalidate();
+}
+
+// ---- DEDUPLICA TID tra clienti diversi ----
+// Ritorna Map: tid -> [{id,name}, ...]
+// Cache: renderClients la interroga una volta per card, ricostruirla ogni volta
+// sarebbe O(n^2). Viene invalidata da royaleInvalidate() a ogni renderAll/merge.
+let _rlIdxCache=null;
+function royaleInvalidate(){ _rlIdxCache=null; }
+function royaleTidIndex(){
+    if(_rlIdxCache) return _rlIdxCache;
+    const map=new Map();
+    database.forEach(c=>{
+        if(!c.royale || !Array.isArray(c.royale.tids)) return;
+        c.royale.tids.forEach(t=>{
+            if(!map.has(t)) map.set(t,[]);
+            map.get(t).push({id:c.id, name:c.name});
+        });
+    });
+    _rlIdxCache=map;
+    return map;
+}
+function royaleConflicts(){
+    const idx=royaleTidIndex(), out=[];
+    idx.forEach((owners,tid)=>{ if(owners.length>1) out.push({tid, owners}); });
+    return out.sort((a,b)=>b.owners.length-a.owners.length);
+}
+function royaleDupesFor(c, idx){
+    const out=[];
+    if(!c.royale || !Array.isArray(c.royale.tids)) return out;
+    c.royale.tids.forEach(t=>{
+        const owners=idx.get(t)||[];
+        if(owners.length>1) out.push({tid:t, others:owners.filter(o=>o.id!==c.id).map(o=>o.name)});
+    });
+    return out;
+}
+
+// ---- ANOMALIE ----
+// lvl: 'err' = impossibile / prova di manomissione ; 'warn' = implausibile, da guardare
+function royaleFlags(c, idx){
+    const f=[]; const r=c.royale;
+    if(!r) return f;
+    const m=rlNum(r.matches), w=rlNum(r.wins), k=rlNum(r.kills), cr=rlNum(r.crImported);
+    const best=Number(r.best), tids=Array.isArray(r.tids)?r.tids:[];
+
+    if(w>m)                    f.push({lvl:'err', t:'Vittorie ('+w+') superiori alle partite ('+m+')'});
+    if(m===0 && (w||k||cr))    f.push({lvl:'err', t:'Statistiche presenti con 0 partite giocate'});
+    if(best===1 && w===0)      f.push({lvl:'err', t:'Miglior piazzamento 1° ma nessuna vittoria registrata'});
+    if(isFinite(best) && best<1) f.push({lvl:'err', t:'Piazzamento non valido ('+best+')'});
+    if(cr>0 && tids.length===0)f.push({lvl:'err', t:cr+' CR trasferiti senza alcun codice NXR2 registrato'});
+    if(r.regressed)            f.push({lvl:'err', t:'Contatori diminuiti rispetto a un sinc precedente'});
+
+    if(m>0 && k/m>ROYALE_LIMITS.killsPerMatch)
+        f.push({lvl:'warn', t:'Media '+(k/m).toFixed(1)+' kill/partita (soglia '+ROYALE_LIMITS.killsPerMatch+')'});
+    if(m>0 && cr/m>ROYALE_LIMITS.crPerMatch)
+        f.push({lvl:'warn', t:'Media '+Math.round(cr/m)+' CR/partita (soglia '+ROYALE_LIMITS.crPerMatch+')'});
+    if(tids.length>0 && cr/tids.length>ROYALE_LIMITS.crPerCode)
+        f.push({lvl:'warn', t:'Media '+Math.round(cr/tids.length)+' CR per codice (soglia '+ROYALE_LIMITS.crPerCode+')'});
+
+    royaleDupesFor(c, idx).forEach(d=>{
+        f.push({lvl:'err', t:'Codice '+d.tid+' presente anche in: '+d.others.join(', ')});
+    });
+    return f;
+}
+function royaleFlagCount(c){
+    if(!c.royale) return {err:0, warn:0};
+    const f=royaleFlags(c, royaleTidIndex());
+    return { err:f.filter(x=>x.lvl==='err').length, warn:f.filter(x=>x.lvl==='warn').length };
+}
+
+// ---- CLASSIFICHE ----
+const ROYALE_METRICS={
+    wins:  {label:'VITTORIE',            key:'wins',       icon:'🏆', dir:'desc', fmt:v=>v},
+    kills: {label:'ELIMINAZIONI',        key:'kills',      icon:'💀', dir:'desc', fmt:v=>v},
+    cr:    {label:'CREDITI TRASFERITI',  key:'crImported', icon:'💠', dir:'desc', fmt:v=>v+' CR'},
+    best:  {label:'MIGLIOR PIAZZAMENTO', key:'best',       icon:'🥇', dir:'asc',  fmt:v=>v+'°'}
+};
+let _rlMetric='wins';
+let _rlSearch='';
+
+function royalePlayers(){ return database.filter(c=>c.royale && (rlNum(c.royale.matches)||rlNum(c.royale.crImported)||(c.royale.tids||[]).length)); }
+
+function royaleRank(metricKey){
+    const M=ROYALE_METRICS[metricKey];
+    let rows=royalePlayers().map(c=>({c, v:rlNum(c.royale[M.key])||(M.key==='best'?Number(c.royale.best):0)}));
+    if(M.key==='best') rows=rows.filter(r=>isFinite(r.v) && r.v>=1 && r.v<99);
+    else rows=rows.filter(r=>r.v>0);
+    rows.sort((a,b)=> M.dir==='asc' ? a.v-b.v : b.v-a.v);
+    return rows;
+}
+
+// ---- RENDER ----
+function renderRoyale(){
+    royaleInvalidate();
+    const podium=document.getElementById('royalePodium');
+    const tables=document.getElementById('royaleTables');
+    const conf=document.getElementById('royaleConflicts');
+    if(!podium || !tables) return;
+    if(!royalePlayers().length){
+        if(conf) conf.innerHTML='';
+        podium.innerHTML='<p class="empty" style="padding:24px;">Nessun dato Nexus Royale. Importa un pacchetto INKSYNC con blocco <b>royale</b> tramite 📲 SINC. DATI su un cliente.</p>';
+        tables.innerHTML='';
+        return;
+    }
+    renderRoyaleConflicts();
+    renderRoyalePodium();
+    renderRoyaleTables();
+}
+
+function renderRoyaleConflicts(){
+    const box=document.getElementById('royaleConflicts');
+    if(!box) return;
+    const list=royaleConflicts();
+    if(!list.length){ box.innerHTML=''; return; }
+    box.innerHTML=`<div class="rl-alert">
+        <div class="rl-alert-h">⚠ ${list.length} CODICE${list.length>1?'/I':''} NXR2 CONDIVISO${list.length>1?'/I':''} TRA PIÙ CLIENTI</div>
+        ${list.map(x=>`<div class="rl-alert-row"><code>${rlEsc(x.tid)}</code><span>${x.owners.map(o=>rlEsc(o.name)).join(' · ')}</span></div>`).join('')}
+        <div class="rl-alert-note">Un tid vale una volta sola: se compare in due profili, il codice è stato passato a qualcun altro.</div>
+    </div>`;
+}
+
+function royaleSetMetric(k){
+    if(!ROYALE_METRICS[k]) return;
+    _rlMetric=k; snd('click');
+    document.querySelectorAll('.rl-metric').forEach(b=>b.classList.toggle('active', b.dataset.metric===k));
+    renderRoyalePodium();
+}
+function royaleSearchInput(v){ _rlSearch=(v||'').trim().toLowerCase(); renderRoyaleTables(); }
+
+function renderRoyalePodium(){
+    const box=document.getElementById('royalePodium');
+    if(!box) return;
+    const M=ROYALE_METRICS[_rlMetric];
+    const top=royaleRank(_rlMetric).slice(0,3);
+    if(!top.length){ box.innerHTML='<p class="empty" style="padding:18px;">Nessun dato per «'+M.label+'».</p>'; return; }
+    const order=[1,0,2]; // argento, oro, bronzo
+    const medals=['🥇','🥈','🥉'];
+    box.innerHTML='<div class="rl-podium">'+order.map(i=>{
+        const r=top[i];
+        if(!r) return '<div class="rl-step" style="visibility:hidden;"></div>';
+        const fl=royaleFlagCount(r.c);
+        return `<div class="rl-step rl-p${i+1}" onclick="openRoyaleSheet(${r.c.id})">
+            <div class="rl-medal">${medals[i]}</div>
+            <div class="rl-pname">${rlEsc(r.c.name)}${fl.err?' <span class="rl-badge err">⚠</span>':(fl.warn?' <span class="rl-badge warn">⚠</span>':'')}</div>
+            <div class="rl-pval">${M.fmt(r.v)}</div>
+            <div class="rl-bar"></div>
+        </div>`;
+    }).join('')+'</div>';
+}
+
+function renderRoyaleTables(){
+    const box=document.getElementById('royaleTables');
+    if(!box) return;
+    const idx=royaleTidIndex();
+    box.innerHTML=Object.keys(ROYALE_METRICS).map(k=>{
+        const M=ROYALE_METRICS[k];
+        let rows=royaleRank(k);
+        if(_rlSearch) rows=rows.filter(r=>r.c.name.toLowerCase().includes(_rlSearch));
+        const body = rows.length ? rows.slice(0,20).map((r,i)=>{
+            const f=royaleFlags(r.c, idx);
+            const err=f.some(x=>x.lvl==='err'), warn=f.some(x=>x.lvl==='warn');
+            const mark=err?'<span class="rl-badge err" title="Anomalia">⚠</span>':(warn?'<span class="rl-badge warn" title="Da verificare">⚠</span>':'');
+            return `<div class="rl-row${err?' flagged':''}" onclick="openRoyaleSheet(${r.c.id})">
+                <span class="rl-pos">${i+1}</span>
+                <span class="rl-name">${rlEsc(r.c.name)} ${mark}</span>
+                <span class="rl-val">${M.fmt(r.v)}</span>
+            </div>`;
+        }).join('') : '<div class="rl-empty">—</div>';
+        return `<div class="rl-table">
+            <div class="rl-thead">${M.icon} ${M.label}</div>
+            <div class="rl-row rl-head"><span class="rl-pos">#</span><span class="rl-name">CLIENTE</span><span class="rl-val">${k==='best'?'POS.':'TOT.'}</span></div>
+            ${body}
+        </div>`;
+    }).join('');
+}
+
+// ---- SCHEDA CLIENTE ROYALE ----
+function openRoyaleSheet(id){
+    snd('click');
+    const c=database.find(x=>x.id===id);
+    if(!c || !c.royale){ toast('Nessun dato Royale per questo cliente.','warn'); return; }
+    const r=c.royale;
+    const idx=royaleTidIndex();
+    const flags=royaleFlags(c, idx);
+    const m=rlNum(r.matches), w=rlNum(r.wins), k=rlNum(r.kills), cr=rlNum(r.crImported);
+    const wr = m? Math.round(w/m*100) : 0;
+    const kd = m? (k/m).toFixed(1) : '0.0';
+
+    const flagsHtml = flags.length
+        ? flags.map(f=>`<div class="rl-flag ${f.lvl}">${f.lvl==='err'?'✖':'⚠'} ${rlEsc(f.t)}</div>`).join('')
+        : '<div class="rl-flag ok">✓ Nessuna anomalia rilevata sui dati attuali</div>';
+
+    const tidsHtml = (r.tids||[]).length
+        ? r.tids.map(t=>{
+            const owners=(idx.get(t)||[]).filter(o=>o.id!==c.id);
+            return `<div class="rl-tid${owners.length?' dupe':''}"><code>${rlEsc(t)}</code>${owners.length?'<span>anche: '+owners.map(o=>rlEsc(o.name)).join(', ')+'</span>':''}</div>`;
+        }).join('')
+        : '<div class="rl-empty">Nessun codice NXR2 riscattato.</div>';
+
+    const sync = r.lastSync ? new Date(r.lastSync).toLocaleString('it-IT') : '—';
+
+    document.getElementById('modalContent').classList.add('wide');
+    showModal(`
+        <h3>🎮 NEXUS ROYALE — ${rlEsc(c.name)}</h3>
+        <div style="text-align:left;max-height:68vh;overflow-y:auto;">
+            <div class="rl-kpis">
+                <div class="stat-box" style="padding:10px;"><div class="lab">PARTITE</div><div class="val" style="font-size:1.3rem;">${m}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">VITTORIE</div><div class="val" style="font-size:1.3rem;color:var(--green);">${w}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">ELIMINAZIONI</div><div class="val" style="font-size:1.3rem;color:var(--yellow);">${k}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">MIGLIOR POS.</div><div class="val" style="font-size:1.3rem;color:var(--cyan);">${(isFinite(Number(r.best))&&Number(r.best)<99)?Number(r.best)+'°':'—'}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">WIN RATE</div><div class="val" style="font-size:1.3rem;">${wr}%</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">KILL / PARTITA</div><div class="val" style="font-size:1.3rem;">${kd}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">CR TRASFERITI</div><div class="val" style="font-size:1.3rem;color:var(--purple);">${cr}</div></div>
+                <div class="stat-box" style="padding:10px;"><div class="lab">CODICI NXR2</div><div class="val" style="font-size:1.3rem;">${(r.tids||[]).length}</div></div>
+            </div>
+            <div class="label" style="margin:14px 0 6px;">🛡️ CONTROLLO INTEGRITÀ</div>
+            ${flagsHtml}
+            <div class="label" style="margin:14px 0 6px;">🎫 CODICI RISCATTATI (tid)</div>
+            <div class="rl-tidlist">${tidsHtml}</div>
+            <div style="font-size:0.7rem;color:var(--grey);margin-top:12px;">Ultimo sinc: ${sync} · I dati arrivano dal localStorage del cliente e sono falsificabili: le anomalie sono indizi, non prove.</div>
+        </div>
+        <div class="modal-btns" style="margin-top:14px;">
+            <button onclick="closeModal()">CHIUDI</button>
+        </div>
+    `);
 }
 
 // ============================================================
