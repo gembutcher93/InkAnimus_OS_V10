@@ -1,5 +1,5 @@
 // ===== InkAnimus Gestionale - Service Worker =====
-const CACHE_NAME = 'inkanimus-gestionale-v3';
+const CACHE_NAME = 'inkanimus-gestionale-v1';
 const ASSETS = [
   './',
   './index.html',
