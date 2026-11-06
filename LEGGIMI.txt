@@ -1,31 +1,76 @@
-# 🔐 InkAnimus — SITO GESTIONALE (separato)
+# 🔐 InkAnimus — GESTIONALE DELLO STUDIO (V12)
 
-Questa cartella contiene SOLO il gestionale amministratore.
-Va caricata come SECONDO SITO su Netlify, separato da quello dei clienti.
+Questa cartella contiene SOLO il gestionale amministratore: una pagina unica
+(index.html) che funziona anche offline e si installa come app.
+È un sito separato da quello dei clienti.
 
-## PERCHÉ SEPARATO
-Su Netlify, l'indirizzo "nudo" (https://tuosito.netlify.app/) apre sempre
-il file index.html. In questa cartella index.html È il gestionale, quindi
-aprendo l'indirizzo parte direttamente lui — perfetto per installarlo come app.
+## DOVE STA
+Il gestionale è pubblicato su Vercel.
+- Branch main  = il gestionale vero, quello che usi con i clienti.
+- Branch di prova = un'anteprima con un indirizzo diverso. Le prove si fanno
+  SOLO lì: i dati restano sul dispositivo e sono separati per indirizzo,
+  quindi l'anteprima non tocca l'archivio vero (e viceversa).
 
-## COME CARICARLO (2 minuti)
-1. Vai su https://app.netlify.com  (stesso account di prima, NON serve uno nuovo)
-2. In alto: "Add new site" → "Deploy manually"
-3. Trascina QUESTA cartella (gestionale_site) nel riquadro
-4. Netlify ti dà un nuovo indirizzo, es: https://gembucher-admin.netlify.app
-5. (Consigliato) Site settings → Change site name → es. "gembucher-admin"
+Sul telefono/iPad: apri l'indirizzo del gestionale → "Aggiungi a Home".
 
-## RISULTATO
-- Sito CLIENTI:    https://gembucher.netlify.app          (app + gioco)
-- Sito GESTIONALE: https://gembucher-admin.netlify.app    (solo per te)
-
-Apri l'indirizzo del gestionale sul telefono → "Aggiungi a Home" →
-avrai l'icona della faccia cyber e si aprirà direttamente il gestionale.
-
-## PASSWORD
+## ACCESSO E PROFILO
 SECURITY KEY iniziale: gembucher.admin
-(la cambi dentro l'app col bottone 🔑 PASSWORD)
+Nome operatore, foto e password si cambiano dal bottone ⚙ PROFILO.
+Nello stesso pannello c'è la scelta del TEMPLATE:
+- PREMIUM    (quello di sempre, predefinito)
+- NEXUS '77  (stile dell'app dei clienti; aggiunge la scheda ⛁ SERVER)
+La scelta resta salvata sul dispositivo. Il template cambia solo l'aspetto:
+dati e funzioni sono gli stessi.
 
-## DATI
-I dati restano sul dispositivo dove usi il gestionale. Usa il bottone
-BACKUP ogni tanto per scaricarli, e IMPORTA per ricaricarli.
+## SCHEDE
+◉ PANORAMICA  numeri dello studio, economia, verifica codice (riscatta subito)
+📅 CALENDARIO  appuntamenti del mese e prossimi appuntamenti
+👤 CLIENTI     cartella tatuaggi, codici, cassa, VIP, SCHEDA, appuntamento,
+               📲 SINC. DATI (importa dall'app del cliente: codice INKSYNC
+               incollato o QR con la fotocamera)
+🕸️ RETE        albero dei reclutamenti
+🎮 ROYALE      classifiche Nexus Royale e anomalie (TID condivisi, numeri
+               implausibili)
+📈 ANDAMENTO   nuovi clienti, tatuaggi guariti, reclutamenti per mese
+📌 BACHECA     appunti dello studio
+📡 CRONOLOGIA  terminale con il registro delle operazioni
+⛁ SERVER      (solo Nexus '77) schermate di prova del futuro server:
+               dati DEMO, nessun collegamento reale
+
+## CASSA E ARCHIVIO
+- Ogni cliente ha una cassa in € con la cronologia dei movimenti.
+- "Credito in circolazione" (Panoramica) = somma dei saldi di tutti i clienti.
+- 🗄️ ARCHIVIA CASSE (globale, in Panoramica) e 🗄️ ARCHIVIA CRONOLOGIA
+  (dentro la CASSA del singolo cliente): scaricano
+  un PDF con la cronologia, poi la cronologia riparte da zero. Il SALDO NON
+  SPARISCE: diventa la prima riga "Saldo riportato da archivio del gg/mm/aaaa".
+  Questa riga non conta come accredito né come spesa nei totali.
+- ANNULLA su un codice riscattato è bloccato se il bonus è già stato speso.
+
+## DATI, BACKUP E IMPORTA
+I dati restano sul dispositivo dove usi il gestionale.
+⬇ BACKUP scarica un file .json con tutti i clienti: fallo spesso.
+⬆ IMPORTA ricarica un backup:
+- SOSTITUISCI: l'archivio diventa esattamente il file.
+  Prima chiede conferma e dice quanto credito dei clienti c'è in archivio
+  e quanto nel file che lo rimpiazza.
+- UNISCI: aggiunge i clienti del file.
+  · stesso id e stesso nome → resta quello già in archivio
+  · stesso id ma nome diverso → entra anche quello del file, con un id nuovo
+    (segnalato come conflitto)
+  · id doppi nel file → dal secondo in poi id nuovo
+  · "reclutato da" resta collegato alla persona giusta
+  · nel confronto dei nomi non contano maiuscole, spazi in più e tipo di apostrofo
+    (gli accenti invece contano: Nicolò e Nicolo sono nomi diversi)
+  · unire più volte lo stesso file non crea doppioni
+  Alla fine compare un riepilogo con i numeri veri.
+Se all'apertura compare l'avviso "id doppi in archivio", non eliminare quei
+clienti: le loro schede si confondono tra loro.
+
+Le note della vecchia versione (V7) vengono copiate una volta sola in fondo
+alle "note libere" della SCHEDA, sotto l'intestazione
+"— NOTE DALLA VERSIONE PRECEDENTE (V7) —".
+
+## OFFLINE
+Il gestionale funziona senza rete. Lo scanner QR di SINC. DATI viene
+scaricato la prima volta che lo apri online: offline usa INCOLLA CODICE.
