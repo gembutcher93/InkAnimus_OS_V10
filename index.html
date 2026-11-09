@@ -849,6 +849,82 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
     body.nx-printing #nxPrintCard,body.nx-printing #nxPrintCard *{visibility:visible !important;color:#000 !important;background:#fff !important;}
     body.nx-printing #nxPrintCard{position:absolute;left:0;top:0;width:100%;box-shadow:inset 0 0 0 2px #000;}
 }
+
+/* =====================================================================
+   V13 — SEZIONE SERVER COLLEGATA (Fase B2)
+   Solo regole NUOVE, tutte sotto il prefisso Nexus: le regole sopra non cambiano.
+   ===================================================================== */
+html[data-tpl="nexus"] .nx-statusbar{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--nx-data);font-size:.68rem;letter-spacing:.1em;color:var(--grey);padding:10px 12px;margin-bottom:10px;background:rgba(0,0,0,.35);box-shadow:inset 3px 0 0 var(--cyan),inset 0 0 0 1px var(--nx-hair);}
+html[data-tpl="nexus"] .nx-statusbar b,html[data-tpl="nexus"] .nx-status b{color:var(--grey);}
+html[data-tpl="nexus"] [data-st="ok"]{color:var(--green) !important;}
+html[data-tpl="nexus"] [data-st="warn"]{color:var(--yellow) !important;}
+html[data-tpl="nexus"] [data-st="bad"]{color:var(--red) !important;}
+html[data-tpl="nexus"] .nx-offline{font-family:var(--nx-ui);font-weight:700;font-size:.78rem;letter-spacing:.04em;line-height:1.45;color:#ffd6e0;padding:10px 12px;margin-bottom:10px;background:rgba(255,59,107,.14);box-shadow:inset 4px 0 0 var(--red),inset 0 0 0 1px var(--red);}
+html[data-tpl="nexus"] .nx-offline[hidden]{display:none;}
+html[data-tpl="nexus"] #tab-server button:disabled{opacity:.38;cursor:not-allowed;}
+html[data-tpl="nexus"] .nx-esito[data-state="warn"]{background:rgba(255,204,0,.10);box-shadow:inset 4px 0 0 var(--yellow),inset 0 0 0 1px var(--yellow);}
+html[data-tpl="nexus"] .nx-esito[data-state="warn"] .nx-esito-lab{color:var(--yellow);}
+html[data-tpl="nexus"] .nx-tabcount{display:inline-block;min-width:1.6em;margin-left:6px;padding:1px 5px;font-family:var(--nx-data);font-size:.62rem;text-align:center;color:#1a1400;background:var(--yellow);}
+html[data-tpl="nexus"] .nx-tabcount[data-st="bad"]{color:#fff;background:var(--red);}
+html[data-tpl="nexus"] .nx-tabcount[hidden]{display:none;}
+/* coda della conferma tatuaggio */
+html[data-tpl="nexus"] .nx-coda{margin:4px 0 14px;padding:10px 12px;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px var(--nx-hair2);}
+html[data-tpl="nexus"] .nx-coda-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;font-family:var(--nx-data);font-size:.72rem;letter-spacing:.08em;color:var(--grey);}
+html[data-tpl="nexus"] .nx-coda-head b{font-size:1rem;color:var(--yellow);}
+html[data-tpl="nexus"] .nx-coda-head button{min-height:40px;font-size:.62rem;}
+html[data-tpl="nexus"] .nx-coda-fermo{font-size:.74rem;color:var(--grey);margin-top:6px;}
+html[data-tpl="nexus"] .nx-coda-row{padding:8px 0;border-top:1px solid var(--nx-hair);font-size:.82rem;color:var(--text);margin-top:6px;}
+html[data-tpl="nexus"] .nx-coda-info{float:right;font-family:var(--nx-data);font-size:.66rem;color:var(--yellow);}
+html[data-tpl="nexus"] .nx-coda-row.ko{padding:10px;background:rgba(255,59,107,.08);box-shadow:inset 4px 0 0 var(--red);}
+html[data-tpl="nexus"] .nx-coda-err{font-family:var(--nx-ui);font-weight:700;font-size:.8rem;color:#ffd6e0;margin-bottom:6px;word-break:break-word;}
+/* operazioni dall'esito incerto (riscatto, rettifica, crea) */
+html[data-tpl="nexus"] .nx-incerto{margin:12px 0;padding:12px 14px;background:rgba(255,204,0,.10);box-shadow:inset 4px 0 0 var(--yellow),inset 0 0 0 1px var(--yellow);}
+html[data-tpl="nexus"] .nx-incerto[hidden]{display:none;}
+html[data-tpl="nexus"] .nx-incerto-lab{font-family:var(--nx-data);font-size:.64rem;letter-spacing:.16em;color:var(--yellow);margin-bottom:4px;}
+html[data-tpl="nexus"] .nx-incerto-msg{font-family:var(--nx-ui);font-weight:700;font-size:.92rem;color:var(--text);line-height:1.4;word-break:break-word;}
+html[data-tpl="nexus"] .nx-incerto-nota{font-size:.74rem;color:var(--grey);line-height:1.45;margin:6px 0 4px;}
+/* elenco clienti: numeri e doppioni */
+html[data-tpl="nexus"] .nx-cli-num{font-family:var(--nx-data);font-size:.7rem;color:var(--grey);margin:0 4px 0 8px;}
+html[data-tpl="nexus"] .nx-cli.nx-doppio{box-shadow:inset 4px 0 0 var(--yellow),inset 0 0 0 1px var(--yellow);}
+html[data-tpl="nexus"] .nx-cli-doppio{grid-column:1 / -1;font-family:var(--nx-ui);font-weight:700;font-size:.74rem;color:var(--yellow);line-height:1.4;}
+/* card di chiusura: 85,6 × 54 mm anche a schermo */
+html[data-tpl="nexus"] .nx-ccard-foglio{margin:12px 0;}
+html[data-tpl="nexus"] .nx-ccard{position:relative;box-sizing:border-box;width:85.6mm;height:54mm;max-width:100%;padding:4.5mm 4.5mm 3mm;overflow:hidden;
+    background:#03070d;color:#e1f4fb;border:1.2mm solid #03070d;outline:.5mm solid #00f3ff;outline-offset:-1.7mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+html[data-tpl="nexus"] .nx-cc-top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--nx-data);font-size:5.5pt;letter-spacing:.06em;color:#8bb4cb;}
+html[data-tpl="nexus"] .nx-cc-ruolo{font-family:var(--nx-ui);font-weight:700;font-size:6pt;color:#ffcc00;letter-spacing:.1em;}
+html[data-tpl="nexus"] .nx-cc-nome{font-family:var(--nx-ui);font-weight:700;font-size:11pt;line-height:1.15;margin-top:2.2mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html[data-tpl="nexus"] .nx-cc-cod{font-family:var(--nx-data);font-size:8.5pt;color:#00f3ff;letter-spacing:.04em;margin-top:.8mm;}
+html[data-tpl="nexus"] .nx-cc-mid{display:flex;justify-content:space-between;gap:3mm;margin-top:2.2mm;}
+html[data-tpl="nexus"] .nx-cc-euro i,html[data-tpl="nexus"] .nx-cc-stat i{display:block;font-style:normal;font-family:var(--nx-data);font-size:4.5pt;color:#8bb4cb;letter-spacing:.06em;}
+html[data-tpl="nexus"] .nx-cc-euro b{display:block;font-family:var(--nx-ui);font-size:15pt;color:#ffcc00;line-height:1.1;}
+html[data-tpl="nexus"] .nx-cc-stat{width:33mm;}
+html[data-tpl="nexus"] .nx-cc-stat div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.15mm solid rgba(0,243,255,.25);}
+html[data-tpl="nexus"] .nx-cc-stat b{font-family:var(--nx-data);font-size:5.5pt;color:#e1f4fb;}
+html[data-tpl="nexus"] .nx-cc-date{font-family:var(--nx-data);font-size:4.6pt;color:#e1f4fb;margin-top:2mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html[data-tpl="nexus"] .nx-cc-foot{font-family:var(--nx-data);font-size:3.8pt;color:#8bb4cb;letter-spacing:.04em;margin-top:1mm;white-space:nowrap;overflow:hidden;}
+html[data-tpl="nexus"] .nx-cc-tg,html[data-tpl="nexus"] .nx-cc-istr{display:none;}
+/* stampa: un elemento scelto (codice operatore) oppure il foglio A4 della card */
+@media print{
+    html[data-tpl="nexus"] body.nx-print-sel *,html[data-tpl="nexus"] body.nx-print-ccard *{visibility:hidden !important;}
+    html[data-tpl="nexus"] body.nx-print-sel .nx-da-stampare,html[data-tpl="nexus"] body.nx-print-sel .nx-da-stampare *{visibility:visible !important;color:#000 !important;background:#fff !important;}
+    html[data-tpl="nexus"] body.nx-print-sel .nx-da-stampare{position:absolute;left:0;top:0;width:100%;box-shadow:inset 0 0 0 2px #000;}
+    html[data-tpl="nexus"] body.nx-print-ccard #nxCardFoglio,html[data-tpl="nexus"] body.nx-print-ccard #nxCardFoglio *{visibility:visible !important;}
+    html[data-tpl="nexus"] body.nx-print-ccard #nxCardFoglio{position:absolute;left:0;top:0;width:180mm;height:120mm;margin:0;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-ccard{position:absolute;left:12mm;top:12mm;max-width:none;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg{display:block;position:absolute;border:0 solid #000;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg[class*="-h"]{width:7mm;height:0;border-top-width:.2mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg[class*="-v"]{width:0;height:7mm;border-left-width:.2mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.tl-h{left:3mm;top:12mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.tl-v{left:12mm;top:3mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.tr-h{left:99.6mm;top:12mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.tr-v{left:97.6mm;top:3mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.bl-h{left:3mm;top:66mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.bl-v{left:12mm;top:68mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.br-h{left:99.6mm;top:66mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.br-v{left:97.6mm;top:68mm;}
+    html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-istr{display:block;position:absolute;left:12mm;top:80mm;width:150mm;font:9pt sans-serif;color:#333 !important;}
+}
 </style>
 </head>
 <body>
@@ -1086,10 +1162,15 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
         </div>
     </section>
 
-    <!-- ============ SCHEDA SERVER (V11 — solo Nexus '77, GUSCI B1: nessuna chiamata di rete) ============ -->
+    <!-- ============ SCHEDA SERVER (V13 — solo Nexus '77, collegata a Supabase: Fase B2) ============ -->
     <section class="tab-section nx-only" id="tab-server">
         <div class="nx-server">
-            <div class="nx-banner">⚠ GUSCIO NON COLLEGATO · NESSUNA CHIAMATA DI RETE · i dati marcati <span class="nx-demo">DEMO</span> sono finti</div>
+            <div class="nx-statusbar" id="nxBar">
+                <span>SERVER: <b id="nxBarStato" data-st="off">NON CONNESSO</b></span>
+                <span id="nxBarEmail"></span>
+                <span>CODA TATUAGGI: <b id="nxBarCoda">0</b></span>
+            </div>
+            <div class="nx-offline" id="nxOffline" hidden>⚠ SENZA RETE — funziona solo CONFERMA TATUAGGIO: va in coda e parte da sola quando torna la rete. Tutte le altre operazioni sono disattivate (in studio senza Wi-Fi: hotspot del telefono).</div>
             <nav class="nx-subnav">
                 <button class="nx-sub on" data-pane="accesso" onclick="nxGo('accesso')">ACCESSO</button>
                 <button class="nx-sub" data-pane="clienti" onclick="nxGo('clienti')">CLIENTI</button>
@@ -1104,25 +1185,35 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
             <!-- ACCESSO TITOLARE -->
             <div class="nx-pane panel on" id="nx-accesso">
                 <h2>ACCESSO TITOLARE</h2>
-                <div class="nx-status">SERVER: <b>NON CONNESSO</b></div>
-                <div class="nx-fields">
-                    <div class="form-group"><label class="label" for="nxEmail">EMAIL</label><input type="email" id="nxEmail" autocomplete="username" placeholder="nome@esempio.it"></div>
-                    <div class="form-group"><label class="label" for="nxPw">PASSWORD</label><input type="password" id="nxPw" autocomplete="current-password"></div>
+                <div class="nx-status" id="nxAccStato">SERVER: <b>NON CONNESSO</b></div>
+                <div id="nxAccForm">
+                    <div class="nx-fields">
+                        <div class="form-group"><label class="label" for="nxEmail">EMAIL</label><input type="email" id="nxEmail" autocomplete="username" placeholder="nome@esempio.it"></div>
+                        <div class="form-group"><label class="label" for="nxPw">PASSWORD</label><input type="password" id="nxPw" autocomplete="current-password" onkeyup="if(event.key==='Enter')nxLogin()"></div>
+                    </div>
+                    <button class="full-btn nx-go nx-netonly" id="nxLoginBtn" onclick="nxLogin()">ACCEDI AL SERVER</button>
                 </div>
-                <button class="full-btn nx-go" onclick="nxLogin()">ACCEDI AL SERVER</button>
+                <div id="nxAccDentro" hidden>
+                    <p class="nx-note" id="nxAccInfo"></p>
+                    <button class="full-btn" style="color:var(--red);" onclick="nxArm(this,nxLogout)">⏻ ESCI DAL SERVER</button>
+                </div>
                 <div class="nx-esito-slot"></div>
             </div>
 
             <!-- ELENCO CLIENTI -->
             <div class="nx-pane panel" id="nx-clienti">
-                <h2>ELENCO CLIENTI <span class="nx-req">RICHIEDE FUNZIONE SERVER NUOVA</span></h2>
+                <h2>ELENCO CLIENTI</h2>
                 <div class="nx-inline">
-                    <input type="text" id="nxCliQ" placeholder="🔎 Cerca per nome o codice..." oninput="nxRenderClienti()">
+                    <input type="text" id="nxCliQ" placeholder="🔎 Cerca per nome o codice..." oninput="nxCercaDopo()">
+                    <button class="nx-go nx-netonly" onclick="nxCaricaClienti()">⟳ CARICA</button>
                 </div>
                 <div class="nx-seg" id="nxCliSeg">
                     <button class="on" data-v="tutti" onclick="nxCliFilter('tutti')">TUTTI</button>
-                    <button data-v="verifica" onclick="nxCliFilter('verifica')">DA VERIFICARE</button>
+                    <button data-v="da_verificare" onclick="nxCliFilter('da_verificare')">DA VERIFICARE</button>
+                    <button data-v="bloccati" onclick="nxCliFilter('bloccati')">BLOCCATI</button>
+                    <button data-v="chiusi_con_credito" onclick="nxCliFilter('chiusi_con_credito')">CHIUSI CON CREDITO</button>
                 </div>
+                <p class="nx-note" id="nxCliNota"></p>
                 <div class="nx-esito-slot"></div>
                 <div id="nxCliList" class="nx-cli-list"></div>
             </div>
@@ -1132,8 +1223,9 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                 <h2>SCHEDA CLIENTE</h2>
                 <div class="nx-inline">
                     <input type="text" id="nxSchedaCod" placeholder="CODICE CLIENTE (INK-…)" autocapitalize="characters" onkeyup="if(event.key==='Enter')nxCarica()">
-                    <button class="nx-go" onclick="nxCarica()">CARICA</button>
+                    <button class="nx-go nx-netonly" onclick="nxCarica()">CARICA</button>
                 </div>
+                <div class="nx-incerto" id="nxIncRet" hidden></div>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxSchedaOut" hidden>
                     <div class="nx-kv">
@@ -1146,15 +1238,55 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                         <div class="nx-k">SALDO CR</div><div class="nx-v nx-mono nx-cr" data-f="cr"></div>
                         <div class="nx-k">PRIVILEGI</div><div class="nx-v" data-f="priv"></div>
                         <div class="nx-k">VERIFICATO</div><div class="nx-v" data-f="ver"></div>
-                        <div class="nx-k">BLOCCATO <span class="nx-req">RICHIEDE FUNZIONE SERVER NUOVA</span></div><div class="nx-v" data-f="blocc"></div>
+                        <div class="nx-k">STATO</div><div class="nx-v" data-f="stato"></div>
+                        <div class="nx-k">MIGRATO</div><div class="nx-v" data-f="migr"></div>
+                        <div class="nx-k">CLIENTE DAL</div><div class="nx-v nx-mono" data-f="dal"></div>
                     </div>
                     <div class="nx-actions">
-                        <button style="color:var(--green);" onclick="nxArm(this,nxVerifica)">✓ SEGNA COME VERIFICATO</button>
-                        <button style="color:var(--red);" id="nxBloccaBtn" onclick="nxArm(this,nxBlocca)">⛔ BLOCCA</button>
-                        <button style="color:var(--yellow);" onclick="nxArm(this,nxRigenera)">⟳ RIGENERA CODICE</button>
+                        <button class="nx-netonly" style="color:var(--green);" id="nxVerBtn" onclick="nxArm(this,nxVerifica)">✓ SEGNA COME VERIFICATO</button>
+                        <button class="nx-netonly" style="color:var(--red);" id="nxBloccaBtn" onclick="nxArm(this,nxBlocca)">⛔ BLOCCA</button>
+                        <button class="nx-netonly" style="color:var(--yellow);" id="nxRigBtn" onclick="nxArm(this,nxRigenera)">⟳ RIGENERA CODICE</button>
                     </div>
-                    <p class="nx-note">Rigenera codice: il vecchio codice smette di valere e tutti i telefoni collegati vengono scollegati. Blocca: revoca le sessioni attive.</p>
-                    <h3 class="nx-h3">ESTRATTO CONTO <span class="nx-req">RICHIEDE FUNZIONE SERVER NUOVA</span></h3>
+                    <p class="nx-note">Rigenera codice: il vecchio codice smette di valere e tutti i telefoni collegati vengono scollegati. Blocca: revoca le sessioni attive. Un doppione di migrazione non si verifica MAI: si azzera con una rettifica motivata e si blocca.</p>
+                    <div class="nx-out" id="nxRigOut" hidden>
+                        <div class="nx-codecard" id="nxRigCard">
+                            <div class="nx-codecard-top">INKANIMUS · NUOVO CODICE OPERATORE</div>
+                            <div class="nx-codecard-nome" data-f="nome"></div>
+                            <div class="nx-codebox" data-f="codice"></div>
+                            <div class="nx-codecard-foot">Il codice precedente non vale più. Conserva questo codice: serve per collegare l'app al tuo profilo. Non condividerlo.</div>
+                        </div>
+                        <div class="nx-actions">
+                            <button style="color:var(--cyan);" onclick="nxCopia('nxRigCard')">⧉ COPIA CODICE</button>
+                            <button style="color:var(--green);" onclick="nxStampaEl('nxRigCard')">⎙ STAMPA</button>
+                        </div>
+                    </div>
+
+                    <h3 class="nx-h3">RETTIFICA EURO</h3>
+                    <div class="nx-fields">
+                        <div class="form-group"><label class="label" for="nxRetImp">IMPORTO IN EURO</label><input type="text" id="nxRetImp" inputmode="decimal" autocomplete="off" placeholder="Es. 12,50"></div>
+                        <div class="form-group"><label class="label" for="nxRetNota">MOTIVO (obbligatorio)</label><input type="text" id="nxRetNota" placeholder="Es. confronto con la cassa del gestionale"></div>
+                    </div>
+                    <div class="nx-actions">
+                        <button class="nx-netonly" style="color:var(--green);" id="nxRetPiu" onclick="nxArm(this,()=>nxRettifica(1))">+ AGGIUNGI AL SALDO</button>
+                        <button class="nx-netonly" style="color:var(--red);" id="nxRetMeno" onclick="nxArm(this,()=>nxRettifica(-1))">− TOGLI DAL SALDO</button>
+                    </div>
+
+                    <h3 class="nx-h3">CHIUSURA PROFILO</h3>
+                    <div class="nx-actions">
+                        <button class="nx-netonly" style="color:var(--purple);" id="nxChiudiBtn" onclick="nxArm(this,()=>nxChiudi(false))">⏏ CHIUDI PROFILO</button>
+                        <button class="nx-netonly" style="color:var(--purple);" id="nxRistampaBtn" onclick="nxChiudi(true)" hidden>⎙ RISTAMPA CARD</button>
+                    </div>
+                    <p class="nx-note" id="nxChiudiNota">Chiudi profilo: il cliente lascia il programma col suo buono. Il profilo viene bloccato e riceve la card di chiusura da stampare. Se torna: SBLOCCA e il suo codice riapre tutto.</p>
+                    <div class="nx-out" id="nxCardOut" hidden>
+                        <div class="nx-ccard-foglio" id="nxCardFoglio"></div>
+                        <div class="nx-actions">
+                            <button style="color:var(--green);" onclick="nxStampaCard()">⎙ STAMPA (A4, GRANDEZZA REALE)</button>
+                            <button style="color:var(--cyan);" onclick="nxCardPdf()">⇪ PDF · CONDIVIDI</button>
+                        </div>
+                        <p class="nx-note">Stampa al 100% (senza "adatta alla pagina"): la card esce di 85,6 × 54 mm, da ritagliare lungo i segni.</p>
+                    </div>
+
+                    <h3 class="nx-h3">ESTRATTO CONTO</h3>
                     <div class="nx-seg" id="nxLedSeg">
                         <button class="on" data-v="euro" onclick="nxLedger('euro')">EURO</button>
                         <button data-v="cr" onclick="nxLedger('cr')">CR</button>
@@ -1168,39 +1300,47 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                 <h2>CREA CLIENTE</h2>
                 <div class="form-group"><label class="label" for="nxCreaNome">NOME</label><input type="text" id="nxCreaNome" placeholder="Es. Mario Rossi"></div>
                 <div class="form-group"><label class="label" for="nxCreaNote">NOTE (opzionale)</label><textarea id="nxCreaNote" rows="3" placeholder="Annotazioni sul cliente"></textarea></div>
-                <p class="nx-note">Un reclutato NON si crea qui: si registra da RECLUTAMENTO (il server lo rimanda lì).</p>
-                <button class="full-btn nx-go" style="color:var(--purple);" onclick="nxCrea()">+ CREA CLIENTE</button>
+                <p class="nx-note">Un reclutato NON si crea qui: si registra da RECLUTAMENTO.</p>
+                <button class="full-btn nx-go nx-netonly" style="color:var(--purple);" id="nxCreaBtn" onclick="nxCrea()">+ CREA CLIENTE</button>
+                <div class="nx-incerto" id="nxIncCrea" hidden></div>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxCreaOut" hidden>
                     <div class="nx-codecard" id="nxPrintCard">
-                        <div class="nx-codecard-top">INKANIMUS · CODICE OPERATORE <span class="nx-demo">DEMO</span></div>
-                        <div class="nx-codecard-nome" id="nxNewNome"></div>
-                        <div class="nx-codebox" id="nxNewCode"></div>
+                        <div class="nx-codecard-top">INKANIMUS · CODICE OPERATORE</div>
+                        <div class="nx-codecard-nome" data-f="nome"></div>
+                        <div class="nx-codebox" data-f="codice"></div>
                         <div class="nx-codecard-foot">Conserva questo codice: serve per collegare l'app al tuo profilo. Non condividerlo.</div>
                     </div>
                     <div class="nx-actions">
-                        <button style="color:var(--cyan);" onclick="nxCopia()">⧉ COPIA CODICE</button>
-                        <button style="color:var(--green);" onclick="nxStampa()">⎙ STAMPA</button>
+                        <button style="color:var(--cyan);" onclick="nxCopia('nxPrintCard')">⧉ COPIA CODICE</button>
+                        <button style="color:var(--green);" onclick="nxStampaEl('nxPrintCard')">⎙ STAMPA</button>
                     </div>
                 </div>
             </div>
 
-            <!-- CONFERMA TATUAGGIO -->
+            <!-- CONFERMA TATUAGGIO (l'unica con coda offline) -->
             <div class="nx-pane panel" id="nx-tatuaggio">
                 <h2>CONFERMA TATUAGGIO</h2>
+                <div class="nx-coda" id="nxCodaBox">
+                    <div class="nx-coda-head">
+                        <span>CODA: <b id="nxCodaN">0</b> in attesa · <b id="nxCodaKo">0</b> da sistemare</span>
+                        <button class="nx-netonly" onclick="nxSvuotaCoda('manuale')">⟳ INVIA ORA</button>
+                    </div>
+                    <div class="nx-coda-fermo" id="nxCodaFermo"></div>
+                    <div id="nxCodaList"></div>
+                </div>
                 <div class="nx-fields">
                     <div class="form-group"><label class="label" for="nxTatCod">CODICE CLIENTE</label><input type="text" id="nxTatCod" placeholder="INK-…" autocapitalize="characters"></div>
                     <div class="form-group"><label class="label" for="nxTatData">DATA DEL LAVORO</label><input type="date" id="nxTatData" class="nx-date-max"></div>
                 </div>
                 <div class="form-group"><label class="label" for="nxTatNome">NOME DEL TATUAGGIO (opzionale)</label><input type="text" id="nxTatNome" placeholder="Es. Drago avambraccio"></div>
-                <button class="full-btn nx-go" style="color:var(--green);" onclick="nxTatuaggio()">✓ CONFERMA TATUAGGIO</button>
+                <p class="nx-note">Funziona anche senza rete: la conferma va in coda, resta salvata anche se chiudi l'app, e parte da sola quando torna la rete.</p>
+                <button class="full-btn nx-go" style="color:var(--green);" id="nxTatBtn" onclick="nxTatuaggio()">✓ CONFERMA TATUAGGIO</button>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxTatOut" hidden>
-                    <div class="nx-big"><span class="nx-big-num" id="nxTatTot">0</span><span class="nx-big-lab">TATUAGGI CONFERMATI <span class="nx-demo">DEMO</span></span></div>
-                    <div class="nx-bar"><i id="nxTatBar"></i></div>
-                    <div class="nx-bar-lab" id="nxTatBarLab"></div>
-                    <div class="nx-unlock" id="nxTatUnlock" hidden>★ RUOLO RECLUTATORE SBLOCCATO ★<small>Il cliente ora può generare i codici invito.</small></div>
-                    <p class="nx-note">Soglia DEMO = 5. In B2 la soglia arriva dal server (config): non è scritta nel gestionale.</p>
+                    <div class="nx-big"><span class="nx-big-num" id="nxTatTot">0</span><span class="nx-big-lab">TATUAGGI CONFERMATI</span></div>
+                    <div class="nx-bar-lab" id="nxTatChi"></div>
+                    <div class="nx-unlock" id="nxTatUnlock" hidden></div>
                 </div>
             </div>
 
@@ -1217,13 +1357,25 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                     <button data-v="si" onclick="nxYN(true)">SÌ, CREA IL PROFILO</button>
                     <button data-v="no" onclick="nxYN(false)">NO</button>
                 </div>
-                <button class="full-btn nx-go" style="color:var(--green);" onclick="nxReclut()">REGISTRA RECLUTAMENTO</button>
+                <button class="full-btn nx-go nx-netonly" style="color:var(--green);" id="nxRecBtn" onclick="nxReclut()">REGISTRA RECLUTAMENTO</button>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxRecOut" hidden>
                     <div class="nx-kv">
                         <div class="nx-k">POSIZIONE</div><div class="nx-v nx-mono" id="nxRecPos"></div>
-                        <div class="nx-k">EURO ACCREDITATI</div><div class="nx-v nx-mono nx-euro" id="nxRecEur"></div>
+                        <div class="nx-k">EURO ACCREDITATI AL RECLUTATORE</div><div class="nx-v nx-mono nx-euro" id="nxRecEur"></div>
                         <div class="nx-k">CODICE NUOVO CLIENTE</div><div class="nx-v nx-mono" id="nxRecCod"></div>
+                    </div>
+                    <div id="nxRecCardBox" hidden>
+                        <div class="nx-codecard" id="nxRecCard">
+                            <div class="nx-codecard-top">INKANIMUS · CODICE OPERATORE</div>
+                            <div class="nx-codecard-nome" data-f="nome"></div>
+                            <div class="nx-codebox" data-f="codice"></div>
+                            <div class="nx-codecard-foot">Conserva questo codice: serve per collegare l'app al tuo profilo. Non condividerlo.</div>
+                        </div>
+                        <div class="nx-actions">
+                            <button style="color:var(--cyan);" onclick="nxCopia('nxRecCard')">⧉ COPIA CODICE</button>
+                            <button style="color:var(--green);" onclick="nxStampaEl('nxRecCard')">⎙ STAMPA</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1237,7 +1389,7 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                     <div class="form-group"><label class="label" for="nxStoNome">NOME DEL RECLUTATO</label><input type="text" id="nxStoNome"></div>
                     <div class="form-group"><label class="label" for="nxStoData">DATA DEL TATUAGGIO</label><input type="date" id="nxStoData" class="nx-date-max"></div>
                 </div>
-                <button class="full-btn nx-go" onclick="nxStorico()">REGISTRA STORICO</button>
+                <button class="full-btn nx-go nx-netonly" id="nxStoBtn" onclick="nxStorico()">REGISTRA STORICO</button>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxStoOut" hidden>
                     <div class="nx-kv"><div class="nx-k">POSIZIONE</div><div class="nx-v nx-mono" id="nxStoPos"></div></div>
@@ -1249,11 +1401,11 @@ html[data-tpl="nexus"] #cs_medical{box-shadow:inset 0 0 0 1px var(--red);}
                 <h2>RISCATTO SCONTO</h2>
                 <div class="nx-fields">
                     <div class="form-group"><label class="label" for="nxRisCod">CODICE CLIENTE</label><input type="text" id="nxRisCod" placeholder="INK-…" autocapitalize="characters"></div>
-                    <div class="form-group"><label class="label" for="nxRisImp">IMPORTO IN EURO</label><input type="number" id="nxRisImp" min="0.01" step="0.01" inputmode="decimal" placeholder="Es. 20,00"></div>
+                    <div class="form-group"><label class="label" for="nxRisImp">IMPORTO IN EURO</label><input type="text" id="nxRisImp" inputmode="decimal" autocomplete="off" placeholder="Es. 20,00"></div>
                 </div>
                 <div class="form-group"><label class="label" for="nxRisNota">NOTA (opzionale)</label><input type="text" id="nxRisNota" placeholder="Es. Sconto tatuaggio braccio"></div>
-                <p class="nx-note">Il server ragiona in centesimi: la conversione si fa in B2.</p>
-                <button class="full-btn nx-go" style="color:var(--yellow);" onclick="nxArm(this,nxRiscatto)">€ RISCATTA</button>
+                <button class="full-btn nx-go nx-netonly" style="color:var(--yellow);" id="nxRisBtn" onclick="nxArm(this,nxRiscatto)">€ RISCATTA</button>
+                <div class="nx-incerto" id="nxIncRis" hidden></div>
                 <div class="nx-esito-slot"></div>
                 <div class="nx-out" id="nxRisOut" hidden>
                     <div class="nx-kv">
@@ -3398,9 +3550,9 @@ if('serviceWorker' in navigator){
 </script>
 <script>
 // ============================================================
-// V11 — TEMPLATE (Premium / Nexus '77) + GUSCI SERVER (Fase B1)
+// V11 — TEMPLATE (Premium / Nexus '77) + V13 — SEZIONE SERVER (Fase B2)
 // Aggiunto in coda: lo script sopra è quello di V10, identico.
-// Qui niente rete e niente Supabase: i gusci mostrano solo dati DEMO.
+// La sezione SERVER chiama Supabase con fetch (niente librerie): vedi sotto.
 // ============================================================
 const TPL_KEY='inkanimus_admin_tpl';
 function setTpl(t){
@@ -3427,36 +3579,115 @@ function openSettings(){
     box.insertBefore(blk, box.querySelector('.modal-btns'));
 }
 
-// ---------- GUSCI SERVER ----------
-const NX_SOGLIA_DEMO=5; // DEMO: in B2 la soglia arriva dal server (config)
-const NX_DEMO=[
-    {codice:'INK-DEMO-AAAA-0001',nome:"Demo D'Angelo",ruolo:'mentore',tat:9,recl:6,euro:70,cr:12400,priv:['sconto_5 (DEMO)'],ver:true,blocc:false,
-     mov:{euro:[['2026-09-02','Buono quinto reclutato',50],['2026-10-01','Reclutato da mentore',20],['2026-10-15','Sconto tatuaggio',-20],['2026-10-20','Reclutato da mentore',20]],
-          cr:[['2026-10-20','Cura giornaliera',300],['2026-10-21','Minigioco',120],['2026-10-22','Acquisto tema',-400]]}},
-    {codice:'INK-DEMO-BBBB-0002',nome:"Prova L'Abbate",ruolo:'reclutatore',tat:5,recl:2,euro:25,cr:3100,priv:[],ver:false,blocc:false,
-     mov:{euro:[['2026-10-26','Migrazione (congelati fino a verifica)',25]],cr:[['2026-10-26','Migrazione',3100]]}},
-    {codice:'INK-DEMO-CCCC-0003',nome:'Finto Rossi',ruolo:'adepto',tat:2,recl:0,euro:0,cr:450,priv:[],ver:true,blocc:true,
-     mov:{euro:[],cr:[['2026-10-24','Cura giornaliera',450]]}},
-    {codice:'INK-DEMO-DDDD-0004',nome:"Esempio Dell'Orto",ruolo:'adepto',tat:4,recl:0,euro:10,cr:900,priv:[],ver:false,blocc:false,
-     mov:{euro:[['2026-10-26','Migrazione (congelati fino a verifica)',10]],cr:[['2026-10-26','Migrazione',900]]}}
-];
-const NX_ERR={
-    accesso:'credenziali non valide (testo esatto: lo decide il login del server, B2)',
-    clienti:'non autorizzato',
-    scheda:'operatore inesistente',
-    crea:'nome obbligatorio',
-    tatuaggio:'data non valida',
-    reclutamento:'codice invito gia usato',
-    storico:'operatore inesistente',
-    riscatto:'profilo da verificare prima di riscattare'
-};
-let nxCur=null, nxLedKind='euro', nxCliF='tutti', nxApp=null;
+// ---------- SERVER (V13 — Fase B2): Supabase chiamato con fetch, niente librerie ----------
+// URL e chiave pubblica (anon) sono quelli di InkConsent: stesso progetto Supabase.
+// Login, sessione e rinnovo del token riprendono il modello di InkConsent
+// (validStudioAccessToken), con tre differenze volute:
+//  - un solo rinnovo alla volta (Supabase cambia il refresh token a ogni rinnovo);
+//  - "rete assente" e "sessione morta" sono due casi diversi (la coda ne ha bisogno);
+//  - l'uscita usa scope=local: senza, Supabase chiuderebbe anche InkConsent.
+// Il contratto delle funzioni è 04-funzioni-gestionale.sql, PARTE 1.
+const NX_SB={url:'https://nkrlazlhfmrsuvtcwcar.supabase.co',anon:'sb_publishable_AhutvN8OevP9kVWSzD5Nlw_uKHKbR1C'};
+const NX_SES_KEY='inkanimus_admin_sessione';       // {email, access_token, refresh_token, expires_at, titolare} oppure {email, scaduta:true}
+const NX_CODA_KEY='inkanimus_admin_coda_tatuaggi'; // [{id_evento, codice, data_lavoro, nome, creato_il, stato:'attesa'|'da_sistemare', errore, tentativi, ultimo_tentativo, ruolo_prima}]
+const NX_INC_KEY='inkanimus_admin_incerti';        // operazioni dall'esito incerto: {riscatto, rettifica, crea, reclut}
+const NX_TIMEOUT=15000;
+
 const nx$=id=>document.getElementById(id);
 const nxEsc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nxEur=n=>'€ '+Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
-const nxRand=()=>{ const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<4;i++) s+=a[Math.floor(Math.random()*a.length)]; return s; };
+const nxCent=c=>nxEur((Number(c)||0)/100);
 function nxToday(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function nxData(ts){ const d=new Date(ts); return !ts||isNaN(d)?'—':d.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function nxDataOra(ts){ const d=new Date(ts); return !ts||isNaN(d)?'—':d.toLocaleString('it-IT',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}); }
+function nxLS(k,def){ try{ const v=JSON.parse(localStorage.getItem(k)); return v==null?def:v; }catch(e){ return def; } }
+function nxLSset(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ toast('Memoria del browser non scrivibile: '+e.message,'error'); return false; } }
+function nxUuid(){
+    if(window.crypto&&crypto.randomUUID) return crypto.randomUUID();
+    const b=crypto.getRandomValues(new Uint8Array(16)); b[6]=(b[6]&15)|64; b[8]=(b[8]&63)|128;
+    const h=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');
+    return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
+}
+// confronto dei nomi per i doppioni (come UNISCI): maiuscole, spazi e apostrofi non contano
+function nxNomeNorm(s){ return String(s==null?'':s).trim().replace(/\s+/g,' ').toLowerCase().replace(/[’‘`´]/g,"'"); }
+const nxCodice=s=>String(s||'').trim().toUpperCase();
+// i messaggi del server si mostrano così come sono; unica eccezione: "disponibili N centesimi" → euro
+function nxMsg(m){ return String(m==null?'':m).replace(/disponibili (-?\d+) centesimi/,(_,n)=>'disponibili '+nxCent(n)); }
+// euro scritti a mano ("12,50", "12.5", "€ 20") → centesimi interi; null se non valido
+function nxParseEuro(s){
+    const t=String(s||'').replace(/€/g,'').replace(/\s/g,'').replace(',','.');
+    if(!/^\d+(\.\d{1,2})?$/.test(t)) return null;
+    const c=Math.round(parseFloat(t)*100);
+    return c>0?c:null;
+}
 
+// ---------- rete ----------
+function nxErrore(tipo,msg,extra){ return Object.assign({nx:true,tipo,msg},extra||{}); }
+async function nxFetch(url,opt){
+    const ac=new AbortController(); const t=setTimeout(()=>ac.abort(),NX_TIMEOUT);
+    try{ return await fetch(url,Object.assign({},opt,{signal:ac.signal})); }
+    catch(e){ throw nxErrore('rete',e&&e.name==='AbortError'?'il server non ha risposto entro '+(NX_TIMEOUT/1000)+' secondi':'rete assente o server irraggiungibile'); }
+    finally{ clearTimeout(t); }
+}
+const nxSes=()=>nxLS(NX_SES_KEY,null);
+const nxSesSalva=s=>nxLSset(NX_SES_KEY,s);
+async function nxAuthPost(path,body,token){
+    const h={'Content-Type':'application/json',apikey:NX_SB.anon};
+    if(token) h.Authorization='Bearer '+token;
+    const r=await nxFetch(NX_SB.url+'/auth/v1/'+path,{method:'POST',headers:h,body:JSON.stringify(body||{})});
+    let d={}; try{ d=await r.json(); }catch(e){}
+    return {r,d:d||{}};
+}
+const nxDaRisposta=d=>({access_token:d.access_token,refresh_token:d.refresh_token,expires_at:Date.now()+(Number(d.expires_in)||3600)*1000});
+let nxRinnovoInCorso=null;
+function nxRinnova(){
+    if(nxRinnovoInCorso) return nxRinnovoInCorso;
+    nxRinnovoInCorso=(async()=>{
+        const s=nxSes();
+        if(!s||!s.refresh_token) throw nxErrore('sessione',s&&s.scaduta?'sessione scaduta: accedi di nuovo':'non hai fatto l\'accesso al server');
+        const usato=s.refresh_token;
+        const {r,d}=await nxAuthPost('token?grant_type=refresh_token',{refresh_token:usato});
+        const ora=nxSes();
+        if(r.ok){
+            if(!ora||ora.refresh_token!==usato) throw nxErrore('sessione','sei uscito dal server');
+            const n=Object.assign({},ora,nxDaRisposta(d)); nxSesSalva(n); return n.access_token;
+        }
+        if(r.status>=500) throw nxErrore('rete','server di accesso non disponibile (HTTP '+r.status+')');
+        // un'altra scheda aperta può averlo appena rinnovato
+        if(ora&&ora.refresh_token!==usato&&ora.access_token&&ora.expires_at>Date.now()+30000) return ora.access_token;
+        if(ora) nxSesSalva({email:ora.email,scaduta:true});
+        nxRenderStato();
+        throw nxErrore('sessione','sessione scaduta: accedi di nuovo ('+(d.error_description||d.msg||d.error||('HTTP '+r.status))+')');
+    })();
+    nxRinnovoInCorso.then(()=>{ nxRinnovoInCorso=null; },()=>{ nxRinnovoInCorso=null; });
+    return nxRinnovoInCorso;
+}
+async function nxToken(forza){
+    const s=nxSes();
+    if(!s||!s.refresh_token) throw nxErrore('sessione',s&&s.scaduta?'sessione scaduta: accedi di nuovo':'non hai fatto l\'accesso al server');
+    if(!forza&&s.access_token&&s.expires_at&&Date.now()<s.expires_at-30000) return s.access_token;
+    return nxRinnova();
+}
+function nxSegnaTitolare(v){ const s=nxSes(); if(s&&s.access_token&&s.titolare!==v){ s.titolare=v; nxSesSalva(s); } nxRenderStato(); }
+// Una chiamata. Errori: {tipo:'server'|'rete'|'sessione'|'nontitolare', msg}
+async function nxRpc(fn,body,_rinnovato){
+    const tok=await nxToken(!!_rinnovato);
+    const r=await nxFetch(NX_SB.url+'/rest/v1/rpc/'+fn,{method:'POST',
+        headers:{'Content-Type':'application/json',apikey:NX_SB.anon,Authorization:'Bearer '+tok},body:JSON.stringify(body||{})});
+    let txt='';
+    try{ txt=await r.text(); }catch(e){ throw nxErrore('rete','risposta del server interrotta'); }
+    let d=null; try{ d=txt?JSON.parse(txt):null; }catch(e){ d=null; }
+    if(r.ok){ nxSegnaTitolare(true); return d; }
+    const msg=(d&&(d.message||d.msg||d.error_description||d.error))||('errore HTTP '+r.status);
+    const code=(d&&d.code)||'';
+    if(r.status===401&&/^PGRST30/.test(code)&&!_rinnovato) return nxRpc(fn,body,true); // token scaduto o non valido: rinnova e riprova una volta
+    if(msg==='non autorizzato'){ nxSegnaTitolare(false); throw nxErrore('nontitolare',msg); }
+    if(r.status===401) throw nxErrore('sessione',msg);
+    if(r.status>=500) throw nxErrore('rete','server non disponibile (HTTP '+r.status+')');
+    throw nxErrore('server',msg,{code});
+}
+
+// ---------- interfaccia comune ----------
 function nxGo(p){
     snd('click');
     document.querySelectorAll('.nx-pane').forEach(el=>el.classList.toggle('on',el.id==='nx-'+p));
@@ -3467,11 +3698,18 @@ function nxEsito(p,state,msg,lab){
     const e=document.querySelector('#nx-'+p+' .nx-esito');
     if(!e) return;
     e.dataset.state=state;
-    e.querySelector('.nx-esito-lab').textContent=lab||({ok:'ESITO · DEMO',err:'ERRORE',info:'GUSCIO B1',idle:'ESITO'})[state];
+    e.querySelector('.nx-esito-lab').textContent=lab||({ok:'ESITO',err:'ERRORE',info:'SERVER',warn:'ESITO INCERTO',idle:'ESITO'})[state];
     e.querySelector('.nx-esito-msg').textContent=msg;
     if(state==='err') snd('error'); else if(state==='ok') snd('success');
 }
-function nxErr(p){ nxHide(p); nxEsito(p,'err',NX_ERR[p],'ANTEPRIMA ERRORE DAL SERVER'); }
+function nxMostraErrore(p,e,seRete){
+    if(!e||!e.nx){ nxEsito(p,'err','Errore inatteso nel gestionale: '+((e&&e.message)||e),'ERRORE'); return; }
+    if(e.tipo==='server') nxEsito(p,'err',nxMsg(e.msg),'ERRORE DAL SERVER');
+    else if(e.tipo==='nontitolare') nxEsito(p,'err',e.msg,'NON TITOLARE: questo account non è il titolare');
+    else if(e.tipo==='sessione') nxEsito(p,'err',e.msg,'ACCESSO AL SERVER');
+    else if(seRete) nxEsito(p,'warn','ESITO INCERTO — '+e.msg+'. '+seRete,'ESITO INCERTO');
+    else nxEsito(p,'err','SENZA RETE — '+e.msg+'. Operazione non eseguita.','SENZA RETE');
+}
 function nxHide(p){ const o=document.querySelector('#nx-'+p+' .nx-out'); if(o) o.hidden=true; }
 function nxShow(p){ const o=document.querySelector('#nx-'+p+' .nx-out'); if(o) o.hidden=false; }
 function nxReq(p,fields){
@@ -3492,146 +3730,656 @@ function nxArm(btn,fn){
     snd('click');
     btn._nxT=setTimeout(()=>{ delete btn.dataset.armed; btn.textContent=btn.dataset.label; },3000);
 }
+// bottoni "solo con rete": spenti senza rete, durante una chiamata, o quando non hanno senso (data-off)
+function nxBtn(b){ b.disabled=(b.classList.contains('nx-netonly')&&!navigator.onLine)||b.dataset.off==='1'||b.dataset.busy==='1'; }
+function nxAggiornaRete(){
+    nx$('nxOffline').hidden=navigator.onLine;
+    document.querySelectorAll('#tab-server button').forEach(nxBtn);
+}
+async function nxConRete(p,btn,lavoro,seRete){
+    if(!navigator.onLine){ nxEsito(p,'err','SENZA RETE: operazione non eseguita. Collegati (anche con l\'hotspot del telefono) e riprova.','SENZA RETE'); return; }
+    if(btn){ btn.dataset.busy='1'; nxBtn(btn); }
+    try{ await lavoro(); }
+    catch(e){ nxMostraErrore(p,e,seRete); }
+    finally{ if(btn){ delete btn.dataset.busy; nxBtn(btn); } }
+}
+function nxDateMax(){ document.querySelectorAll('.nx-date-max').forEach(i=>i.max=nxToday()); }
+function nxCopia(cardId){
+    const box=nx$(cardId).querySelector('.nx-codebox'), t=box.textContent;
+    const manuale=()=>{ const r=document.createRange(); r.selectNodeContents(box); const s=window.getSelection(); s.removeAllRanges(); s.addRange(r); toast('Codice selezionato: copialo a mano.','warn'); };
+    if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>{ snd('success'); toast('Codice copiato.','success'); },manuale);
+    else manuale();
+}
+function nxMostraCodice(cardId,nome,codice){
+    const c=nx$(cardId);
+    c.querySelector('[data-f="nome"]').textContent=nome;
+    c.querySelector('[data-f="codice"]').textContent=codice;
+}
+function nxStampaEl(id){ nx$(id).classList.add('nx-da-stampare'); document.body.classList.add('nx-print-sel'); window.print(); }
+function nxStampaFine(){ document.body.classList.remove('nx-print-sel','nx-print-ccard'); document.querySelectorAll('.nx-da-stampare').forEach(e=>e.classList.remove('nx-da-stampare')); }
+window.addEventListener('afterprint',nxStampaFine);
 
-function nxLogin(){
+// ---------- ACCESSO ----------
+function nxRenderStato(){
+    const s=nxSes();
+    let st='NON CONNESSO', k='off';
+    if(s&&s.scaduta){ st='SESSIONE SCADUTA: ACCEDI DI NUOVO'; k='bad'; }
+    else if(s&&s.access_token){
+        if(s.titolare===false){ st='NON TITOLARE'; k='bad'; }
+        else if(s.titolare===true){ st='CONNESSO'; k='ok'; }
+        else { st='CONNESSO (titolare da confermare)'; k='warn'; }
+    }
+    nx$('nxBarStato').textContent=st; nx$('nxBarStato').dataset.st=k;
+    nx$('nxBarEmail').textContent=s&&s.email?s.email:'';
+    nx$('nxAccStato').innerHTML='SERVER: <b data-st="'+k+'">'+nxEsc(st)+'</b>'+(s&&s.email?' · '+nxEsc(s.email):'');
+    const dentro=!!(s&&s.access_token);
+    nx$('nxAccForm').hidden=dentro; nx$('nxAccDentro').hidden=!dentro;
+    nx$('nxAccInfo').textContent=!dentro?'':(s.titolare===false?
+        'Questo account ('+s.email+') ha fatto l\'accesso ma NON è il titolare del gestionale: il server rifiuta tutte le operazioni ("non autorizzato"). Esci e accedi con l\'account del titolare.':
+        'Accesso salvato su questo dispositivo: resta attivo e si rinnova da solo. La password non viene salvata.');
+}
+async function nxVerificaTitolare(){
+    try{ await nxRpc('animus_admin_lista_operatori',{p_cerca:'#nx-sonda-titolare#',p_filtro:'tutti'}); }
+    catch(e){ if(e.tipo!=='nontitolare') throw e; }
+}
+async function nxLogin(){
     if(!nxReq('accesso',[['nxEmail','email'],['nxPw','password']])) return;
+    const email=nx$('nxEmail').value.trim(), pw=nx$('nxPw').value;
     nx$('nxPw').value='';
-    nxEsito('accesso','info','Nessun accesso eseguito: in B2 qui parte il login del titolare.');
+    await nxConRete('accesso',nx$('nxLoginBtn'),async()=>{
+        const {r,d}=await nxAuthPost('token?grant_type=password',{email,password:pw});
+        if(!r.ok){ nxEsito('accesso','err',d.error_description||d.msg||d.error||('accesso non riuscito (HTTP '+r.status+')'),'ERRORE DAL SERVER'); return; }
+        nxSesSalva(Object.assign({email:(d.user&&d.user.email)||email},nxDaRisposta(d),{titolare:null}));
+        nxRenderStato();
+        try{ await nxVerificaTitolare(); }
+        catch(e){ nxEsito('accesso','warn','Accesso eseguito, ma non riesco a confermare che sei il titolare: '+e.msg,'ACCESSO'); return; }
+        const s=nxSes();
+        if(s&&s.titolare===false) nxEsito('accesso','err','non autorizzato','NON TITOLARE: questo account non è il titolare');
+        else { nxEsito('accesso','ok','Accesso eseguito: '+s.email+' è il titolare.','SERVER'); nxSvuotaCoda('accesso'); }
+    });
+}
+async function nxLogout(){
+    const s=nxSes();
+    try{ localStorage.removeItem(NX_SES_KEY); }catch(e){}
+    nxCur=null; nx$('nxSchedaOut').hidden=true; nx$('nxCliList').innerHTML=''; nxRenderStato();
+    const n=nxCoda().length;
+    nxEsito('accesso','ok','Uscito dal server.'+(n?' '+n+' conferme di tatuaggio restano in coda su questo dispositivo e partiranno al prossimo accesso.':''),'SERVER');
+    // scope=local: esce solo questa sessione, non InkConsent né gli altri dispositivi
+    if(s&&s.access_token&&navigator.onLine){ try{ await nxAuthPost('logout?scope=local',{},s.access_token); }catch(e){} }
 }
 
+// ---------- CLIENTI ----------
+let nxCliF='tutti', nxCliT=null, nxCliSeq=0;
+function nxCercaDopo(){ clearTimeout(nxCliT); nxCliT=setTimeout(nxCaricaClienti,400); }
 function nxCliFilter(v){
     nxCliF=v; snd('click');
     document.querySelectorAll('#nxCliSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
-    nxRenderClienti();
+    nxCaricaClienti();
 }
-function nxRenderClienti(){
-    const q=nx$('nxCliQ').value.trim().toLowerCase();
-    const rows=NX_DEMO.filter(c=>(nxCliF!=='verifica'||!c.ver)&&(!q||c.nome.toLowerCase().includes(q)||c.codice.toLowerCase().includes(q)));
-    nx$('nxCliList').innerHTML=rows.length?rows.map(c=>`<button class="nx-cli" onclick="nxApri('${c.codice}')">
-        <span class="nx-cli-nome">${nxEsc(c.nome)}</span>
-        <span class="nx-cli-cod">${c.codice}</span>
-        <span class="nx-cli-tags"><span class="rank-tag ${c.ruolo}">${c.ruolo.toUpperCase()}</span>${c.ver?'':'<span class="nx-flag warn">DA VERIFICARE</span>'}${c.blocc?'<span class="nx-flag bad">BLOCCATO</span>':''}<span class="nx-demo">DEMO</span></span>
-    </button>`).join(''):'<div class="empty">Nessun cliente trovato.</div>';
+async function nxCaricaClienti(){
+    const seq=++nxCliSeq;
+    if(!navigator.onLine){ nxEsito('clienti','err','SENZA RETE: elenco non caricato.','SENZA RETE'); return; }
+    const q=nx$('nxCliQ').value.trim(), f=nxCliF;
+    nxEsito('clienti','info','Caricamento…','SERVER');
+    try{
+        const rows=(await nxRpc('animus_admin_lista_operatori',{p_cerca:q||null,p_filtro:f}))||[];
+        // per i doppioni serve confrontare con TUTTI: il gemello può essere già verificato
+        const tutti=f==='da_verificare'?((await nxRpc('animus_admin_lista_operatori',{p_cerca:null,p_filtro:'tutti'}))||[]):null;
+        if(seq!==nxCliSeq) return; // è già partita una ricerca più nuova
+        const doppi=nxRenderClienti(rows,tutti);
+        nxEsito('clienti','ok',rows.length+(rows.length===1?' cliente.':' clienti.')+(tutti?' Nomi doppi: '+doppi+'.':''),'SERVER');
+    }catch(e){ if(seq===nxCliSeq) nxMostraErrore('clienti',e); }
+}
+function nxRenderClienti(rows,tutti){
+    const gruppi=new Map();
+    (tutti||[]).forEach(c=>{ const k=nxNomeNorm(c.op_nome); if(!gruppi.has(k)) gruppi.set(k,[]); gruppi.get(k).push(c); });
+    let doppi=0;
+    nx$('nxCliList').innerHTML=rows.length?rows.map(c=>{
+        const altri=tutti?(gruppi.get(nxNomeNorm(c.op_nome))||[]).filter(x=>x.op_codice!==c.op_codice):[];
+        if(altri.length) doppi++;
+        const stessaCifra=altri.some(x=>x.op_saldo_cent===c.op_saldo_cent);
+        return `<button class="nx-cli${altri.length?' nx-doppio':''}" data-cod="${nxEsc(c.op_codice)}" onclick="nxApri(this.dataset.cod)">
+        <span class="nx-cli-nome">${nxEsc(c.op_nome)}</span>
+        <span class="nx-cli-cod">${nxEsc(c.op_codice)}</span>
+        <span class="nx-cli-tags"><span class="rank-tag ${nxEsc(c.op_ruolo)}">${nxEsc(String(c.op_ruolo).toUpperCase())}</span><span class="nx-cli-num">${nxCent(c.op_saldo_cent)} · ${Number(c.op_saldo_cr||0).toLocaleString('it-IT')} CR · ${c.op_tatuaggi} tat.</span>${c.op_verificato?'':'<span class="nx-flag warn">DA VERIFICARE</span>'}${c.op_chiuso_il?'<span class="nx-flag bad">CHIUSO '+nxData(c.op_chiuso_il)+'</span>':(c.op_bloccato?'<span class="nx-flag bad">BLOCCATO</span>':'')}${c.op_migrato?'<span class="nx-flag">MIGRATO</span>':''}</span>
+        ${altri.length?'<span class="nx-cli-doppio">⚠ STESSO NOME'+(stessaCifra?' E STESSA CIFRA':'')+' di: '+altri.map(x=>nxEsc(x.op_codice)+' ('+nxCent(x.op_saldo_cent)+(x.op_verificato?', verificato':'')+')').join(', ')+'</span>':''}
+    </button>`;}).join(''):'<div class="empty">Nessun cliente trovato.</div>';
+    nx$('nxCliNota').textContent=!tutti?'':(doppi?
+        doppi+' clienti in questo elenco hanno lo stesso nome di un altro: possibili doppioni di migrazione. Un doppione si azzera con una rettifica motivata e si BLOCCA: non si verifica e non si chiude mai.':
+        'Nessun nome doppio tra i clienti da verificare.');
+    return doppi;
 }
 function nxApri(cod){ nx$('nxSchedaCod').value=cod; nxGo('scheda'); nxCarica(); }
 
-function nxCarica(){
-    if(!nxReq('scheda',[['nxSchedaCod','codice cliente']])) return;
-    const cod=nx$('nxSchedaCod').value.trim().toUpperCase();
-    const c=NX_DEMO.find(x=>x.codice===cod);
-    if(!c){ nxHide('scheda'); nxEsito('scheda','err','operatore inesistente','ERRORE · DEMO'); return; }
-    nxCur=c; nxFillScheda();
-    nxEsito('scheda','ok','Scheda caricata: dati DEMO.');
+// ---------- SCHEDA ----------
+let nxCur=null, nxMov=[], nxLedKind='euro', nxCardDati=null;
+async function nxLeggiScheda(cod){
+    const st=await nxRpc('animus_admin_stato',{p_codice_operatore:cod});
+    const c=st&&st[0];
+    if(!c) throw nxErrore('server','risposta vuota dal server');
+    const mov=(await nxRpc('animus_admin_estratto',{p_codice_operatore:cod,p_limite:100}))||[];
+    nxCur=c; nxMov=mov; nxFillScheda();
 }
+async function nxCarica(){
+    if(!nxReq('scheda',[['nxSchedaCod','codice cliente']])) return;
+    const cod=nxCodice(nx$('nxSchedaCod').value);
+    if(!navigator.onLine){ nxEsito('scheda','err','SENZA RETE: scheda non caricata.','SENZA RETE'); return; }
+    nxEsito('scheda','info','Caricamento…','SERVER');
+    try{ await nxLeggiScheda(cod); nxEsito('scheda','ok','Scheda caricata.','SERVER'); }
+    catch(e){ nxCur=null; nxHide('scheda'); nxMostraErrore('scheda',e); }
+}
+async function nxRicarica(cod){ try{ await nxLeggiScheda(cod); }catch(e){ /* l'esito dell'operazione resta quello mostrato */ } }
 function nxFillScheda(){
     const c=nxCur, out=nx$('nxSchedaOut');
     const f=(k,v)=>{ out.querySelector('[data-f="'+k+'"]').textContent=v; };
-    f('codice',c.codice); f('nome',c.nome);
-    out.querySelector('[data-f="ruolo"]').innerHTML='<span class="rank-tag '+c.ruolo+'">'+c.ruolo.toUpperCase()+'</span>';
-    f('tat',c.tat); f('recl',c.recl); f('euro',nxEur(c.euro)); f('cr',c.cr.toLocaleString('it-IT')+' CR');
-    f('priv',c.priv.length?c.priv.join(', '):'—');
-    out.querySelector('[data-f="ver"]').innerHTML=c.ver?'<span class="nx-flag ok">SÌ</span>':'<span class="nx-flag warn">NO · DA VERIFICARE</span>';
-    out.querySelector('[data-f="blocc"]').innerHTML=c.blocc?'<span class="nx-flag bad">BLOCCATO</span>':'<span class="nx-flag ok">ATTIVO</span>';
-    nx$('nxBloccaBtn').textContent=c.blocc?'✓ SBLOCCA':'⛔ BLOCCA';
+    const h=(k,v)=>{ out.querySelector('[data-f="'+k+'"]').innerHTML=v; };
+    f('codice',c.op_codice); f('nome',c.op_nome);
+    h('ruolo','<span class="rank-tag '+nxEsc(c.ruolo)+'">'+nxEsc(String(c.ruolo).toUpperCase())+'</span>');
+    f('tat',c.n_tatuaggi); f('recl',c.n_reclutamenti); f('euro',nxCent(c.saldo_centesimi)); f('cr',Number(c.saldo_cr||0).toLocaleString('it-IT')+' CR');
+    f('priv',(c.privilegi&&c.privilegi.length)?c.privilegi.join(', '):'—');
+    h('ver',c.verificato?'<span class="nx-flag ok">SÌ</span>':'<span class="nx-flag warn">NO · DA VERIFICARE</span>');
+    h('stato',c.op_chiuso_il?'<span class="nx-flag bad">CHIUSO il '+nxData(c.op_chiuso_il)+'</span>':(c.op_bloccato?'<span class="nx-flag bad">BLOCCATO</span>':'<span class="nx-flag ok">ATTIVO</span>'));
+    f('migr',c.op_migrato?'SÌ (dati dal telefono)':'NO'); f('dal',nxData(c.op_creato_il));
+    const ver=nx$('nxVerBtn');
+    ver.dataset.off=c.verificato?'1':'';
+    ver.textContent=c.verificato?'✓ GIÀ VERIFICATO':(c.op_bloccato?'✓ VERIFICA (⚠ È BLOCCATO: se è un doppione, NON verificarlo)':'✓ SEGNA COME VERIFICATO');
+    nx$('nxBloccaBtn').textContent=c.op_chiuso_il?'↺ RIAPRI (SBLOCCA)':(c.op_bloccato?'✓ SBLOCCA':'⛔ BLOCCA');
+    const ch=nx$('nxChiudiBtn'), ri=nx$('nxRistampaBtn');
+    ch.hidden=!!c.op_chiuso_il; ri.hidden=!c.op_chiuso_il;
+    ch.dataset.off=c.verificato?'':'1';
+    ch.textContent=c.verificato?'⏏ CHIUDI PROFILO':'⏏ CHIUDI PROFILO — verifica prima';
+    if(nxCardDati&&nxCardDati.card_codice!==c.op_codice){ nxCardDati=null; nx$('nxCardOut').hidden=true; }
+    if(nx$('nxRigOut').dataset.cod!==c.op_codice) nx$('nxRigOut').hidden=true;
     nxLedger(nxLedKind,true);
     out.hidden=false;
-}
-function nxVerifica(){ nxCur.ver=true; nxFillScheda(); nxRenderClienti(); nxEsito('scheda','ok','Profilo segnato come verificato (DEMO).'); }
-function nxBlocca(){ nxCur.blocc=!nxCur.blocc; nxFillScheda(); nxRenderClienti(); nxEsito('scheda','ok',nxCur.blocc?'Cliente bloccato, sessioni revocate (DEMO).':'Cliente sbloccato (DEMO).'); }
-function nxRigenera(){
-    const old=nxCur.codice;
-    nxCur.codice='INK-DEMO-'+nxRand()+'-'+nxRand();
-    nx$('nxSchedaCod').value=nxCur.codice;
-    nxFillScheda(); nxRenderClienti();
-    nxEsito('scheda','ok','Nuovo codice '+nxCur.codice+'. Il vecchio '+old+' non vale più, telefoni scollegati (DEMO).');
+    nxAggiornaRete();
 }
 function nxLedger(kind,silent){
     nxLedKind=kind; if(!silent) snd('click');
     document.querySelectorAll('#nxLedSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===kind));
-    const rows=(nxCur&&nxCur.mov[kind])||[];
-    nx$('nxLedger').innerHTML=rows.length?rows.slice().reverse().map(([d,r,a])=>`<div class="ledger-row">
-        <span class="ledger-date">${d.split('-').reverse().join('/')}</span>
-        <span class="ledger-reason">${nxEsc(r)} <span class="nx-demo">DEMO</span></span>
-        <span class="ledger-amt ${a>=0?'pos':'neg'}">${a>=0?'+':'−'}${kind==='euro'?nxEur(Math.abs(a)):Math.abs(a).toLocaleString('it-IT')+' CR'}</span>
+    const rows=nxMov.filter(m=>m.mov_tipo===kind);
+    nx$('nxLedger').innerHTML=rows.length?rows.map(m=>`<div class="ledger-row">
+        <span class="ledger-date">${nxDataOra(m.mov_quando)}</span>
+        <span class="ledger-reason">${nxEsc(m.mov_origine||'')}${m.mov_nota?' · '+nxEsc(m.mov_nota):''}</span>
+        <span class="ledger-amt ${m.mov_importo>=0?'pos':'neg'}">${m.mov_importo>=0?'+':'−'}${kind==='euro'?nxCent(Math.abs(m.mov_importo)):Math.abs(m.mov_importo).toLocaleString('it-IT')+' CR'}</span>
     </div>`).join(''):'<div class="empty" style="padding:14px;">Nessun movimento.</div>';
 }
+async function nxVerifica(){
+    const cod=nxCur.op_codice;
+    await nxConRete('scheda',nx$('nxVerBtn'),async()=>{
+        await nxRpc('animus_admin_verifica',{p_codice_operatore:cod});
+        await nxRicarica(cod);
+        nxEsito('scheda','ok','Profilo segnato come verificato.','SERVER');
+    },'Ricarica la scheda per vedere se risulta verificato (ripetere è sicuro).');
+}
+async function nxBlocca(){
+    const c=nxCur, blocca=!c.op_bloccato;
+    await nxConRete('scheda',nx$('nxBloccaBtn'),async()=>{
+        await nxRpc('animus_admin_imposta_blocco',{p_codice_operatore:c.op_codice,p_bloccato:blocca});
+        await nxRicarica(c.op_codice);
+        nxEsito('scheda','ok',blocca?'Cliente bloccato: sessioni revocate.':(c.op_chiuso_il?'Profilo riaperto: il suo codice torna a valere.':'Cliente sbloccato.'),'SERVER');
+    },'Ricarica la scheda per vedere lo stato attuale (ripetere è sicuro).');
+}
+async function nxRigenera(){
+    const c=nxCur, vecchio=c.op_codice;
+    await nxConRete('scheda',nx$('nxRigBtn'),async()=>{
+        const nuovo=await nxRpc('animus_admin_rigenera_codice',{p_codice_attuale:vecchio});
+        nx$('nxSchedaCod').value=nuovo;
+        nxMostraCodice('nxRigCard',c.op_nome,nuovo);
+        nx$('nxRigOut').dataset.cod=nuovo; nx$('nxRigOut').hidden=false;
+        await nxRicarica(nuovo);
+        nxEsito('scheda','ok','Nuovo codice '+nuovo+'. Il vecchio '+vecchio+' non vale più: tutti i telefoni collegati sono stati scollegati.','SERVER');
+    },'Il codice potrebbe essere già cambiato: ricarica la scheda. Se risponde "operatore inesistente", il codice è cambiato e lo trovi cercando il nome in CLIENTI. Non riprovare alla cieca.');
+}
 
-function nxCrea(){
+// ---------- operazioni sui soldi: uuid creato alla pressione del tasto, tenuto finché l'esito non è certo ----------
+const nxIncerti=()=>nxLS(NX_INC_KEY,{});
+function nxIncSet(k,v){ const o=nxIncerti(); if(v) o[k]=v; else delete o[k]; nxLSset(NX_INC_KEY,o); nxRenderIncerti(); }
+function nxRenderIncerti(){
+    const o=nxIncerti();
+    const box=(id,op,riprova,annulla,descr)=>{
+        const el=nx$(id);
+        if(!op){ el.hidden=true; el.innerHTML=''; return; }
+        el.hidden=false;
+        el.innerHTML='<div class="nx-incerto-lab">⚠ ESITO INCERTO · '+nxEsc(nxDataOra(op.creato_il))+'</div>'+
+            '<div class="nx-incerto-msg">'+descr+'</div>'+
+            '<div class="nx-incerto-nota">Non si sa se il server ha registrato l\'operazione. RIPROVA rimanda la STESSA operazione: se era già passata il server risponde "già registrato" e non la registra due volte. Annulla solo dopo aver controllato l\'estratto conto.</div>'+
+            '<div class="nx-actions"><button class="nx-netonly" style="color:var(--yellow);" onclick="'+riprova+'">↻ RIPROVA</button>'+
+            '<button style="color:var(--grey);" onclick="nxArm(this,()=>'+annulla+')">✕ HO CONTROLLATO: ANNULLA</button></div>';
+    };
+    const r=o.rettifica, s=o.riscatto;
+    box('nxIncRet',r,'nxInviaRettifica()','nxAnnullaIncerto(\'rettifica\')',r?'Rettifica '+(r.centesimi>0?'+':'−')+nxEsc(nxCent(Math.abs(r.centesimi)))+' a '+nxEsc(r.nome)+' ('+nxEsc(r.codice)+') · motivo: '+nxEsc(r.nota):'');
+    box('nxIncRis',s,'nxInviaRiscatto()','nxAnnullaIncerto(\'riscatto\')',s?'Riscatto di '+nxEsc(nxCent(s.centesimi))+' per '+nxEsc(s.codice)+(s.nota?' · '+nxEsc(s.nota):''):'');
+    // finché c'è un'operazione incerta, il modulo resta bloccato: niente uuid nuovi per la stessa operazione
+    ['nxRetPiu','nxRetMeno'].forEach(id=>{ nx$(id).dataset.off=r?'1':''; });
+    nx$('nxRisBtn').dataset.off=s?'1':'';
+    ['nxRetImp','nxRetNota'].forEach(id=>{ nx$(id).disabled=!!r; });
+    ['nxRisCod','nxRisImp','nxRisNota'].forEach(id=>{ nx$(id).disabled=!!s; });
+    const c=o.crea;
+    nx$('nxIncCrea').hidden=!c;
+    if(c&&!nx$('nxIncCrea').dataset.trovati) nx$('nxIncCrea').innerHTML='<div class="nx-incerto-lab">⚠ ESITO INCERTO · '+nxEsc(nxDataOra(c.t))+'</div><div class="nx-incerto-msg">Creazione di «'+nxEsc(c.nome)+'»: non si sa se è avvenuta. Premi di nuovo CREA CLIENTE: prima cerco se è già stato creato.</div>';
+    nxAggiornaRete();
+}
+function nxAnnullaIncerto(k){ const op=nxIncerti()[k]; nxIncSet(k,null); if(op) log('Server: '+k+' con esito incerto annullato a mano (id '+op.id_evento+').','warn'); toast('Operazione incerta annullata.','warn'); }
+async function nxRettifica(segno){
+    if(nxIncerti().rettifica){ nxEsito('scheda','warn','C\'è una rettifica con esito incerto: premi RIPROVA o, dopo aver controllato l\'estratto, ANNULLA.','ESITO INCERTO'); return; }
+    if(!nxCur){ nxEsito('scheda','err','Carica prima la scheda del cliente.','CONTROLLO LOCALE'); return; }
+    const cent=nxParseEuro(nx$('nxRetImp').value);
+    if(!cent){ nxEsito('scheda','err','Importo non valido: maggiore di zero, al massimo 2 decimali (es. 12,50).','CONTROLLO LOCALE'); return; }
+    const nota=nx$('nxRetNota').value.trim();
+    if(nota.length<3){ nxEsito('scheda','err','Motivo obbligatorio (almeno 3 caratteri).','CONTROLLO LOCALE'); return; }
+    if(!navigator.onLine){ nxEsito('scheda','err','SENZA RETE: rettifica non eseguita.','SENZA RETE'); return; }
+    nxIncSet('rettifica',{id_evento:nxUuid(),codice:nxCur.op_codice,nome:nxCur.op_nome,centesimi:segno*cent,nota,creato_il:Date.now()});
+    nx$('nxIncRet').hidden=true; // si mostra solo se l'esito resta incerto
+    await nxInviaRettifica();
+}
+async function nxInviaRettifica(){
+    const op=nxIncerti().rettifica; if(!op) return;
+    if(!navigator.onLine){ nxEsito('scheda','err','SENZA RETE: riprova quando torna la rete (con lo stesso identificativo, nessun doppione).','SENZA RETE'); return; }
+    nxEsito('scheda','info','Invio rettifica…','SERVER');
+    let d;
+    try{ d=await nxRpc('animus_admin_rettifica_euro',{p_codice_operatore:op.codice,p_centesimi:op.centesimi,p_id_evento:op.id_evento,p_nota:op.nota}); }
+    catch(e){
+        if(e.tipo==='rete'){ nxRenderIncerti(); nxEsito('scheda','warn','ESITO INCERTO — '+e.msg+'. La rettifica potrebbe essere passata o no: premi RIPROVA.','ESITO INCERTO'); return; }
+        nxIncSet('rettifica',null); nxMostraErrore('scheda',e); return;   // errore certo: non è avvenuta
+    }
+    nxIncSet('rettifica',null);
+    const r=(d&&d[0])||{}, imp=(op.centesimi>0?'+':'−')+nxCent(Math.abs(op.centesimi));
+    nx$('nxRetImp').value=''; nx$('nxRetNota').value='';
+    if(nxCur&&nxCur.op_codice===op.codice) await nxRicarica(op.codice);
+    nxEsito('scheda','ok',r.registrato?'Rettifica registrata: '+imp+'. Saldo nuovo: '+nxCent(r.saldo_nuovo)+'.':
+        'GIÀ REGISTRATA: il primo invio era passato ('+imp+'). Saldo: '+nxCent(r.saldo_nuovo)+'. Nessun doppione.','SERVER');
+}
+async function nxRiscatto(){
+    if(nxIncerti().riscatto){ nxEsito('riscatto','warn','C\'è un riscatto con esito incerto: premi RIPROVA o, dopo aver controllato l\'estratto, ANNULLA.','ESITO INCERTO'); return; }
+    if(!nxReq('riscatto',[['nxRisCod','codice cliente'],['nxRisImp','importo in euro']])) return;
+    const cent=nxParseEuro(nx$('nxRisImp').value);
+    if(!cent){ nxHide('riscatto'); nxEsito('riscatto','err','Importo non valido: maggiore di zero, al massimo 2 decimali (es. 20,00).','CONTROLLO LOCALE'); return; }
+    if(!navigator.onLine){ nxEsito('riscatto','err','SENZA RETE: riscatto non eseguito.','SENZA RETE'); return; }
+    nxIncSet('riscatto',{id_evento:nxUuid(),codice:nxCodice(nx$('nxRisCod').value),centesimi:cent,nota:nx$('nxRisNota').value.trim()||null,creato_il:Date.now()});
+    nx$('nxIncRis').hidden=true;
+    await nxInviaRiscatto();
+}
+async function nxInviaRiscatto(){
+    const op=nxIncerti().riscatto; if(!op) return;
+    if(!navigator.onLine){ nxEsito('riscatto','err','SENZA RETE: riprova quando torna la rete (con lo stesso identificativo, nessun doppione).','SENZA RETE'); return; }
+    nxHide('riscatto'); nxEsito('riscatto','info','Invio riscatto…','SERVER');
+    let d;
+    try{ d=await nxRpc('animus_admin_riscatta_buono',{p_codice_operatore:op.codice,p_centesimi:op.centesimi,p_id_evento:op.id_evento,p_nota:op.nota}); }
+    catch(e){
+        if(e.tipo==='rete'){ nxRenderIncerti(); nxEsito('riscatto','warn','ESITO INCERTO — '+e.msg+'. Il riscatto potrebbe essere passato o no: premi RIPROVA.','ESITO INCERTO'); return; }
+        nxIncSet('riscatto',null); nxMostraErrore('riscatto',e); return;
+    }
+    nxIncSet('riscatto',null);
+    const r=(d&&d[0])||{};
+    nx$('nxRisScal').textContent=nxCent(r.centesimi_scalati);
+    nx$('nxRisRes').textContent=nxCent(r.saldo_residuo);
+    nxShow('riscatto');
+    nx$('nxRisImp').value=''; nx$('nxRisNota').value='';
+    nxEsito('riscatto','ok',r.registrato?'Sconto riscattato: '+nxCent(r.centesimi_scalati)+'. Saldo residuo: '+nxCent(r.saldo_residuo)+'.':
+        'GIÀ REGISTRATO: il primo invio era passato ('+nxCent(r.centesimi_scalati)+'). Saldo residuo: '+nxCent(r.saldo_residuo)+'. Nessun doppio addebito.','SERVER');
+}
+
+// ---------- CHIUSURA E CARD ----------
+async function nxChiudi(ristampa){
+    const cod=nxCur.op_codice;
+    await nxConRete('scheda',nx$(ristampa?'nxRistampaBtn':'nxChiudiBtn'),async()=>{
+        const d=await nxRpc('animus_admin_chiudi_profilo',{p_codice_operatore:cod});
+        const k=d&&d[0];
+        if(!k) throw nxErrore('server','risposta vuota dal server');
+        nxCardDati=k; nxRenderCard(k); nx$('nxCardOut').hidden=false;
+        await nxRicarica(cod);
+        nxEsito('scheda','ok',ristampa?'Card ristampata: saldo attuale, data di chiusura originale.':'Profilo chiuso: bloccato e sessioni revocate. Stampa la card o crea il PDF.','SERVER');
+    },'Ricarica la scheda: se risulta CHIUSO usa RISTAMPA CARD (ripetere è sicuro: la data di chiusura non cambia).');
+}
+function nxCardRighe(k){
+    const emessa=nxData(k.card_al), oggi=nxData(Date.now());
+    return {
+        ruolo:String(k.card_ruolo||'').toUpperCase(), nome:k.card_nome, codice:k.card_codice, euro:nxCent(k.card_saldo_cent),
+        stat:[['CR',Number(k.card_saldo_cr||0).toLocaleString('it-IT')],['TATUAGGI',String(k.card_tatuaggi)],['PERSONE PORTATE',String(k.card_reclutati)],['PARTITE',String(k.card_partite)]],
+        date:'DAL '+nxData(k.card_dal)+' · EMESSA IL '+emessa+(oggi!==emessa?' · STAMPATA IL '+oggi:''),
+    };
+}
+function nxRenderCard(k){
+    const r=nxCardRighe(k);
+    // segni di taglio: si vedono solo in stampa, attorno alla card (vedi lo stile .nx-cc-tg)
+    const tg=['tl-h','tl-v','tr-h','tr-v','bl-h','bl-v','br-h','br-v'].map(c=>'<i class="nx-cc-tg '+c+'"></i>').join('');
+    nx$('nxCardFoglio').innerHTML=tg+`<div class="nx-ccard" id="nxCard">
+        <div class="nx-cc-top"><span>InkAnimus_OS // CARD DI CHIUSURA</span><span class="nx-cc-ruolo">${nxEsc(r.ruolo)}</span></div>
+        <div class="nx-cc-nome">${nxEsc(r.nome)}</div>
+        <div class="nx-cc-cod">${nxEsc(r.codice)}</div>
+        <div class="nx-cc-mid"><div class="nx-cc-euro"><i>CREDITO RESIDUO</i><b>${nxEsc(r.euro)}</b></div>
+        <div class="nx-cc-stat">${r.stat.map(([a,b])=>'<div><i>'+a+'</i><b>'+nxEsc(b)+'</b></div>').join('')}</div></div>
+        <div class="nx-cc-date">${nxEsc(r.date)}</div>
+        <div class="nx-cc-foot">TATUATORE://GEMBUCHER_TATTOOER · NODE://PODERE_173 · OZIERI</div>
+    </div><div class="nx-cc-istr">Ritaglia lungo i segni · card 85,6 × 54 mm · buono riscattabile in studio presentando questa card</div>`;
+}
+function nxStampaCard(){ if(!nxCardDati) return; document.body.classList.add('nx-print-ccard'); window.print(); }
+// Disegno della card su un foglio A4 a 300 dpi: card a grandezza reale (85,6 × 54 mm) con i segni di taglio
+const NX_A4={mmW:210,mmH:297,dpi:300};
+function nxCardCanvas(k){
+    const mm=v=>Math.round(v*NX_A4.dpi/25.4);
+    const cv=document.createElement('canvas'); cv.width=mm(NX_A4.mmW); cv.height=mm(NX_A4.mmH);
+    const g=cv.getContext('2d');
+    g.fillStyle='#ffffff'; g.fillRect(0,0,cv.width,cv.height);
+    const X=mm(20), Y=mm(20), W=mm(85.6), H=mm(54);
+    // segni di taglio (fuori dalla card, allineati ai bordi)
+    g.strokeStyle='#000'; g.lineWidth=mm(0.2);
+    [[X,Y],[X+W,Y],[X,Y+H],[X+W,Y+H]].forEach(([x,y])=>{
+        const dx=x===X?-1:1, dy=y===Y?-1:1;
+        g.beginPath(); g.moveTo(x+dx*mm(2),y); g.lineTo(x+dx*mm(9),y); g.stroke();
+        g.beginPath(); g.moveTo(x,y+dy*mm(2)); g.lineTo(x,y+dy*mm(9)); g.stroke();
+    });
+    // card
+    g.fillStyle='#03070d'; g.fillRect(X,Y,W,H);
+    g.strokeStyle='#00f3ff'; g.lineWidth=mm(0.5); g.strokeRect(X+mm(1.2),Y+mm(1.2),W-mm(2.4),H-mm(2.4));
+    const r=nxCardRighe(k), P=X+mm(4.5), R=X+W-mm(4.5);
+    const font=(pt,peso,mono)=>(peso||'')+' '+Math.round(pt*NX_A4.dpi/72)+'px '+(mono?'NxMono, "Share Tech Mono", monospace':'NxChakra, "Space Grotesk", sans-serif');
+    const testo=(t,x,y,f,col,al,maxW)=>{ g.font=f; g.fillStyle=col; g.textAlign=al||'left'; let s=t; if(maxW) while(s.length>1&&g.measureText(s).width>maxW) s=s.slice(0,-2)+'…'; g.fillText(s,x,y); };
+    testo('InkAnimus_OS // CARD DI CHIUSURA',P,Y+mm(7.5),font(5.5,'',true),'#8bb4cb');
+    testo(r.ruolo,R,Y+mm(7.5),font(6,'bold'),'#ffcc00','right');
+    testo(r.nome,P,Y+mm(15.5),font(11,'bold'),'#e1f4fb','left',W-mm(9));
+    testo(r.codice,P,Y+mm(21.5),font(8.5,'',true),'#00f3ff');
+    testo('CREDITO RESIDUO',P,Y+mm(28),font(4.5,'',true),'#8bb4cb');
+    testo(r.euro,P,Y+mm(35.5),font(15,'bold'),'#ffcc00');
+    r.stat.forEach(([a,b],i)=>{ const yy=Y+mm(26.5+i*3.6); testo(a,X+mm(52),yy,font(4.5,'',true),'#8bb4cb'); testo(b,R,yy,font(5.5,'bold',true),'#e1f4fb','right'); });
+    testo(r.date,P,Y+mm(44),font(4.6,'',true),'#e1f4fb','left',W-mm(9));
+    testo('TATUATORE://GEMBUCHER_TATTOOER · NODE://PODERE_173 · OZIERI',P,Y+mm(49.5),font(3.8,'',true),'#8bb4cb','left',W-mm(9));
+    testo('Ritaglia lungo i segni · card 85,6 × 54 mm · stampa al 100% · buono riscattabile in studio presentando questa card',X,Y+H+mm(14),font(8,'',false),'#333');
+    return cv;
+}
+// Stessa tecnica di ARCHIVIA CASSE (gestBuildPDF: canvas → JPEG → PDF scritto a mano), ma con la misura
+// della pagina come parametro e il file restituito invece di scaricarlo (serve per Condividi).
+function nxPdfBlob(cv,pageW,pageH){
+    const enc=new TextEncoder(), chunks=[], offsets=[]; let pos=0;
+    const push=d=>{ const b=(typeof d==='string')?enc.encode(d):d; chunks.push(b); pos+=b.length; };
+    const bin=atob(cv.toDataURL('image/jpeg',0.92).split(',')[1]); const bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+    const content='q\n'+pageW+' 0 0 '+pageH+' 0 0 cm\n/Im0 Do\nQ\n';
+    push('%PDF-1.4\n');
+    offsets[1]=pos; push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+    offsets[2]=pos; push('2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
+    offsets[3]=pos; push('3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+pageW+' '+pageH+'] /Resources << /XObject << /Im0 5 0 R >> >> /Contents 4 0 R >>\nendobj\n');
+    offsets[4]=pos; push('4 0 obj\n<< /Length '+enc.encode(content).length+' >>\nstream\n'+content+'endstream\nendobj\n');
+    offsets[5]=pos; push('5 0 obj\n<< /Type /XObject /Subtype /Image /Width '+cv.width+' /Height '+cv.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+bytes.length+' >>\nstream\n');
+    push(bytes); push('\nendstream\nendobj\n');
+    const xref=pos; let x='xref\n0 6\n0000000000 65535 f \n';
+    for(let i=1;i<=5;i++) x+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+    push(x); push('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
+    return new Blob(chunks,{type:'application/pdf'});
+}
+function nxScarica(blob,nome){
+    const url=URL.createObjectURL(blob), a=document.createElement('a');
+    a.href=url; a.download=nome; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+}
+// A4 in punti PDF: 210 × 297 mm = 595,28 × 841,89 pt
+function nxCardPdf(){
+    const k=nxCardDati; if(!k) return;
+    const blob=nxPdfBlob(nxCardCanvas(k),595.28,841.89), nome='card_chiusura_'+k.card_codice+'.pdf';
+    let file=null; try{ file=new File([blob],nome,{type:'application/pdf'}); }catch(e){}
+    if(file&&navigator.canShare&&navigator.canShare({files:[file]})){
+        navigator.share({files:[file],title:'Card di chiusura · '+k.card_nome}).catch(e=>{ if(!e||e.name!=='AbortError') nxScarica(blob,nome); });
+        return;
+    }
+    nxScarica(blob,nome);
+}
+
+// ---------- CREA CLIENTE ----------
+async function nxCrea(){
     if(!nxReq('crea',[['nxCreaNome','nome']])) return;
-    nx$('nxNewNome').textContent=nx$('nxCreaNome').value.trim();
-    nx$('nxNewCode').textContent='INK-DEMO-'+nxRand()+'-'+nxRand();
-    nxShow('crea');
-    nxEsito('crea','ok','Cliente creato (DEMO). Consegna il codice al cliente: copialo o stampalo.');
+    const nome=nx$('nxCreaNome').value.trim(), note=nx$('nxCreaNote').value.trim()||null;
+    const inc=nxIncerti().crea;
+    await nxConRete('crea',nx$('nxCreaBtn'),async()=>{
+        if(inc&&nxNomeNorm(inc.nome)===nxNomeNorm(nome)){
+            // esito incerto prima: cerco un cliente con quel nome creato negli ultimi minuti
+            const rows=(await nxRpc('animus_admin_lista_operatori',{p_cerca:nome,p_filtro:'tutti'}))||[];
+            const trovati=rows.filter(r=>nxNomeNorm(r.op_nome)===nxNomeNorm(nome)&&Date.parse(r.op_creato_il)>=inc.t-10*60000);
+            if(trovati.length){
+                const el=nx$('nxIncCrea'); el.dataset.trovati='1'; el.hidden=false;
+                el.innerHTML='<div class="nx-incerto-lab">⚠ PROBABILMENTE GIÀ CREATO</div><div class="nx-incerto-msg">Trovati '+trovati.length+' clienti «'+nxEsc(nome)+'» creati negli ultimi minuti: il primo invio era quasi certamente passato.</div>'+
+                    trovati.map(r=>'<div class="nx-actions"><button style="color:var(--green);" data-cod="'+nxEsc(r.op_codice)+'" data-nome="'+nxEsc(r.op_nome)+'" onclick="nxCreaUsa(this.dataset.nome,this.dataset.cod)">✓ È LUI: '+nxEsc(r.op_codice)+' · creato '+nxEsc(nxDataOra(r.op_creato_il))+'</button></div>').join('')+
+                    '<div class="nx-actions"><button style="color:var(--red);" onclick="nxArm(this,nxCreaComunque)">+ NO, CREA COMUNQUE UN ALTRO CLIENTE</button></div>';
+                nxEsito('crea','warn','Controlla qui sopra prima di creare di nuovo.','ESITO INCERTO');
+                return;
+            }
+        }
+        await nxCreaInvia(nome,note);
+    },'Il cliente potrebbe essere stato creato o no. Premi di nuovo CREA CLIENTE: prima cerco se c\'è già.');
 }
-function nxCopia(){
-    const t=nx$('nxNewCode').textContent;
-    const manuale=()=>{ const r=document.createRange(); r.selectNodeContents(nx$('nxNewCode')); const s=window.getSelection(); s.removeAllRanges(); s.addRange(r); toast('Codice selezionato: copialo a mano.','warn'); };
-    if(navigator.clipboard && window.isSecureContext){
-        navigator.clipboard.writeText(t).then(()=>{ snd('success'); toast('Codice copiato.','success'); }, manuale);
-    } else manuale();
+async function nxCreaComunque(){
+    const nome=nx$('nxCreaNome').value.trim(), note=nx$('nxCreaNote').value.trim()||null;
+    if(!nome) return;
+    await nxConRete('crea',nx$('nxCreaBtn'),()=>nxCreaInvia(nome,note),'Il cliente potrebbe essere stato creato o no. Premi di nuovo CREA CLIENTE: prima cerco se c\'è già.');
 }
-function nxStampa(){ document.body.classList.add('nx-printing'); window.print(); }
-window.addEventListener('afterprint',()=>document.body.classList.remove('nx-printing'));
+async function nxCreaInvia(nome,note){
+    delete nx$('nxIncCrea').dataset.trovati;
+    nxIncSet('crea',{nome,t:Date.now(),creato_il:Date.now()});
+    let d;
+    try{ d=await nxRpc('animus_admin_crea_operatore',{p_nome:nome,p_note:note}); }
+    catch(e){ if(e.tipo!=='rete') nxIncSet('crea',null); throw e; }
+    nxIncSet('crea',null);
+    const r=d&&d[0];
+    if(!r) throw nxErrore('server','risposta vuota dal server');
+    nxCreaUsa(nome,r.codice,true);
+}
+function nxCreaUsa(nome,codice,nuovo){
+    const el=nx$('nxIncCrea'); delete el.dataset.trovati;
+    nxIncSet('crea',null);
+    nxMostraCodice('nxPrintCard',nome,codice); nxShow('crea');
+    nx$('nxCreaNome').value=''; nx$('nxCreaNote').value='';
+    nxEsito('crea','ok',(nuovo?'Cliente creato: ':'Cliente già creato: ')+codice+'. Consegna il codice al cliente: copialo o stampalo.','SERVER');
+}
 
-function nxTatuaggio(){
+// ---------- CONFERMA TATUAGGIO: l'unica con coda offline ----------
+const nxCoda=()=>{ const a=nxLS(NX_CODA_KEY,[]); return Array.isArray(a)?a:[]; };
+function nxCodaSalva(a){ const ok=nxLSset(NX_CODA_KEY,a); nxRenderCoda(); return ok; }
+function nxCodaAggiorna(id,patch){
+    const a=nxCoda(), i=a.findIndex(e=>e.id_evento===id);
+    if(i<0) return;
+    if(patch===null) a.splice(i,1); else Object.assign(a[i],patch);
+    nxCodaSalva(a);
+}
+let nxCodaFermo=null, nxTatUltimo=null, nxSvuotaInCorso=null;
+function nxRenderCoda(){
+    const a=nxCoda(), att=a.filter(e=>e.stato==='attesa').length, ko=a.filter(e=>e.stato==='da_sistemare').length;
+    nx$('nxCodaN').textContent=att; nx$('nxCodaKo').textContent=ko;
+    nx$('nxBarCoda').textContent=att+(ko?' · '+ko+' DA SISTEMARE':'');
+    nx$('nxBarCoda').dataset.st=ko?'bad':(att?'warn':'ok');
+    const t=nx$('nxTabCoda');
+    if(t){ t.hidden=!(att+ko); t.textContent=String(att+ko); t.dataset.st=ko?'bad':'warn'; }
+    const s=nxSes();
+    nx$('nxCodaFermo').textContent=!att?'':(
+        !navigator.onLine||nxCodaFermo==='rete'?'In attesa della rete: partiranno da sole.':
+        nxCodaFermo==='nontitolare'||(s&&s.titolare===false)?'Account NON titolare: esci e accedi col titolare per inviarle.':
+        nxCodaFermo==='sessione'||!s||!s.access_token?'Accedi al server (ACCESSO) per inviarle.':'Invio automatico attivo.');
+    const lista=nx$('nxCodaList');
+    if(lista.contains(document.activeElement)) return; // non ridisegnare mentre stai correggendo
+    lista.innerHTML=a.map(e=>e.stato==='da_sistemare'?`<div class="nx-coda-row ko" data-id="${nxEsc(e.id_evento)}">
+        <div class="nx-coda-err">DA SISTEMARE · ${nxEsc(nxMsg(e.errore))}</div>
+        <div class="nx-fields">
+            <div class="form-group"><label class="label">CODICE</label><input type="text" data-k="codice" value="${nxEsc(e.codice)}" autocapitalize="characters"></div>
+            <div class="form-group"><label class="label">DATA</label><input type="date" data-k="data" class="nx-date-max" value="${nxEsc(e.data_lavoro)}" max="${nxToday()}"></div>
+            <div class="form-group"><label class="label">NOME</label><input type="text" data-k="nome" value="${nxEsc(e.nome||'')}"></div>
+        </div>
+        <div class="nx-actions"><button style="color:var(--green);" onclick="nxCodaReinvia(this)">↻ CORREGGI E REINVIA</button>
+        <button style="color:var(--red);" onclick="nxArm(this,()=>nxCodaScarta('${nxEsc(e.id_evento)}'))">✕ SCARTA</button></div>
+    </div>`:`<div class="nx-coda-row"><span class="nx-mono">${nxEsc(e.codice)}</span> · ${nxEsc(nxData(e.data_lavoro))}${e.nome?' · '+nxEsc(e.nome):''}
+        <span class="nx-coda-info">in attesa${e.tentativi?' · '+e.tentativi+' tentativi':''}</span></div>`).join('');
+    nxAggiornaRete();
+}
+async function nxTatuaggio(){
     if(!nxReq('tatuaggio',[['nxTatCod','codice cliente'],['nxTatData','data del lavoro']])) return;
-    if(nx$('nxTatData').value>nxToday()){ nxHide('tatuaggio'); nxEsito('tatuaggio','err','data non valida (nel futuro)','CONTROLLO LOCALE'); return; }
-    const c=NX_DEMO.find(x=>x.codice===nx$('nxTatCod').value.trim().toUpperCase());
-    const prima=c?c.tat:NX_SOGLIA_DEMO-1, tot=prima+1;
-    if(c){ c.tat=tot; if(c.ruolo==='adepto'&&tot>=NX_SOGLIA_DEMO) c.ruolo='reclutatore'; }
-    nx$('nxTatTot').textContent=tot;
-    nx$('nxTatBar').style.width=Math.min(100,Math.round(tot/NX_SOGLIA_DEMO*100))+'%';
-    nx$('nxTatBarLab').textContent=tot>=NX_SOGLIA_DEMO?'SOGLIA RECLUTATORE: RAGGIUNTA ('+NX_SOGLIA_DEMO+')':'VERSO RECLUTATORE: '+tot+' / '+NX_SOGLIA_DEMO;
-    nx$('nxTatUnlock').hidden=!(prima<NX_SOGLIA_DEMO && tot>=NX_SOGLIA_DEMO);
+    const data=nx$('nxTatData').value;
+    if(data>nxToday()){ nxHide('tatuaggio'); nxEsito('tatuaggio','err','data non valida (nel futuro)','CONTROLLO LOCALE'); return; }
+    const ev={id_evento:nxUuid(),codice:nxCodice(nx$('nxTatCod').value),data_lavoro:data,nome:nx$('nxTatNome').value.trim()||null,
+        creato_il:Date.now(),stato:'attesa',errore:null,tentativi:0,ultimo_tentativo:null,ruolo_prima:null,
+        attendi:navigator.onLine};  // con rete: aspetta (max 20 s) di sapere il ruolo di prima, poi parte
+    const a=nxCoda(); a.push(ev);
+    if(!nxCodaSalva(a)){ nxEsito('tatuaggio','err','Conferma NON salvata: memoria del browser non scrivibile.','ERRORE'); return; }
+    nx$('nxTatCod').value=''; nx$('nxTatNome').value='';
+    nxTatUltimo=ev.id_evento; nxHide('tatuaggio');
+    log('Server: tatuaggio di '+ev.codice+' ('+ev.data_lavoro+') messo in coda.','ok');
+    if(!navigator.onLine){ snd('click'); nxEsito('tatuaggio','info','SENZA RETE: conferma salvata in coda. Partirà da sola quando torna la rete.','IN CODA'); return; }
+    nxEsito('tatuaggio','info','Invio in corso…','SERVER');
+    // ruolo di prima: serve per dire "SBLOCCATO" (la soglia sta nel server, non qui)
+    let prima=null;
+    try{ const st=await nxRpc('animus_admin_stato',{p_codice_operatore:ev.codice}); if(st&&st[0]) prima=st[0].ruolo; }catch(e){}
+    nxCodaAggiorna(ev.id_evento,{ruolo_prima:prima,attendi:false});
+    await nxSvuotaCoda('conferma');
+}
+function nxSvuotaCoda(perche){
+    if(nxSvuotaInCorso) return nxSvuotaInCorso.then(()=>nxSvuotaCoda(perche)); // ne parte un altro subito dopo: prende anche le conferme arrivate nel frattempo
+    nxSvuotaInCorso=nxSvuota(perche).catch(e=>{ console.warn('coda tatuaggi:',e); }).then(()=>{ nxSvuotaInCorso=null; nxRenderCoda(); });
+    return nxSvuotaInCorso;
+}
+async function nxSvuota(perche){
+    if(!nxCoda().some(e=>e.stato==='attesa')) return;
+    if(!navigator.onLine){ nxCodaFermo='rete'; return; }
+    // prima di tutto il token: offline la sessione può essere invecchiata
+    try{ await nxToken(); }
+    catch(e){ nxCodaFermo=e.tipo==='rete'?'rete':'sessione'; nxTatInCoda(e); return; }
+    nxCodaFermo=null;
+    const provati=new Set(); let inviati=0, ko=0;
+    for(;;){
+        // una conferma appena fatta aspetta che si legga il ruolo di prima (se l'app si chiude lì, dopo 20 s parte comunque)
+        const ev=nxCoda().find(e=>e.stato==='attesa'&&!provati.has(e.id_evento)&&!(e.attendi&&Date.now()-e.creato_il<20000));
+        if(!ev) break;
+        provati.add(ev.id_evento);
+        nxCodaAggiorna(ev.id_evento,{tentativi:(ev.tentativi||0)+1,ultimo_tentativo:Date.now()});
+        let res;
+        try{
+            const d=await nxRpc('animus_admin_conferma_tatuaggio',{p_codice_operatore:ev.codice,p_data_lavoro:ev.data_lavoro,p_id_evento:ev.id_evento,p_nome:ev.nome});
+            res=(d&&d[0])||{};
+        }catch(e){
+            if(e.tipo==='server'){ // errore definitivo: resta visibile come "da sistemare"
+                nxCodaAggiorna(ev.id_evento,{stato:'da_sistemare',errore:e.msg}); ko++;
+                log('Server: tatuaggio di '+ev.codice+' DA SISTEMARE: '+e.msg,'err');
+                if(ev.id_evento===nxTatUltimo) nxEsito('tatuaggio','err',nxMsg(e.msg),'ERRORE DAL SERVER · LA CONFERMA È IN "DA SISTEMARE"');
+                continue;
+            }
+            nxCodaFermo=e.tipo==='rete'?'rete':(e.tipo==='nontitolare'?'nontitolare':'sessione');
+            nxTatInCoda(e);
+            break;
+        }
+        nxCodaAggiorna(ev.id_evento,null); // registrato true O false: è un successo, l'evento esce dalla coda
+        inviati++;
+        log('Server: tatuaggio di '+ev.codice+' '+(res.registrato?'registrato':'già registrato (nessun doppione)')+'. Totale: '+res.totale_tatuaggi+'.','ok');
+        let dopo=null;
+        try{ const st=await nxRpc('animus_admin_stato',{p_codice_operatore:ev.codice}); dopo=st&&st[0]; }catch(e){}
+        nxTatMostra(ev,res,dopo);
+    }
+    if(inviati) toast('⛁ Coda tatuaggi: '+inviati+(inviati===1?' conferma inviata':' conferme inviate')+' al server.','success');
+    if(ko) toast('⛁ Coda tatuaggi: '+ko+' da sistemare (Nexus \'77 → ⛁ SERVER → TATUAGGIO).','error');
+}
+function nxTatInCoda(e){
+    if(nxTatUltimo&&nxCoda().some(x=>x.id_evento===nxTatUltimo&&x.stato==='attesa'))
+        nxEsito('tatuaggio','info','Conferma salvata in coda ('+e.msg+'). Partirà da sola.','IN CODA');
+}
+function nxTatMostra(ev,res,dopo){
+    nx$('nxTatTot').textContent=res.totale_tatuaggi;
+    nx$('nxTatChi').textContent=(dopo?dopo.op_nome+' · ':'')+ev.codice+(dopo?' · RUOLO: '+String(dopo.ruolo).toUpperCase():'');
+    const u=nx$('nxTatUnlock');
+    const sbloccato=!!(dopo&&ev.ruolo_prima&&dopo.ruolo!==ev.ruolo_prima);
+    u.hidden=!sbloccato;
+    if(sbloccato) u.innerHTML='★ RUOLO '+nxEsc(String(dopo.ruolo).toUpperCase())+' SBLOCCATO ★<small>'+nxEsc(dopo.op_nome)+(dopo.ruolo==='reclutatore'?': ora può generare i codici invito.':': nuovo ruolo raggiunto.')+'</small>';
     nxShow('tatuaggio');
-    nxEsito('tatuaggio','ok','Tatuaggio confermato (DEMO).');
+    nxEsito('tatuaggio','ok',(res.registrato?'Tatuaggio registrato':'Già registrato prima: nessun doppione')+' · '+ev.codice+' · '+nxData(ev.data_lavoro)+'.','SERVER');
+}
+function nxCodaReinvia(btn){
+    const row=btn.closest('.nx-coda-row'), id=row.dataset.id, v=k=>row.querySelector('[data-k="'+k+'"]').value.trim();
+    const codice=nxCodice(v('codice')), data=v('data');
+    if(!codice||!data){ toast('Codice e data sono obbligatori.','error'); return; }
+    if(data>nxToday()){ toast('Data nel futuro: non valida.','error'); return; }
+    // stesso uuid: un errore definitivo vuol dire che il server non ha registrato niente
+    btn.blur();
+    nxCodaAggiorna(id,{codice,data_lavoro:data,nome:v('nome')||null,stato:'attesa',errore:null});
+    nxTatUltimo=id; nxGo('tatuaggio');
+    nxEsito('tatuaggio','info',navigator.onLine?'Invio in corso…':'SENZA RETE: corretta, resta in coda.',navigator.onLine?'SERVER':'IN CODA');
+    nxSvuotaCoda('correzione');
+}
+function nxCodaScarta(id){
+    const e=nxCoda().find(x=>x.id_evento===id);
+    nxCodaAggiorna(id,null);
+    if(e) log('Server: conferma tatuaggio di '+e.codice+' ('+e.data_lavoro+') SCARTATA a mano. Errore: '+e.errore,'warn');
+    toast('Conferma scartata.','warn');
 }
 
+// ---------- RECLUTAMENTO ----------
+let nxApp=null;
 function nxYN(v){ nxApp=v; snd('click'); document.querySelectorAll('#nxRecApp button').forEach(b=>b.classList.toggle('on',b.dataset.v===(v?'si':'no'))); }
-function nxReclut(){
+async function nxReclut(){
     if(!nxReq('reclutamento',[['nxRecInv','codice invito'],['nxRecNome','nome del reclutato'],['nxRecData','data del tatuaggio']])) return;
     if(nxApp===null){ nxHide('reclutamento'); nxEsito('reclutamento','err','Rispondi alla domanda: il reclutato vuole l\'app?','CONTROLLO LOCALE'); return; }
     if(nx$('nxRecData').value>nxToday()){ nxHide('reclutamento'); nxEsito('reclutamento','err','data non valida (nel futuro)','CONTROLLO LOCALE'); return; }
-    nx$('nxRecPos').textContent='5ª (DEMO)';
-    nx$('nxRecEur').textContent=nxEur(50)+' (DEMO)';
-    nx$('nxRecCod').textContent=nxApp?'INK-DEMO-'+nxRand()+'-'+nxRand():'— non vuole l\'app: nessun profilo creato';
-    nxShow('reclutamento');
-    nxEsito('reclutamento','ok','Reclutamento registrato (DEMO).');
+    const p={p_codice_invito:nxCodice(nx$('nxRecInv').value),p_reclutato_nome:nx$('nxRecNome').value.trim(),p_data_tatuaggio:nx$('nxRecData').value,p_crea_profilo:nxApp};
+    const inc=nxIncerti().reclut, riprova=!!(inc&&inc.p_codice_invito===p.p_codice_invito);
+    await nxConRete('reclutamento',nx$('nxRecBtn'),async()=>{
+        nxHide('reclutamento');
+        nxIncSet('reclut',Object.assign({},p,{creato_il:Date.now()}));
+        let d;
+        try{ d=await nxRpc('animus_admin_registra_reclutamento',p); }
+        catch(e){
+            if(e.tipo==='rete') throw e;
+            nxIncSet('reclut',null);
+            // invito protegge dai doppioni: dopo un esito incerto, "gia usato" vuol dire quasi certamente "era passato"
+            if(riprova&&e.tipo==='server'&&/^codice invito gia usato/.test(e.msg)){
+                nxEsito('reclutamento','warn','PROBABILMENTE GIÀ REGISTRATO: controlla la scheda del reclutatore. (Il server risponde "'+e.msg+'" dopo un invio dall\'esito incerto.)','ESITO INCERTO');
+                return;
+            }
+            throw e;
+        }
+        nxIncSet('reclut',null);
+        const r=(d&&d[0])||{};
+        nx$('nxRecPos').textContent=r.posizione+'ª';
+        nx$('nxRecEur').textContent=nxCent(r.euro_accreditati);
+        nx$('nxRecCod').textContent=r.reclutato_codice||'— non vuole l\'app: nessun profilo creato';
+        nx$('nxRecCardBox').hidden=!r.reclutato_codice;
+        if(r.reclutato_codice) nxMostraCodice('nxRecCard',p.p_reclutato_nome,r.reclutato_codice);
+        nxShow('reclutamento');
+        nx$('nxRecInv').value=''; nx$('nxRecNome').value='';
+        nxEsito('reclutamento','ok','Reclutamento registrato'+(r.reclutato_codice?': consegna il codice al nuovo cliente.':'.'),'SERVER');
+    },'Il reclutamento potrebbe essere passato o no. Premi di nuovo REGISTRA RECLUTAMENTO con lo stesso invito: l\'invito impedisce i doppioni.');
 }
 
-function nxStorico(){
+// ---------- RECLUTAMENTO STORICO ----------
+async function nxStorico(){
     if(!nxReq('storico',[['nxStoCod','codice del reclutatore'],['nxStoNome','nome del reclutato'],['nxStoData','data del tatuaggio']])) return;
     if(nx$('nxStoData').value>nxToday()){ nxHide('storico'); nxEsito('storico','err','data non valida (nel futuro)','CONTROLLO LOCALE'); return; }
-    nx$('nxStoPos').textContent='2ª (DEMO)';
-    nxShow('storico');
-    nxEsito('storico','ok','Reclutamento storico registrato (DEMO): nessun invito consumato, nessun accredito.');
-}
-
-function nxRiscatto(){
-    if(!nxReq('riscatto',[['nxRisCod','codice cliente'],['nxRisImp','importo in euro']])) return;
-    const v=parseFloat(nx$('nxRisImp').value);
-    if(!(v>0) || Math.abs(v*100-Math.round(v*100))>1e-6){ nxHide('riscatto'); nxEsito('riscatto','err','Importo non valido: maggiore di zero, al massimo 2 decimali.','CONTROLLO LOCALE'); return; }
-    const c=NX_DEMO.find(x=>x.codice===nx$('nxRisCod').value.trim().toUpperCase());
-    const saldo=c?c.euro:70;
-    if(c && !c.ver){ nxHide('riscatto'); nxEsito('riscatto','err','profilo da verificare prima di riscattare','ERRORE · DEMO'); return; }
-    if(v>saldo){ nxHide('riscatto'); nxEsito('riscatto','err','saldo insufficiente: disponibili '+Math.round(saldo*100)+' centesimi','ERRORE · DEMO'); return; }
-    const res=Math.round((saldo-v)*100)/100;
-    if(c) c.euro=res;
-    nx$('nxRisScal').textContent=nxEur(v);
-    nx$('nxRisRes').textContent=nxEur(res)+' (DEMO)';
-    nxShow('riscatto');
-    nxEsito('riscatto','ok','Sconto riscattato (DEMO).');
+    await nxConRete('storico',nx$('nxStoBtn'),async()=>{
+        nxHide('storico');
+        const d=await nxRpc('animus_admin_registra_reclutamento_storico',{p_codice_reclutatore:nxCodice(nx$('nxStoCod').value),p_reclutato_nome:nx$('nxStoNome').value.trim(),p_data_tatuaggio:nx$('nxStoData').value});
+        const r=(d&&d[0])||{};
+        nx$('nxStoPos').textContent=r.posizione+'ª';
+        nxShow('storico'); nx$('nxStoNome').value='';
+        nxEsito('storico','ok','Reclutamento storico registrato: nessun invito consumato, nessun accredito.','SERVER');
+    },'Il reclutamento storico NON ha protezione dai doppioni: prima di riprovare controlla nella scheda del reclutatore se il numero di reclutamenti è già salito.');
 }
 
 (function nxInit(){
     const p2id=el=>el.closest('.nx-pane').id.slice(3);
     document.querySelectorAll('#tab-server .nx-esito-slot').forEach(s=>{
-        const p=p2id(s);
-        s.outerHTML='<div class="nx-esito" data-state="idle" role="status" aria-live="polite"><div class="nx-esito-lab">ESITO</div><div class="nx-esito-msg">In attesa.</div></div>'+
-            '<button class="nx-preview" onclick="nxErr(\''+p+'\')">◇ anteprima errore del server</button>';
+        p2id(s);
+        s.outerHTML='<div class="nx-esito" data-state="idle" role="status" aria-live="polite"><div class="nx-esito-lab">ESITO</div><div class="nx-esito-msg">In attesa.</div></div>';
     });
-    document.querySelectorAll('.nx-date-max').forEach(i=>i.max=nxToday());
-    nxRenderClienti();
+    nxDateMax();
+    // contatore della coda sempre visibile sul tab ⛁ SERVER (aggiunto qui, il markup del tab non cambia)
+    const tab=document.querySelector('.main-tab[data-tab="server"]');
+    if(tab){ const b=document.createElement('span'); b.className='nx-tabcount'; b.id='nxTabCoda'; b.hidden=true; tab.appendChild(b); }
+    nxRenderStato(); nxRenderCoda(); nxRenderIncerti(); nxAggiornaRete();
+    window.addEventListener('online',()=>{ nxAggiornaRete(); nxRenderCoda(); nxSvuotaCoda('online'); });
+    window.addEventListener('offline',()=>{ nxAggiornaRete(); nxRenderCoda(); });
+    document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ nxDateMax(); nxSvuotaCoda('visibile'); } });
+    setInterval(()=>{ if(nxCoda().some(e=>e.stato==='attesa')) nxSvuotaCoda('timer'); },60000);
+    // all'apertura: si riconferma il titolare (se c'è rete) e la coda parte da sola, in qualunque template
+    setTimeout(async()=>{
+        const s=nxSes();
+        if(s&&s.access_token&&navigator.onLine){ try{ await nxVerificaTitolare(); }catch(e){} }
+        const a=nxCoda(), att=a.filter(e=>e.stato==='attesa').length, ko=a.filter(e=>e.stato==='da_sistemare').length;
+        if(att) toast('⛁ Coda tatuaggi: '+att+(att===1?' conferma in attesa':' conferme in attesa')+' di invio.','warn');
+        if(ko) toast('⛁ Coda tatuaggi: '+ko+' da sistemare (Nexus \'77 → ⛁ SERVER → TATUAGGIO).','error');
+        nxSvuotaCoda('apertura');
+    },800);
 })();
 </script>
 </body>

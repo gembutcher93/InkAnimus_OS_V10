@@ -1,4 +1,4 @@
-# 🔐 InkAnimus — GESTIONALE DELLO STUDIO (V12)
+# 🔐 InkAnimus — GESTIONALE DELLO STUDIO (V13)
 
 Questa cartella contiene SOLO il gestionale amministratore: una pagina unica
 (index.html) che funziona anche offline e si installa come app.
@@ -34,8 +34,33 @@ dati e funzioni sono gli stessi.
 📈 ANDAMENTO   nuovi clienti, tatuaggi guariti, reclutamenti per mese
 📌 BACHECA     appunti dello studio
 📡 CRONOLOGIA  terminale con il registro delle operazioni
-⛁ SERVER      (solo Nexus '77) schermate di prova del futuro server:
-               dati DEMO, nessun collegamento reale
+⛁ SERVER      (solo Nexus '77) il server InkAnimus (Supabase): clienti,
+               scheda, crea, tatuaggi, reclutamenti, riscatti, chiusura
+
+## ⛁ SERVER (template Nexus '77)
+Accesso: email e password del titolare (lo stesso account di InkConsent).
+L'accesso resta salvato sul dispositivo e si rinnova da solo; la password
+non viene salvata. ESCI chiude solo questo dispositivo, non InkConsent.
+Se compare NON TITOLARE: l'account non è quello del titolare, esci e rientra.
+- CLIENTI: ricerca e filtri (tutti, da verificare, bloccati, chiusi con
+  credito). In "da verificare" i nomi doppi sono evidenziati: possibili
+  doppioni di migrazione. Un doppione si azzera con una RETTIFICA motivata
+  e si BLOCCA: non si verifica e non si chiude mai.
+- SCHEDA: verifica, blocca/sblocca, rigenera codice, rettifica euro (+/−,
+  motivo obbligatorio), chiudi profilo (solo se verificato) con la card di
+  chiusura: stampa su A4 a grandezza reale (85,6 × 54 mm, stampa al 100%)
+  o PDF da condividere. Su un profilo chiuso: RISTAMPA CARD.
+- CONFERMA TATUAGGIO funziona anche SENZA RETE: va in una coda salvata sul
+  dispositivo e parte da sola quando torna la rete (anche in Premium, con
+  un avviso). Il numero di conferme in coda si vede sul tab ⛁ SERVER.
+  Se il server rifiuta una conferma (es. codice scritto male) resta lì
+  come "DA SISTEMARE": correggila o scartala a mano.
+- Tutte le altre operazioni servono la rete: senza, i bottoni sono spenti.
+  In studio senza Wi-Fi: hotspot del telefono.
+- Riscatto e rettifica: se la rete cade a metà l'esito è INCERTO. Premi
+  RIPROVA: rimanda la stessa operazione e il server non la registra due
+  volte. Annulla solo dopo aver controllato l'estratto conto.
+- Gli importi si scrivono in euro (12,50); "disponibili N" è in euro.
 
 ## CASSA E ARCHIVIO
 - Ogni cliente ha una cassa in € con la cronologia dei movimenti.
