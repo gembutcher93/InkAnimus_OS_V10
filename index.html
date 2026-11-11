@@ -925,6 +925,17 @@ html[data-tpl="nexus"] .nx-cc-tg,html[data-tpl="nexus"] .nx-cc-istr{display:none
     html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-tg.br-v{left:97.6mm;top:68mm;}
     html[data-tpl="nexus"] body.nx-print-ccard .nx-cc-istr{display:block;position:absolute;left:12mm;top:80mm;width:150mm;font:9pt sans-serif;color:#333 !important;}
 }
+/* V13 — B2-bis: codici invito e reclutamenti nella scheda */
+html[data-tpl="nexus"] .nx-inviti{display:flex;flex-direction:column;gap:4px;margin:6px 0 8px;}
+html[data-tpl="nexus"] .nx-invito{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:8px 10px;font-size:.84rem;color:var(--text);background:rgba(0,0,0,.28);box-shadow:inset 0 0 0 1px var(--nx-hair);}
+html[data-tpl="nexus"] .nx-invito.nx-storico{box-shadow:inset 4px 0 0 var(--yellow),inset 0 0 0 1px var(--nx-hair);}
+html[data-tpl="nexus"] .nx-invito-n{font-family:var(--nx-data);font-size:.8rem;color:var(--cyan);min-width:2.2em;}
+html[data-tpl="nexus"] .nx-invito-cod{color:var(--text);letter-spacing:.06em;}
+html[data-tpl="nexus"] .nx-invito-nome{font-weight:700;}
+html[data-tpl="nexus"] .nx-invito-uso{flex-basis:100%;font-size:.74rem;color:var(--grey);padding-left:2.7em;}
+html[data-tpl="nexus"] .nx-invito-eur{margin-left:auto;font-family:var(--nx-data);font-weight:700;color:var(--yellow);}
+html[data-tpl="nexus"] .nx-invito-eur.zero{color:var(--grey);font-weight:400;}
+html[data-tpl="nexus"] .nx-invito-copia{margin-left:auto;min-height:34px !important;padding:4px 10px !important;font-size:.6rem !important;color:var(--cyan);}
 </style>
 </head>
 <body>
@@ -1260,6 +1271,17 @@ html[data-tpl="nexus"] .nx-cc-tg,html[data-tpl="nexus"] .nx-cc-istr{display:none
                             <button style="color:var(--green);" onclick="nxStampaEl('nxRigCard')">⎙ STAMPA</button>
                         </div>
                     </div>
+
+                    <h3 class="nx-h3">CODICI INVITO</h3>
+                    <div class="nx-inviti" id="nxCodici"></div>
+                    <div class="nx-actions">
+                        <button class="nx-netonly" style="color:var(--cyan);" id="nxGeneraBtn" onclick="nxArm(this,nxGeneraCodici)">✦ GENERA CODICI</button>
+                    </div>
+                    <p class="nx-note">Le regole sono del server: un reclutatore ha 5 codici in tutto, un mentore ne riceve uno per volta fino a 10 attivi.</p>
+
+                    <h3 class="nx-h3">RECLUTAMENTI</h3>
+                    <div class="nx-inviti" id="nxRecl"></div>
+                    <p class="nx-note">La posizione è quella del server ed è il numero che decide i buoni: gli storici contano per la posizione ma non danno euro.</p>
 
                     <h3 class="nx-h3">RETTIFICA EURO</h3>
                     <div class="nx-fields">
@@ -3858,7 +3880,40 @@ async function nxLeggiScheda(cod){
     const c=st&&st[0];
     if(!c) throw nxErrore('server','risposta vuota dal server');
     const mov=(await nxRpc('animus_admin_estratto',{p_codice_operatore:cod,p_limite:100}))||[];
-    nxCur=c; nxMov=mov; nxFillScheda();
+    const codici=(await nxRpc('animus_admin_codici',{p_codice_operatore:cod}))||[];
+    const recl=(await nxRpc('animus_admin_reclutamenti',{p_codice_operatore:cod}))||[];
+    nxCur=c; nxMov=mov; nxCodici=codici; nxRecl=recl; nxFillScheda();
+}
+// la scheda aperta si rilegge dopo ogni operazione che la cambia: niente dati vecchi a schermo
+async function nxRicaricaAperta(cod){ if(nxCur&&(!cod||nxCur.op_codice===cod)) await nxRicarica(nxCur.op_codice); }
+let nxCodici=[], nxRecl=[];
+function nxRenderCodici(){
+    const st={attivo:['ok','ATTIVO'],usato:['warn','USATO'],annullato:['bad','ANNULLATO']};
+    nx$('nxCodici').innerHTML=nxCodici.length?nxCodici.map(k=>{ const s=st[k.invito_stato]||['',String(k.invito_stato).toUpperCase()];
+        return `<div class="nx-invito"><span class="nx-invito-n">#${nxEsc(k.invito_seq)}</span><span class="nx-mono nx-invito-cod">${nxEsc(k.invito_codice)}</span>
+        <span class="nx-flag ${s[0]}">${s[1]}</span>${k.usato_da?'<span class="nx-invito-uso">da '+nxEsc(k.usato_da)+(k.usato_il?' il '+nxData(k.usato_il):'')+'</span>':''}
+        ${k.invito_stato==='attivo'?'<button class="nx-invito-copia" data-cod="'+nxEsc(k.invito_codice)+'" onclick="nxCopiaTesto(this.dataset.cod)">⧉ COPIA</button>':''}</div>`; }).join('')
+        :'<div class="empty" style="padding:10px;">Nessun codice invito.</div>';
+    nx$('nxRecl').innerHTML=nxRecl.length?nxRecl.map(r=>`<div class="nx-invito${r.rec_storico?' nx-storico':''}"><span class="nx-invito-n">${nxEsc(r.rec_posizione)}ª</span>
+        <span class="nx-invito-nome">${nxEsc(r.rec_nome)}</span>${r.rec_storico?'<span class="nx-flag warn">STORICO</span>':''}
+        <span class="nx-invito-uso">${nxData(r.rec_data)} · ${r.rec_codice_invito?'invito '+nxEsc(r.rec_codice_invito):'senza invito'} · ${r.rec_ha_app?'ha l\'app':'senza app'}</span>
+        <span class="nx-invito-eur${r.rec_euro_cent?'':' zero'}">${r.rec_euro_cent?'+':''}${nxCent(r.rec_euro_cent)}</span></div>`).join('')
+        :'<div class="empty" style="padding:10px;">Nessun reclutamento.</div>';
+}
+function nxCopiaTesto(t){
+    const manuale=()=>{ toast('Copia a mano: '+t,'warn'); };
+    if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>{ snd('success'); toast('Codice '+t+' copiato.','success'); },manuale);
+    else manuale();
+}
+async function nxGeneraCodici(){
+    const cod=nxCur.op_codice, prima=new Set(nxCodici.map(k=>k.invito_codice));
+    await nxConRete('scheda',nx$('nxGeneraBtn'),async()=>{
+        await nxRpc('animus_admin_codici_genera',{p_codice_operatore:cod});
+        await nxRicarica(cod);
+        const nuovi=nxCodici.filter(k=>!prima.has(k.invito_codice)).map(k=>k.invito_codice);
+        if(nuovi.length) nxEsito('scheda','ok',(nuovi.length===1?'Generato 1 codice nuovo: ':'Generati '+nuovi.length+' codici nuovi: ')+nuovi.join(', ')+'.','SERVER');
+        else nxEsito('scheda','info','Nessun codice nuovo: limite raggiunto.','SERVER');
+    },'Ricarica la scheda per vedere i codici (ripetere è sicuro: non crea doppioni).');
 }
 async function nxCarica(){
     if(!nxReq('scheda',[['nxSchedaCod','codice cliente']])) return;
@@ -3891,6 +3946,7 @@ function nxFillScheda(){
     if(nxCardDati&&nxCardDati.card_codice!==c.op_codice){ nxCardDati=null; nx$('nxCardOut').hidden=true; }
     if(nx$('nxRigOut').dataset.cod!==c.op_codice) nx$('nxRigOut').hidden=true;
     nxLedger(nxLedKind,true);
+    nxRenderCodici();
     out.hidden=false;
     nxAggiornaRete();
 }
@@ -4016,6 +4072,7 @@ async function nxInviaRiscatto(){
     nx$('nxRisRes').textContent=nxCent(r.saldo_residuo);
     nxShow('riscatto');
     nx$('nxRisImp').value=''; nx$('nxRisNota').value='';
+    await nxRicaricaAperta(op.codice);
     nxEsito('riscatto','ok',r.registrato?'Sconto riscattato: '+nxCent(r.centesimi_scalati)+'. Saldo residuo: '+nxCent(r.saldo_residuo)+'.':
         'GIÀ REGISTRATO: il primo invio era passato ('+nxCent(r.centesimi_scalati)+'). Saldo residuo: '+nxCent(r.saldo_residuo)+'. Nessun doppio addebito.','SERVER');
 }
@@ -4268,6 +4325,7 @@ async function nxSvuota(perche){
         let dopo=null;
         try{ const st=await nxRpc('animus_admin_stato',{p_codice_operatore:ev.codice}); dopo=st&&st[0]; }catch(e){}
         nxTatMostra(ev,res,dopo);
+        nxRicaricaAperta(ev.codice);
     }
     if(inviati) toast('⛁ Coda tatuaggi: '+inviati+(inviati===1?' conferma inviata':' conferme inviate')+' al server.','success');
     if(ko) toast('⛁ Coda tatuaggi: '+ko+' da sistemare (Nexus \'77 → ⛁ SERVER → TATUAGGIO).','error');
@@ -4324,6 +4382,7 @@ async function nxReclut(){
             nxIncSet('reclut',null);
             // invito protegge dai doppioni: dopo un esito incerto, "gia usato" vuol dire quasi certamente "era passato"
             if(riprova&&e.tipo==='server'&&/^codice invito gia usato/.test(e.msg)){
+                await nxRicaricaAperta();
                 nxEsito('reclutamento','warn','PROBABILMENTE GIÀ REGISTRATO: controlla la scheda del reclutatore. (Il server risponde "'+e.msg+'" dopo un invio dall\'esito incerto.)','ESITO INCERTO');
                 return;
             }
@@ -4338,6 +4397,7 @@ async function nxReclut(){
         if(r.reclutato_codice) nxMostraCodice('nxRecCard',p.p_reclutato_nome,r.reclutato_codice);
         nxShow('reclutamento');
         nx$('nxRecInv').value=''; nx$('nxRecNome').value='';
+        await nxRicaricaAperta();
         nxEsito('reclutamento','ok','Reclutamento registrato'+(r.reclutato_codice?': consegna il codice al nuovo cliente.':'.'),'SERVER');
     },'Il reclutamento potrebbe essere passato o no. Premi di nuovo REGISTRA RECLUTAMENTO con lo stesso invito: l\'invito impedisce i doppioni.');
 }
@@ -4352,6 +4412,7 @@ async function nxStorico(){
         const r=(d&&d[0])||{};
         nx$('nxStoPos').textContent=r.posizione+'ª';
         nxShow('storico'); nx$('nxStoNome').value='';
+        await nxRicaricaAperta();
         nxEsito('storico','ok','Reclutamento storico registrato: nessun invito consumato, nessun accredito.','SERVER');
     },'Il reclutamento storico NON ha protezione dai doppioni: prima di riprovare controlla nella scheda del reclutatore se il numero di reclutamenti è già salito.');
 }

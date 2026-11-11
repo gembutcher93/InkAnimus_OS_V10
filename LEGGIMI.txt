@@ -50,6 +50,10 @@ Se compare NON TITOLARE: l'account non è quello del titolare, esci e rientra.
   motivo obbligatorio), chiudi profilo (solo se verificato) con la card di
   chiusura: stampa su A4 a grandezza reale (85,6 × 54 mm, stampa al 100%)
   o PDF da condividere. Su un profilo chiuso: RISTAMPA CARD.
+  Nella SCHEDA ci sono anche i CODICI INVITO del cliente (chi li ha usati e
+  quando, COPIA sugli attivi, GENERA CODICI: le regole sono del server) e i
+  RECLUTAMENTI in ordine di posizione. La posizione decide i buoni: gli
+  STORICI contano per la posizione ma non danno euro.
 - CONFERMA TATUAGGIO funziona anche SENZA RETE: va in una coda salvata sul
   dispositivo e parte da sola quando torna la rete (anche in Premium, con
   un avviso). Il numero di conferme in coda si vede sul tab ⛁ SERVER.
